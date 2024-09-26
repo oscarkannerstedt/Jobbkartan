@@ -1,11 +1,12 @@
 import axios from "axios";
+import { IJobs } from "../models/IJobs";
 
 const BASE_URL = "https://jobsearch.api.jobtechdev.se/search";
 
 //Hämtar alla annonser.
-export const fetchAllJobs = async () => {
+export const fetchAllJobs = async (): Promise<IJobs> => {
   try {
-    const response = await axios.get(BASE_URL, {
+    const response = await axios.get<IJobs>(BASE_URL, {
       params: {
         offset: 0,
         limit: 100,
@@ -21,9 +22,11 @@ export const fetchAllJobs = async () => {
 };
 
 //Hämtar jobb annonser efter vad man sökt på.
-export const fetchJobsBySearchTerm = async (searchTerm: string) => {
+export const fetchJobsBySearchTerm = async (
+  searchTerm: string
+): Promise<IJobs> => {
   try {
-    const response = await axios.get(BASE_URL, {
+    const response = await axios.get<IJobs>(BASE_URL, {
       params: {
         offset: 0,
         limit: 100,
