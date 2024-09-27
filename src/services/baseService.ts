@@ -9,7 +9,7 @@ export const fetchAllJobs = async (): Promise<IJobs> => {
     const response = await axios.get<IJobs>(BASE_URL, {
       params: {
         offset: 0,
-        limit: 10,
+        limit: 25,
         q: "",
       },
     });
@@ -29,7 +29,7 @@ export const fetchJobsBySearchTerm = async (
     const response = await axios.get<IJobs>(BASE_URL, {
       params: {
         offset: 0,
-        limit: 10,
+        limit: 25,
         q: searchTerm,
       },
     });
