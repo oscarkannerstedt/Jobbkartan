@@ -1,18 +1,12 @@
-import { ButtonVariation } from '@digi/arbetsformedlingen';
-import { DigiButton } from '@digi/arbetsformedlingen-react';
-
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Router";
 
 function App() {
-	return (
-		<>
-			<DigiButton
-				afVariation={ButtonVariation.PRIMARY}
-				onAfOnClick={() => console.log('Hallå världen!')}
-			>
-				Skicka
-			</DigiButton>
-		</>
-	);
+  return (
+    <>
+      <RouterProvider router={router}></RouterProvider>
+    </>
+  );
 }
 
 export default App;
