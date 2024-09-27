@@ -1,5 +1,11 @@
+import ShowJob from "../components/ShowJob";
+
 const Home = () => {
-  return <></>;
+  return (
+    <>
+      <ShowJob />
+    </>
+  );
 };
 
 export default Home;
