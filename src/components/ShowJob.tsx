@@ -5,7 +5,7 @@ import {
 } from "@digi/arbetsformedlingen-react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { IJob } from "../models/IJobs";
+import { IJob } from "../models/IJob";
 import { getJobsFromLocalStorage } from "../utils/localstorageUtils";
 
 // export interface IShowJobProps {
@@ -14,7 +14,7 @@ import { getJobsFromLocalStorage } from "../utils/localstorageUtils";
 
 const ShowJob = () => {
   const { id } = useParams<{ id: string }>();
-  const [job, setJob] = useState<IJob[]>([]);
+  const [job, setJob] = useState<IJob | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const ShowJob = () => {
     const savedJobs = getJobsFromLocalStorage();
 
     if (savedJobs && savedJobs.length > 0) {
-      const foundJob = savedJobs.find((job) => job.hits.id === id);
+      const foundJob = savedJobs.find((job) => job.id === id);
 
       if (foundJob) {
         setJob(foundJob);
@@ -40,7 +40,7 @@ const ShowJob = () => {
   }
 
   const handleGoBack = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   return (
