@@ -13,6 +13,8 @@
     "@digi/arbetsformedlingen": "^27.0.1",
     "@digi/arbetsformedlingen-react": "^27.0.1",
     "@react-google-maps/api": "^2.19.3",
+    "@googlemaps/markerclusterer": "^2.5.1",
+    "@vis.gl/react-google-maps": "latest",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "react": "^18.3.1",
