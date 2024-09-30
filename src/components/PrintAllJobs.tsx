@@ -10,6 +10,7 @@ import {
   LayoutBlockContainer,
   LayoutBlockVariation,
 } from "@digi/arbetsformedlingen";
+import "../styles/printAllJobb.css";
 
 export const PrintAllJobs = () => {
   const context = useContext(jobContext);
@@ -25,9 +26,10 @@ export const PrintAllJobs = () => {
           jobs.map((job) => (
             <DigiLayoutBlock
               key={job.id}
-              afVariation={LayoutBlockVariation.SECONDARY}
+              afVariation={LayoutBlockVariation.PRIMARY}
               afContainer={LayoutBlockContainer.FLUID}
               afMarginBottom={false}
+              className="digiLayoutBlock"
             >
               <h3 style={{ paddingTop: "15px" }}>
                 <DigiLink
