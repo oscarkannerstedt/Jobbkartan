@@ -1,9 +1,22 @@
 import ShowJob from "../components/ShowJob";
+import { useLoaderData } from "react-router-dom";
+import { IJob } from "../models/IJob";
+import { DigiLayoutBlock } from "@digi/arbetsformedlingen-react";
+import BackButton from "../components/BackButton";
 
 const Home = () => {
+  const currentJob = useLoaderData() as IJob | null;
+
   return (
     <>
-      <ShowJob />
+      <DigiLayoutBlock>
+        <BackButton />
+        {currentJob ? (
+          <ShowJob job={currentJob} />
+        ) : (
+          <p>Kunde inte hitta annonsen</p>
+        )}
+      </DigiLayoutBlock>
     </>
   );
 };
