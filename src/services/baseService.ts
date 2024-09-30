@@ -3,6 +3,10 @@ import { IJobs } from "../models/IJobs";
 
 const BASE_URL = "https://jobsearch.api.jobtechdev.se/search";
 
+export const get = async <T>(url: string) => {
+  return await axios.get<T>(url);
+};
+
 //Hämtar alla annonser.
 export const fetchAllJobs = async (): Promise<IJobs> => {
   try {
@@ -39,4 +43,9 @@ export const fetchJobsBySearchTerm = async (
     console.error("Error while fetching from api: ", error);
     throw error;
   }
+};
+
+//get one specific job
+export const getJob = async (id: number) => {
+  return await get(`${BASE_URL}/${id}`);
 };
