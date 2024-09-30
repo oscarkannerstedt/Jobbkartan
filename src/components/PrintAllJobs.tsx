@@ -4,6 +4,7 @@ import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate"
 import {
   DigiLayoutBlock,
   DigiLayoutContainer,
+  DigiLink,
 } from "@digi/arbetsformedlingen-react";
 import {
   LayoutBlockContainer,
@@ -28,14 +29,23 @@ export const PrintAllJobs = () => {
               afContainer={LayoutBlockContainer.FLUID}
               afMarginBottom={false}
             >
-              <h2 style={{ paddingTop: "15px" }}>{job.headline}</h2>
+              <h3 style={{ paddingTop: "15px" }}>
+                <DigiLink
+                  afHref={`/annonser/${job.id}`}
+                  afVariation="large"
+                  afAriaLabel={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
+                >
+                  {job.headline}
+                </DigiLink>
+              </h3>
+
               <h4>
                 {job.employer.name} - {job.workplace_address.municipality}
               </h4>
               <p style={{ margin: 0, lineHeight: ".1" }}>
                 {job.occupation.label}
               </p>
-              <p style={{ paddingBottom: "20px", lineHeight: ".5" }}>
+              <p style={{ paddingBottom: "15px" }}>
                 {formatPublicationDate(job.publication_date)}
               </p>
             </DigiLayoutBlock>
