@@ -1,6 +1,14 @@
 import { useContext } from "react";
 import { jobContext } from "../services/jobContext";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
+import {
+  DigiLayoutBlock,
+  DigiLayoutContainer,
+} from "@digi/arbetsformedlingen-react";
+import {
+  LayoutBlockContainer,
+  LayoutBlockVariation,
+} from "@digi/arbetsformedlingen";
 
 export const PrintAllJobs = () => {
   const context = useContext(jobContext);
@@ -10,21 +18,30 @@ export const PrintAllJobs = () => {
   const { jobs } = context;
 
   return (
-    <div>
-      {jobs.length > 0 ? (
-        jobs.map((job) => (
-          <div key={job.id}>
-            <h2>{job.headline}</h2>
-            <h3>
-              {job.employer.name} - {job.workplace_address.municipality}
-            </h3>
-            <p>Yrke...</p>
-            <p>{formatPublicationDate(job.publication_date)}</p>
-          </div>
-        ))
-      ) : (
-        <p>Inga jobb tillgängliga...</p>
-      )}
-    </div>
+    <DigiLayoutContainer>
+      <div>
+        {jobs.length > 0 ? (
+          jobs.map((job) => (
+            <DigiLayoutBlock
+              key={job.id}
+              afVariation={LayoutBlockVariation.SECONDARY}
+              afContainer={LayoutBlockContainer.FLUID}
+              afMarginBottom={false}
+            >
+              <h2 style={{ paddingTop: "15px" }}>{job.headline}</h2>
+              <h4 style={{ lineHeight: ".7" }}>
+                {job.employer.name} - {job.workplace_address.municipality}
+              </h4>
+              <p style={{ margin: 0, lineHeight: ".1" }}>Yrke...</p>
+              <p style={{ paddingBottom: "20px", lineHeight: ".5" }}>
+                {formatPublicationDate(job.publication_date)}
+              </p>
+            </DigiLayoutBlock>
+          ))
+        ) : (
+          <p>Inga jobb tillgängliga...</p>
+        )}
+      </div>
+    </DigiLayoutContainer>
   );
 };
