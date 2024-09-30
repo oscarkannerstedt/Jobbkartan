@@ -29,10 +29,12 @@ export const PrintAllJobs = () => {
               afMarginBottom={false}
             >
               <h2 style={{ paddingTop: "15px" }}>{job.headline}</h2>
-              <h4 style={{ lineHeight: ".7" }}>
+              <h4>
                 {job.employer.name} - {job.workplace_address.municipality}
               </h4>
-              <p style={{ margin: 0, lineHeight: ".1" }}>Yrke...</p>
+              <p style={{ margin: 0, lineHeight: ".1" }}>
+                {job.occupation.label}
+              </p>
               <p style={{ paddingBottom: "20px", lineHeight: ".5" }}>
                 {formatPublicationDate(job.publication_date)}
               </p>
