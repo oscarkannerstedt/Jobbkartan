@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
-import { PointOfInterest } from '../models/PointOfInterest';
+import { JobInfoWindow } from '../models/JobInfoWindow';
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import type { Marker } from '@googlemaps/markerclusterer';
 
 // To mark with pins of map
 // adjust whenJobAds are implemented
-export const PoiMarkers = (props: { pois: PointOfInterest[] }) => {
+export const PoiMarkers = (props: { pois: JobInfoWindow[] }) => {
 	const map = useMap();
 	const [markers, setMarkers] = useState<{ [key: string]: Marker }>({});
 	const clusterer = useRef<MarkerClusterer | null>(null);
@@ -18,6 +18,7 @@ export const PoiMarkers = (props: { pois: PointOfInterest[] }) => {
 
 			console.log('marker clicked: ', ev.latLng.toString());
 			map.panTo(ev.latLng);
+			map.setZoom(11);
 		},
 		[map]
 	);
@@ -55,11 +56,11 @@ export const PoiMarkers = (props: { pois: PointOfInterest[] }) => {
 
 	return (
 		<>
-			{props.pois.map((poi: PointOfInterest) => (
+			{props.pois.map((poi: JobInfoWindow) => (
 				<AdvancedMarker
-					key={poi.key}
-					position={poi.location}
-					ref={(marker) => setMarkerRef(marker, poi.key)}
+					key={poi.id}
+					position={poi.coordinates}
+					ref={(marker) => setMarkerRef(marker, poi.id)}
 					clickable={true}
 					onClick={handleClick}
 				>
