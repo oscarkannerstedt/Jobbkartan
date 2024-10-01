@@ -10,8 +10,20 @@ import {
   DigiLayoutContainer,
 } from "@digi/arbetsformedlingen-react";
 import "../styles/searchHeader.css";
+import { useNavigate } from "react-router-dom";
+import { DigiFormInputSearchCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 
 export const SearchHeader = () => {
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (
+    event: DigiFormInputSearchCustomEvent<string>
+  ) => {
+    const term = event.detail;
+
+    navigate(`/annonser`, { state: { searchTerm: term } });
+  };
+
   return (
     <DigiLayoutBlock
       afVariation={LayoutBlockVariation.PROFILE}
@@ -29,6 +41,7 @@ export const SearchHeader = () => {
             afType={FormInputType.SEARCH}
             afButtonText="Sök"
             afLabelDescription="Skriv t.e.x frontend örebro"
+            onAfOnSubmitSearch={handleSearchSubmit}
           ></DigiFormInputSearch>
         </DigiLayoutContainer>
       </div>
