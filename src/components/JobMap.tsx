@@ -2,7 +2,7 @@ import { Map, MapCameraChangedEvent } from '@vis.gl/react-google-maps';
 import { PoiMarkers } from './PoiMarkers';
 import { PointOfInterest } from '../models/PointOfInterest';
 
-
+// until function for platsbankens api
 const locations: PointOfInterest[] = [
 	{key: 'Tändsticksmuseet', location: {lat: 57.78512, lng: 14.15968}},
 	{key: 'Nyholmska hemmet', location: {lat: 57.79463, lng: 14.11966}},
@@ -17,7 +17,7 @@ export const JobMap = () => {
 			<Map
                 style={{height: 500 }}
 				defaultZoom={11}
-				defaultCenter={{ lat: 57.7811, lng: 14.1586 }}
+				defaultCenter={{ lat: 57.7811, lng: 14.1586 }} // Jönköping
 				mapId='b541ec0a861d850'
 				onCameraChanged={(ev: MapCameraChangedEvent) =>
 					console.log(
