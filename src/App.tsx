@@ -1,10 +1,13 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
+import { JobProvider } from "./services/JobProvider";
 
 function App() {
   return (
     <>
-      <RouterProvider router={router}></RouterProvider>
+      <JobProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </JobProvider>
     </>
   );
 }
