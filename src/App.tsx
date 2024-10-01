@@ -1,12 +1,15 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
 import { JobProvider } from "./services/JobProvider";
+import { SearchJobProvider } from "./services/SearchJobProvider";
 
 function App() {
   return (
     <>
       <JobProvider>
-        <RouterProvider router={router}></RouterProvider>
+        <SearchJobProvider>
+          <RouterProvider router={router}></RouterProvider>
+        </SearchJobProvider>
       </JobProvider>
     </>
   );
