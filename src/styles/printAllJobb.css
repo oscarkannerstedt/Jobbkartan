@@ -1,7 +1,18 @@
 body {
-  background-color: var(--digi--global--color--profile--white--darkest);
+	background-color: var(--digi--global--color--profile--white--darkest);
 }
 
 .digiLayoutBlock {
-  background-color: var(--digi--global--color--profile--white);
+	background-color: var(--digi--global--color--profile--white);
+}
+
+.spinner-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.spinner-container .digi-loader-spinner {
+	margin-top: -100px;
 }
