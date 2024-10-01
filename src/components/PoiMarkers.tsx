@@ -2,7 +2,7 @@ import { AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 import { PointOfInterest } from "../models/PointOfInterest"; 
 
 
-// To mark with pins of map
+// To mark with pins of map02
 // adjust whenJobAds are implemented
 export const PoiMarkers = (props: {pois: PointOfInterest[]}) => {
     return (
