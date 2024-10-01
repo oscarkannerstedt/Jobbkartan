@@ -20,6 +20,10 @@ export const PrintAllJobs = () => {
 
   const { jobs } = context;
 
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <DigiTypography>
       <DigiLayoutContainer>
@@ -36,6 +40,7 @@ export const PrintAllJobs = () => {
                 <h3 style={{ paddingTop: "15px" }}>
                   <Link
                     to={`/annonser/${job.id}`}
+                    onClick={scrollToTop}
                     aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
                   >
                     {job.headline}
