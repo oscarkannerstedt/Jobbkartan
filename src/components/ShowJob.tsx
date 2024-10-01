@@ -4,10 +4,7 @@ import {
   DigiLayoutColumns,
   DigiInfoCard,
 } from "@digi/arbetsformedlingen-react";
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { IJob } from "../models/IJob";
-import { getJobsFromLocalStorage } from "../utils/localstorageUtils";
 import {
   TypographyVariation,
   LayoutBlockVariation,
@@ -18,50 +15,15 @@ import {
   InfoCardType,
   InfoCardVariation,
 } from "@digi/arbetsformedlingen";
-import BackButton from "./BackButton";
 
 interface IShowJobProps {
   job: IJob;
 }
 
-const ShowJob = (props: IShowJobProps) => {
-  const { id } = useParams<{ id: string }>();
-  const [job, setJob] = useState<IJob>(props.job);
-  const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const savedJobs = getJobsFromLocalStorage();
-
-    console.log("Hämtade jobb från localStorage:", savedJobs);
-
-    if (savedJobs && savedJobs.length > 0) {
-      const foundJob = savedJobs.find((job) => job.id === id);
-
-      if (foundJob) {
-        console.log("Jobbet hittades i localStorage:", foundJob);
-        setJob(foundJob);
-      } else {
-        console.log("Jobbet med id", id, "hittades inte, navigerar hem.");
-        navigate("/");
-      }
-    } else {
-      console.log("Inga sparade jobb i localStorage, navigerar hem.");
-      navigate("/");
-    }
-    setLoading(false);
-  }, [id, navigate]);
-
-  if (loading) {
-    return <p>Laddar...</p>;
-  }
-
+const ShowJob = ({ job }: IShowJobProps) => {
   return (
     <>
       <DigiTypography afVariation={TypographyVariation.LARGE}>
-        <DigiLayoutBlock>
-          <BackButton />
-        </DigiLayoutBlock>
         <DigiLayoutBlock
           afVariation={LayoutBlockVariation.PRIMARY}
           afContainer={LayoutBlockContainer.STATIC}
