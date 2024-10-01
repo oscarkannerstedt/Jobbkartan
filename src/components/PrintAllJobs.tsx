@@ -11,6 +11,7 @@ import {
   LayoutBlockVariation,
 } from "@digi/arbetsformedlingen";
 import "../styles/printAllJobb.css";
+import { SearchHeader } from "./SearchHeader";
 
 export const PrintAllJobs = () => {
   const context = useContext(jobContext);
@@ -21,6 +22,7 @@ export const PrintAllJobs = () => {
 
   return (
     <DigiLayoutContainer>
+      <SearchHeader />
       <div>
         {jobs.length > 0 ? (
           jobs.map((job) => (
