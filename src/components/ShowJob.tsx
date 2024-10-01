@@ -2,6 +2,7 @@ import {
   DigiLayoutBlock,
   DigiTypography,
   DigiLayoutColumns,
+  DigiInfoCard,
 } from "@digi/arbetsformedlingen-react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -13,6 +14,9 @@ import {
   LayoutBlockContainer,
   LayoutColumnsElement,
   LayoutColumnsVariation,
+  InfoCardHeadingLevel,
+  InfoCardType,
+  InfoCardVariation,
 } from "@digi/arbetsformedlingen";
 import BackButton from "./BackButton";
 
@@ -29,15 +33,20 @@ const ShowJob = (props: IShowJobProps) => {
   useEffect(() => {
     const savedJobs = getJobsFromLocalStorage();
 
+    console.log("Hämtade jobb från localStorage:", savedJobs);
+
     if (savedJobs && savedJobs.length > 0) {
       const foundJob = savedJobs.find((job) => job.id === id);
 
       if (foundJob) {
+        console.log("Jobbet hittades i localStorage:", foundJob);
         setJob(foundJob);
       } else {
+        console.log("Jobbet med id", id, "hittades inte, navigerar hem.");
         navigate("/");
       }
     } else {
+      console.log("Inga sparade jobb i localStorage, navigerar hem.");
       navigate("/");
     }
     setLoading(false);
@@ -46,10 +55,6 @@ const ShowJob = (props: IShowJobProps) => {
   if (loading) {
     return <p>Laddar...</p>;
   }
-
-  // const handleGoBack = () => {
-  //   navigate("/");
-  // };
 
   return (
     <>
@@ -74,6 +79,22 @@ const ShowJob = (props: IShowJobProps) => {
               <h2>Företagsnamn: {job.employer.name}</h2>
               <h3>Yrkeskategori: </h3>
               <h3>Kommun: {job.workplace_address.municipality}</h3>
+              <DigiInfoCard
+                afHeading="Jag är ett infokort"
+                afHeadingLevel={InfoCardHeadingLevel.H2}
+                afType={InfoCardType.TIP}
+                afLinkHref="Frivillig länk"
+                afLinkText="Frivillig länktext"
+                afVariation={InfoCardVariation.SECONDARY}
+                // afSize={infoCardSize.STANDARD}
+              >
+                <p>
+                  Det här är bara ord för att illustrera hur det ser ut med text
+                  inuti. Lorem ipsum dolor sit amet, consectetur adipiscing
+                  elit. Suspendisse commodo egestas elit in consequat. Proin in
+                  ex consectetur, laoreet augue sit amet, malesuada tellus.
+                </p>
+              </DigiInfoCard>
             </DigiLayoutBlock>
             <DigiLayoutBlock
               afVariation={LayoutBlockVariation.PRIMARY}
