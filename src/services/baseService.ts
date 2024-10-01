@@ -47,5 +47,5 @@ export const fetchJobsBySearchTerm = async (
 
 //get one specific job
 export const getJob = async (id: number) => {
-  return await get(`${BASE_URL}/${id}`);
+  return await get(`/${id}`);
 };
