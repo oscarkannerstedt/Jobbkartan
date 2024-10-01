@@ -2,60 +2,74 @@ import { useContext } from "react";
 import { jobContext } from "../services/jobContext";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import {
-  DigiLayoutBlock,
-  DigiLayoutContainer,
-  DigiLink,
+	DigiLayoutBlock,
+	DigiLayoutContainer,
+	DigiLink,
+	DigiLoaderSpinner,
 } from "@digi/arbetsformedlingen-react";
 import {
-  LayoutBlockContainer,
-  LayoutBlockVariation,
+	LayoutBlockContainer,
+	LayoutBlockVariation,
+	LoaderSpinnerSize,
 } from "@digi/arbetsformedlingen";
 import "../styles/printAllJobb.css";
 
 export const PrintAllJobs = () => {
-  const context = useContext(jobContext);
+	const context = useContext(jobContext);
 
-  if (!context) return <p>Loading...</p>;
+	if (!context) return <p>Loading...</p>;
 
-  const { jobs } = context;
+	const { jobs, loading } = context;
 
-  return (
-    <DigiLayoutContainer>
-      <div>
-        {jobs.length > 0 ? (
-          jobs.map((job) => (
-            <DigiLayoutBlock
-              key={job.id}
-              afVariation={LayoutBlockVariation.PRIMARY}
-              afContainer={LayoutBlockContainer.FLUID}
-              afMarginBottom={false}
-              className="digiLayoutBlock"
-            >
-              <h3 style={{ paddingTop: "15px" }}>
-                <DigiLink
-                  afHref={`/annonser/${job.id}`}
-                  afVariation="large"
-                  afAriaLabel={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
-                >
-                  {job.headline}
-                </DigiLink>
-              </h3>
+	// Visa loadern om loading är true
+	if (loading) {
+		return (
+			<div className="spinner-container">
+				<DigiLoaderSpinner
+					afSize={LoaderSpinnerSize.LARGE}
+					afText="Laddar"
+				></DigiLoaderSpinner>{" "}
+			</div>
+		);
+	}
 
-              <h4>
-                {job.employer.name} - {job.workplace_address.municipality}
-              </h4>
-              <p style={{ margin: 0, lineHeight: ".1" }}>
-                {job.occupation.label}
-              </p>
-              <p style={{ paddingBottom: "15px" }}>
-                {formatPublicationDate(job.publication_date)}
-              </p>
-            </DigiLayoutBlock>
-          ))
-        ) : (
-          <p>Inga jobb tillgängliga...</p>
-        )}
-      </div>
-    </DigiLayoutContainer>
-  );
+	return (
+		<DigiLayoutContainer>
+			<div>
+				{jobs.length > 0 ? (
+					jobs.map((job) => (
+						<DigiLayoutBlock
+							key={job.id}
+							afVariation={LayoutBlockVariation.PRIMARY}
+							afContainer={LayoutBlockContainer.FLUID}
+							afMarginBottom={false}
+							className="digiLayoutBlock"
+						>
+							<h3 style={{ paddingTop: "15px" }}>
+								<DigiLink
+									afHref={`/annonser/${job.id}`}
+									afVariation="large"
+									afAriaLabel={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
+								>
+									{job.headline}
+								</DigiLink>
+							</h3>
+
+							<h4>
+								{job.employer.name} - {job.workplace_address.municipality}
+							</h4>
+							<p style={{ margin: 0, lineHeight: ".1" }}>
+								{job.occupation.label}
+							</p>
+							<p style={{ paddingBottom: "15px" }}>
+								{formatPublicationDate(job.publication_date)}
+							</p>
+						</DigiLayoutBlock>
+					))
+				) : (
+					<p>Inga jobb tillgängliga...</p>
+				)}
+			</div>
+		</DigiLayoutContainer>
+	);
 };
