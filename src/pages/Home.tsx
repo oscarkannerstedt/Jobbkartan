@@ -1,5 +1,11 @@
+import { PrintAllJobs } from "../components/PrintAllJobs";
+
 const Home = () => {
-  return <></>;
+  return (
+    <>
+      <PrintAllJobs />
+    </>
+  );
 };
 
 export default Home;

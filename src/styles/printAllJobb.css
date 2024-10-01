@@ -1,0 +1,7 @@
+body {
+  background-color: var(--digi--global--color--profile--white--darkest);
+}
+
+.digiLayoutBlock {
+  background-color: var(--digi--global--color--profile--white);
+}

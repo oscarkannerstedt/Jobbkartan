@@ -6,6 +6,4 @@ interface IJobSContextType {
   fetchJobs: () => Promise<void>;
 }
 
-export const jobContext = createContext<IJobSContextType | undefined>(
-  undefined
-);
+export const jobContext = createContext<IJobSContextType | null>(null);
