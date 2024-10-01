@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
 import { PointOfInterest } from '../models/PointOfInterest';
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
@@ -10,6 +10,17 @@ export const PoiMarkers = (props: { pois: PointOfInterest[] }) => {
 	const map = useMap();
 	const [markers, setMarkers] = useState<{ [key: string]: Marker }>({});
 	const clusterer = useRef<MarkerClusterer | null>(null);
+
+	const handleClick = useCallback(
+		(ev: google.maps.MapMouseEvent) => {
+			if (!map) return;
+			if (!ev.latLng) return;
+
+			console.log('marker clicked: ', ev.latLng.toString());
+			map.panTo(ev.latLng);
+		},
+		[map]
+	);
 
 	useEffect(() => {
 		if (!map) return;
@@ -49,6 +60,8 @@ export const PoiMarkers = (props: { pois: PointOfInterest[] }) => {
 					key={poi.key}
 					position={poi.location}
 					ref={(marker) => setMarkerRef(marker, poi.key)}
+					clickable={true}
+					onClick={handleClick}
 				>
 					<Pin
 						background={'#a00eda'}
