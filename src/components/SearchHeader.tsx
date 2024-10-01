@@ -9,6 +9,7 @@ import {
   DigiLayoutBlock,
   DigiLayoutContainer,
 } from "@digi/arbetsformedlingen-react";
+import "../styles/searchHeader.css";
 
 export const SearchHeader = () => {
   return (
@@ -16,14 +17,12 @@ export const SearchHeader = () => {
       afVariation={LayoutBlockVariation.PROFILE}
       afContainer={LayoutBlockContainer.FLUID}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <DigiLayoutContainer style={{ width: "50%" }}>
+      <div className="container-left-search-header">
+        <DigiLayoutContainer className="container-content">
+          <DigiLayoutContainer className="heading-search-bar">
+            <h1 className="search-bar-heading">Jobbkartan</h1>
+            <p className="search-bar-text">Lediga jobb för hela sverige</p>
+          </DigiLayoutContainer>
           <DigiFormInputSearch
             afLabel="Sök på ett eller flera ord"
             afVariation={FormInputSearchVariation.MEDIUM}
