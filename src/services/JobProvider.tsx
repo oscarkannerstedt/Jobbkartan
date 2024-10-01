@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { IJobs } from "../models/IJobs";
+import { IJob } from "../models/IJob";
 import { fetchAllJobs } from "./baseService";
 import { jobContext } from "./jobContext";
 
 export const JobProvider = ({ children }: { children: React.ReactNode }) => {
-  const [jobs, setJobs] = useState<IJobs[]>([]);
+  const [jobs, setJobs] = useState<IJob[]>([]);
 
   const fetchJobs = async () => {
     try {

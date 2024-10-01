@@ -1,11 +1,9 @@
 import { createContext } from "react";
-import { IJobs } from "../models/IJobs";
+import { IJob } from "../models/IJob";
 
 interface IJobSContextType {
-  jobs: IJobs[];
+  jobs: IJob[];
   fetchJobs: () => Promise<void>;
 }
 
-export const jobContext = createContext<IJobSContextType | undefined>(
-  undefined
-);
+export const jobContext = createContext<IJobSContextType | null>(null);
