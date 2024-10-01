@@ -11,15 +11,15 @@ import { JobProvider } from "./services/JobProvider";
 function App() {
 	return (
 		<>
-      <JobProvider>
-  			<APIProvider
+		<JobProvider>
+			<APIProvider
 				apiKey={apiKey}
 				onLoad={() => console.log('Maps API has loaded.')}
 			>
 				<JobMap></JobMap>
 				<RouterProvider router={router}></RouterProvider>
-      </JobProvider>
 			</APIProvider>
+		</JobProvider>
 		</>
 	);
 }
