@@ -1,0 +1,30 @@
+.container-left-search-header .sc-digi-layout-container-h {
+  display: flex;
+  color: white;
+  --digi--layout-container--margin-bottom: 20px !important;
+}
+
+.sc-digi-form-label-h .digi-form-label.sc-digi-form-label {
+  color: white;
+}
+
+.search-bar-heading {
+  margin-bottom: 0;
+}
+
+.search-bar-text {
+  white-space: nowrap;
+  margin-top: 0;
+}
+
+@media screen and (min-width: 992px) {
+  .container-left-search-header .sc-digi-layout-container-h {
+    max-width: 50%;
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    color: white;
+    /* --digi--layout-container--margin-top: 40px !important; */
+    --digi--layout-container--margin-bottom: 40px !important;
+  }
+}
