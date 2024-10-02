@@ -36,6 +36,14 @@ export interface IJob {
     name: string;
     workplace: string;
   };
+  application_details: {
+    information: string;
+    reference: string;
+    email: string;
+    via_af: boolean;
+    url: string;
+    other: string;
+  };
   workplace_address: {
     municipality?: string | null;
     region: string;
