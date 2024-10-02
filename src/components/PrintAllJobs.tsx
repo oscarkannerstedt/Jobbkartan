@@ -5,10 +5,12 @@ import {
   DigiLayoutBlock,
   DigiLayoutContainer,
   DigiTypography,
+  DigiLoaderSpinner,
 } from "@digi/arbetsformedlingen-react";
 import {
   LayoutBlockContainer,
   LayoutBlockVariation,
+  LoaderSpinnerSize,
 } from "@digi/arbetsformedlingen";
 import "../styles/printAllJobb.css";
 import { Link } from "react-router-dom";
@@ -18,11 +20,23 @@ export const PrintAllJobs = () => {
 
   if (!context) return <p>Laddar...</p>;
 
-  const { jobs } = context;
+  const { jobs, loading } = context;
 
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
+
+  // Visa loadern om loading är true
+  if (loading) {
+    return (
+      <div className="spinner-container">
+        <DigiLoaderSpinner
+          afSize={LoaderSpinnerSize.LARGE}
+          afText="Laddar"
+        ></DigiLoaderSpinner>{" "}
+      </div>
+    );
+  }
 
   return (
     <DigiTypography>
