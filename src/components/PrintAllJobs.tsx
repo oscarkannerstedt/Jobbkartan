@@ -60,7 +60,7 @@ export const PrintAllJobs = () => {
               afMarginBottom={false}
               className="digiLayoutBlock"
             >
-              <h3 style={{ paddingTop: "15px", marginTop: "20px" }}>
+              <h3 style={{ paddingTop: "15px", marginTop: "8px" }}>
                 <Link
                   to={`/annonser/${job.id}`}
                   onClick={scrollToTop}
@@ -76,7 +76,7 @@ export const PrintAllJobs = () => {
               <p style={{ margin: 0, lineHeight: ".1" }}>
                 {job.occupation.label}
               </p>
-              <p style={{ paddingBottom: "15px" }}>
+              <p style={{ paddingBottom: "15px", marginBottom: "8px" }}>
                 {formatPublicationDate(job.publication_date)}
               </p>
             </DigiLayoutBlock>
