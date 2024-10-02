@@ -18,7 +18,11 @@ import {
 } from "@digi/arbetsformedlingen";
 import ScreenSizeContext from "../contexts/ScreenSizeContext";
 import { useContext } from "react";
-import { formatDate } from "../services/baseService";
+import {
+  formatDate,
+  calculateDaysLeftToDeadline,
+} from "../services/baseService";
+import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 interface IShowJobProps {
   job: IJob;
 }
@@ -27,6 +31,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
   const { municipality, street_address, postcode, city, region } =
     job.workplace_address || {};
   const context = useContext(ScreenSizeContext);
+  const daysLeft = calculateDaysLeftToDeadline(job.application_deadline);
 
   if (!context) {
     throw new Error("SomeComponent must be used within a ScreenSizeProvider");
@@ -120,12 +125,24 @@ const ShowJob = ({ job }: IShowJobProps) => {
           afVariation={InfoCardVariation.SECONDARY}
         >
           <p>
-            Ansök senast:{" "}
-            <strong>{formatDate(job.application_deadline)}</strong>
+            <strong>
+              <h3>Ansök senast: {formatDate(job.application_deadline)}</h3>
+            </strong>
+            {daysLeft > 0 ? (
+              <p>
+                <em>Ansökningstiden går ut om {daysLeft} dagar</em>
+              </p>
+            ) : (
+              <p>
+                <em>Ansökningstiden har gått ut</em>
+              </p>
+            )}
+            <p>{formatPublicationDate(job.publication_date)}</p>
           </p>
+
           <DigiButton>Ansök här</DigiButton>
+
           <p>Annons-Id: {job.id}</p>
-          <p>Publicerad: {formatDate(job.publication_date)}</p>
         </DigiInfoCard>
       </DigiLayoutBlock>
     </>
