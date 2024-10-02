@@ -109,13 +109,15 @@ const ShowJob = ({ job }: IShowJobProps) => {
         <p>{job.employer.name}</p>
         <h2>Kontakt</h2>
         {job.employer.workplace} <br />
-        <DigiLinkExternal
-          afHref={job.employer.url}
-          afTarget="_blank"
-          afVariation={LinkVariation.SMALL}
-        >
-          {job.employer.url}
-        </DigiLinkExternal>
+        {job.employer.url && (
+          <DigiLinkExternal
+            afHref={job.employer.url}
+            afTarget="_blank"
+            afVariation={LinkVariation.SMALL}
+          >
+            {job.employer.url}
+          </DigiLinkExternal>
+        )}
         <p>{job.employer.email}</p>
         <p>{job.employer.phone_number}</p>
       </DigiLayoutBlock>
