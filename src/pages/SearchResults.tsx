@@ -6,16 +6,16 @@ import {
 import {
   DigiLayoutContainer,
   DigiLayoutBlock,
-  DigiLink,
 } from "@digi/arbetsformedlingen-react";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import { SearchHeader } from "../components/SearchHeader";
 import { jobContext } from "../services/jobContext";
+import { Link } from "react-router-dom";
 
 export const SearchResults = () => {
   const context = useContext(jobContext);
 
-  if (!context) return <p>Loading...</p>;
+  if (!context) return <p>Laddar...</p>;
 
   return (
     <DigiLayoutContainer>
@@ -31,13 +31,12 @@ export const SearchResults = () => {
               className="digiLayoutBlock"
             >
               <h3 style={{ paddingTop: "15px" }}>
-                <DigiLink
-                  afHref={`/annonser/${job.id}`}
-                  afVariation="large"
-                  afAriaLabel={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
+                <Link
+                  to={`/annonser/${job.id}`}
+                  aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
                 >
                   {job.headline}
-                </DigiLink>
+                </Link>
               </h3>
 
               <h4>
