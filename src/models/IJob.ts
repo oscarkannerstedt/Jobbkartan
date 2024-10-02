@@ -1,7 +1,7 @@
 export interface IJob {
   id: string;
   label: string;
-  logo_url: string;
+  logo_url?: string | null;
   headline: string;
   application_deadline: string;
   number_of_vacancies: number;
