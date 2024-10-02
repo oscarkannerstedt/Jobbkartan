@@ -55,6 +55,7 @@ export const JobMap = () => {
 
 				return {
 					id: job.id,
+					logo: job.logo_url,
 					headline: job.headline,
 					employerName: job.employer.name,
 					address: streetAddress,
@@ -99,6 +100,7 @@ export const JobMap = () => {
 			if (lat !== 0 && lng !== 0) {
 				return {
 					id: job.id,
+					logo: job.logo_url,
 					headline: job.headline,
 					employerName: job.employer.name,
 					address: streetAddress,
