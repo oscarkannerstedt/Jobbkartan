@@ -12,6 +12,7 @@ interface JobInfoBubbleProps {
 }
 
 export const JobInfoBubble = ({ job, onCloseClick }: JobInfoBubbleProps) => {
+
 	return (
 		<InfoWindow position={job.coordinates} onCloseClick={onCloseClick}>
 			<div
@@ -37,7 +38,7 @@ export const JobInfoBubble = ({ job, onCloseClick }: JobInfoBubbleProps) => {
 					<h2>{job.headline}</h2>
 					<p>{job.employerName}</p>
 					<p>{job.city}</p>
-					<DigiLink afHref='/' afVariation={LinkVariation.SMALL}>
+					<DigiLink afHref={`/#/annonser/${job.id}`} afVariation={LinkVariation.SMALL}>
 						Mer...
 					</DigiLink>
 				</DigiExpandableAccordion>
