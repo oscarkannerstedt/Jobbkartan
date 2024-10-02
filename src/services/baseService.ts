@@ -59,3 +59,13 @@ export const formatDate = (dateString: string) => {
     day: "numeric",
   });
 };
+
+export const calculateDaysLeftToDeadline = (deadlineString: string) => {
+  const deadline = new Date(deadlineString).getTime();
+  const today = new Date().getTime();
+
+  const differenceInTime = deadline - today;
+  const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+
+  return differenceInDays;
+};
