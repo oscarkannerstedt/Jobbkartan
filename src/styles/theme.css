@@ -1,3 +1,7 @@
 :root {
-  --digi--layout-block--background--profile: black;
+  --digi--color--background--inverted-1: #822998 !important;
+}
+
+.sc-digi-button-h .digi-button--variation-primary.sc-digi-button {
+  background-color: #2196f3;
 }
