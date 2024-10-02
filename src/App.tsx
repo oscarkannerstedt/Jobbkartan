@@ -5,21 +5,23 @@ import { JobMap } from './components/JobMap';
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-
-import { JobProvider } from "./services/JobProvider";
+import { JobProvider } from './services/JobProvider';
+import { SearchJobProvider } from './services/SearchJobProvider';
 
 function App() {
 	return (
 		<>
-		<JobProvider>
-			<APIProvider
-				apiKey={apiKey}
-				onLoad={() => console.log('Maps API has loaded.')}
-			>
-				<JobMap></JobMap>
-				<RouterProvider router={router}></RouterProvider>
-			</APIProvider>
-		</JobProvider>
+			<JobProvider>
+				<SearchJobProvider>
+					<APIProvider
+						apiKey={apiKey}
+						onLoad={() => console.log('Maps API has loaded.')}
+					>
+						<JobMap></JobMap>
+						<RouterProvider router={router}></RouterProvider>
+					</APIProvider>
+				</SearchJobProvider>
+			</JobProvider>
 		</>
 	);
 }
