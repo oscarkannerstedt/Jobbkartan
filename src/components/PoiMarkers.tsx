@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
-import { JobInfoWindow } from '../models/JobInfoWindow';
+import { JobInfoWindow as Job, JobInfoWindow } from '../models/JobInfoWindow';
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import type { Marker } from '@googlemaps/markerclusterer';
 
-// To mark with pins of map
-// adjust whenJobAds are implemented
 export const PoiMarkers = (props: { pois: JobInfoWindow[] }) => {
 	const map = useMap();
 	const [markers, setMarkers] = useState<{ [key: string]: Marker }>({});
+	const [activeJob, setActiveJob] = useState<Job | null>(null);
 	const clusterer = useRef<MarkerClusterer | null>(null);
 
 	const handleClick = useCallback(
