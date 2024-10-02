@@ -3,15 +3,18 @@ import { router } from "./Router";
 import { JobProvider } from "./services/JobProvider";
 import "./styles/theme.css";
 import ScreenSizeProvider from "./services/ScreenSizeProvider";
+import { DigiTypography } from "@digi/arbetsformedlingen-react";
 
 function App() {
   return (
     <>
-      <ScreenSizeProvider>
-        <JobProvider>
-          <RouterProvider router={router}></RouterProvider>
-        </JobProvider>
-      </ScreenSizeProvider>
+      <DigiTypography>
+        <ScreenSizeProvider>
+          <JobProvider>
+            <RouterProvider router={router}></RouterProvider>
+          </JobProvider>
+        </ScreenSizeProvider>
+      </DigiTypography>
     </>
   );
 }
