@@ -3,6 +3,7 @@ import {
   DigiTypography,
   DigiLayoutColumns,
   DigiInfoCard,
+  DigiButton,
 } from "@digi/arbetsformedlingen-react";
 import { IJob } from "../models/IJob";
 import {
@@ -17,6 +18,7 @@ import {
 } from "@digi/arbetsformedlingen";
 import ScreenSizeContext from "../contexts/ScreenSizeContext";
 import { useContext } from "react";
+import { formatDate } from "../services/baseService";
 interface IShowJobProps {
   job: IJob;
 }
@@ -24,9 +26,6 @@ interface IShowJobProps {
 const ShowJob = ({ job }: IShowJobProps) => {
   const { municipality, street_address, postcode, city, region } =
     job.workplace_address || {};
-
-  console.log("Job Data:", job);
-
   const context = useContext(ScreenSizeContext);
 
   if (!context) {
@@ -41,6 +40,15 @@ const ShowJob = ({ job }: IShowJobProps) => {
         afContainer={LayoutBlockContainer.STATIC}
         className="job-container"
       >
+        {job.logo_url ? (
+          <a
+            href={job.employer.url}
+            target="_blank"
+            title="Besök arbetsgivarens hemsida"
+          >
+            <img src={job.logo_url} alt="Arbetsgivarens logga" />
+          </a>
+        ) : null}
         <h1>{job.headline}</h1>
         <h2>{job.employer.name}</h2>
         <h3>{job.occupation.label}</h3>
@@ -61,15 +69,14 @@ const ShowJob = ({ job }: IShowJobProps) => {
             __html: job.description.text_formatted,
           }}
         />
-
         <h2>Om Anställningen</h2>
         <h3>Lön</h3>
         <p>
+          <strong>{job.salary_description}</strong>
+        </p>
+        <p>
           <strong>Lönetyp:</strong> {job.salary_type.label}
         </p>
-
-        <h2>Om arbetsgivaren</h2>
-        <p>{job.employer.name}</p>
         <h2>Var ligger arbetsplatsen?</h2>
         <h3>Postadress</h3>
         {street_address && postcode && city ? (
@@ -81,10 +88,17 @@ const ShowJob = ({ job }: IShowJobProps) => {
           </address>
         ) : (
           <p>
-            Arbetsplatsen finns i kommunen <strong>{municipality}</strong> i{" "}
+            Arbetsplatsen ligger i kommunen <strong>{municipality}</strong> i{" "}
             <strong>{region}</strong>.
           </p>
         )}
+        <h2>Om arbetsgivaren</h2>
+        <p>{job.employer.name}</p>
+        <h2>Kontakt</h2>
+        {job.employer.workplace}{" "}
+        <a href={job.employer.url} target="_blank">
+          {job.employer.url}
+        </a>
       </DigiLayoutBlock>
 
       <DigiLayoutBlock
@@ -93,6 +107,20 @@ const ShowJob = ({ job }: IShowJobProps) => {
         className="map-container"
       >
         <h2>En karta här</h2>
+        <DigiInfoCard
+          afHeading="Sök jobbet"
+          afHeadingLevel={InfoCardHeadingLevel.H2}
+          afType={InfoCardType.RELATED}
+          afVariation={InfoCardVariation.SECONDARY}
+        >
+          <p>
+            <strong>Ansök senast: </strong>
+            {formatDate(job.application_deadline)}
+          </p>
+          <DigiButton>Ansök här</DigiButton>
+          <p>Annons-Id: {job.id}</p>
+          <p>Publicerad: {formatDate(job.publication_date)}</p>
+        </DigiInfoCard>
       </DigiLayoutBlock>
     </>
   );
