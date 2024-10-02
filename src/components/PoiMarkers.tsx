@@ -3,6 +3,7 @@ import { AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
 import { JobInfoWindow as Job, JobInfoWindow } from '../models/JobInfoWindow';
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import type { Marker } from '@googlemaps/markerclusterer';
+import { JobInfoBubble } from './JobInfoBubble';
 
 export const PoiMarkers = (props: { pois: JobInfoWindow[] }) => {
 	const map = useMap();
@@ -70,6 +71,13 @@ export const PoiMarkers = (props: { pois: JobInfoWindow[] }) => {
 					/>
 				</AdvancedMarker>
 			))}
+
+			{activeJob && (
+				<JobInfoBubble
+					job={activeJob}
+					onCloseClick={() => setActiveJob(null)}
+				></JobInfoBubble>
+			)}
 		</>
 	);
 };

@@ -3,12 +3,12 @@ import { JobInfoWindow as Job } from '../models/JobInfoWindow';
 import { LinkVariation } from '@digi/arbetsformedlingen';
 import { DigiExpandableAccordion, DigiLink } from '@digi/arbetsformedlingen-react';
 
-interface JobInfoWindowProps {
+interface JobInfoBubbleProps {
 	job: Job;
 	onCloseClick: () => void;
 }
 
-export const MapInfoBubble = ({ job, onCloseClick }: JobInfoWindowProps) => {
+export const JobInfoBubble = ({ job, onCloseClick }: JobInfoBubbleProps) => {
 	return (
 		<InfoWindow position={job.coordinates} onCloseClick={onCloseClick}>
 			<DigiExpandableAccordion afHeading={job.headline}>
