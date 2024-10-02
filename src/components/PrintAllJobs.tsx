@@ -12,7 +12,6 @@ import {
   LoaderSpinnerSize,
 } from "@digi/arbetsformedlingen";
 import "../styles/printAllJobb.css";
-import { SearchHeader } from "./SearchHeader";
 import { Link } from "react-router-dom";
 
 export const PrintAllJobs = () => {
@@ -51,7 +50,6 @@ export const PrintAllJobs = () => {
 
   return (
     <DigiLayoutContainer>
-      <SearchHeader />
       <div>
         {jobs.length > 0 ? (
           jobs.map((job) => (
@@ -62,7 +60,7 @@ export const PrintAllJobs = () => {
               afMarginBottom={false}
               className="digiLayoutBlock"
             >
-              <h3 style={{ paddingTop: "15px" }}>
+              <h3 style={{ paddingTop: "15px", marginTop: "20px" }}>
                 <Link
                   to={`/annonser/${job.id}`}
                   onClick={scrollToTop}

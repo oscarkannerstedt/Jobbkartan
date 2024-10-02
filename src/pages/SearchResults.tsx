@@ -8,7 +8,6 @@ import {
   DigiLayoutBlock,
 } from "@digi/arbetsformedlingen-react";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
-import { SearchHeader } from "../components/SearchHeader";
 import { jobContext } from "../services/jobContext";
 import { Link } from "react-router-dom";
 
@@ -19,7 +18,6 @@ export const SearchResults = () => {
 
   return (
     <DigiLayoutContainer>
-      <SearchHeader />
       <div>
         {context.jobs.length > 0 ? (
           context.jobs.map((job) => (
