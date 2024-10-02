@@ -46,7 +46,13 @@ const ShowJob = ({ job }: IShowJobProps) => {
             target="_blank"
             title="Besök arbetsgivarens hemsida"
           >
-            <img src={job.logo_url} alt="Arbetsgivarens logga" />
+            <img
+              src={job.logo_url}
+              alt="Arbetsgivarens logga"
+              height={100}
+              width={180}
+              style={{ objectFit: "contain" }}
+            />
           </a>
         ) : null}
         <h1>{job.headline}</h1>
@@ -114,8 +120,8 @@ const ShowJob = ({ job }: IShowJobProps) => {
           afVariation={InfoCardVariation.SECONDARY}
         >
           <p>
-            <strong>Ansök senast: </strong>
-            {formatDate(job.application_deadline)}
+            Ansök senast:{" "}
+            <strong>{formatDate(job.application_deadline)}</strong>
           </p>
           <DigiButton>Ansök här</DigiButton>
           <p>Annons-Id: {job.id}</p>
