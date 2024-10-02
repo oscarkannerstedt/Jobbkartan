@@ -44,6 +44,8 @@ export const JobMap = () => {
 			coordinates,
 		} = job.workplace_address;
 
+		const logoUrl = job.logo_url;
+
 		if (coordinates && coordinates.length === 2) {
 			const lat = Number(coordinates[1]);
 			const lng = Number(coordinates[0]);
@@ -55,7 +57,7 @@ export const JobMap = () => {
 
 				return {
 					id: job.id,
-					logo: job.logo_url,
+					logo: logoUrl || '', // add fallback?
 					headline: job.headline,
 					employerName: job.employer.name,
 					address: streetAddress,
@@ -100,7 +102,7 @@ export const JobMap = () => {
 			if (lat !== 0 && lng !== 0) {
 				return {
 					id: job.id,
-					logo: job.logo_url,
+					logo: logoUrl || '', // add fallback?
 					headline: job.headline,
 					employerName: job.employer.name,
 					address: streetAddress,
