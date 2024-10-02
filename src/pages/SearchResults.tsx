@@ -1,5 +1,4 @@
-import { useContext, useEffect } from "react";
-import { searchJobContext } from "../services/searchJobContext";
+import { useContext } from "react";
 import {
   LayoutBlockVariation,
   LayoutBlockContainer,
@@ -11,19 +10,10 @@ import {
 } from "@digi/arbetsformedlingen-react";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import { SearchHeader } from "../components/SearchHeader";
-import { useLocation } from "react-router-dom";
+import { jobContext } from "../services/jobContext";
 
 export const SearchResults = () => {
-  const context = useContext(searchJobContext);
-  const location = useLocation();
-
-  const searchTerm = location.state?.searchTerm || "";
-
-  useEffect(() => {
-    if (context) {
-      context.fetchJobs(searchTerm);
-    }
-  }, [context, searchTerm]);
+  const context = useContext(jobContext);
 
   if (!context) return <p>Loading...</p>;
 
