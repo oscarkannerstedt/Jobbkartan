@@ -3,7 +3,6 @@ import {
   DigiTypography,
   DigiLayoutColumns,
   DigiInfoCard,
-  DigiButton,
 } from "@digi/arbetsformedlingen-react";
 import { IJob } from "../models/IJob";
 import {
@@ -23,6 +22,7 @@ import {
   calculateDaysLeftToDeadline,
 } from "../services/baseService";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
+import ApplyNowButton from "./ApplyNowButton";
 interface IShowJobProps {
   job: IJob;
 }
@@ -110,6 +110,8 @@ const ShowJob = ({ job }: IShowJobProps) => {
         <a href={job.employer.url} target="_blank">
           {job.employer.url}
         </a>
+        <p>{job.employer.email}</p>
+        <p>{job.employer.phone_number}</p>
       </DigiLayoutBlock>
 
       <DigiLayoutBlock
@@ -140,7 +142,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
             <p>{formatPublicationDate(job.publication_date)}</p>
           </p>
 
-          <DigiButton>Ansök här</DigiButton>
+          <ApplyNowButton />
 
           <p>Annons-Id: {job.id}</p>
         </DigiInfoCard>
