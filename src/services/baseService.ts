@@ -3,7 +3,11 @@ import { IJobs } from "../models/IJobs";
 
 const BASE_URL = "https://jobsearch.api.jobtechdev.se/search";
 
-//Hämtar alla annonser.
+export const get = async <T>(url: string) => {
+  return await axios.get<T>(url);
+};
+
+//get all jobs
 export const fetchAllJobs = async (): Promise<IJobs> => {
   try {
     const response = await axios.get<IJobs>(BASE_URL, {
@@ -21,7 +25,7 @@ export const fetchAllJobs = async (): Promise<IJobs> => {
   }
 };
 
-//Hämtar jobb annonser efter vad man sökt på.
+//get jobs from specific search term
 export const fetchJobsBySearchTerm = async (
   searchTerm: string
 ): Promise<IJobs> => {
@@ -39,4 +43,29 @@ export const fetchJobsBySearchTerm = async (
     console.error("Error while fetching from api: ", error);
     throw error;
   }
+};
+
+//get one specific job
+export const getJob = async (id: number) => {
+  return await get(`/${id}`);
+};
+
+//format date
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("sv-SE", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+export const calculateDaysLeftToDeadline = (deadlineString: string) => {
+  const deadline = new Date(deadlineString).getTime();
+  const today = new Date().getTime();
+
+  const differenceInTime = deadline - today;
+  const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+
+  return differenceInDays;
 };
