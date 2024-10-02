@@ -3,6 +3,7 @@ import {
   DigiTypography,
   DigiLayoutColumns,
   DigiInfoCard,
+  DigiLinkExternal,
 } from "@digi/arbetsformedlingen-react";
 import { IJob } from "../models/IJob";
 import {
@@ -14,6 +15,7 @@ import {
   InfoCardHeadingLevel,
   InfoCardType,
   InfoCardVariation,
+  LinkVariation,
 } from "@digi/arbetsformedlingen";
 import ScreenSizeContext from "../contexts/ScreenSizeContext";
 import { useContext } from "react";
@@ -23,7 +25,7 @@ import {
 } from "../services/baseService";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import ApplyNowButton from "./ApplyNowButton";
-interface IShowJobProps {
+export interface IShowJobProps {
   job: IJob;
 }
 
@@ -106,10 +108,14 @@ const ShowJob = ({ job }: IShowJobProps) => {
         <h2>Om arbetsgivaren</h2>
         <p>{job.employer.name}</p>
         <h2>Kontakt</h2>
-        {job.employer.workplace}{" "}
-        <a href={job.employer.url} target="_blank">
+        {job.employer.workplace} <br />
+        <DigiLinkExternal
+          afHref={job.employer.url}
+          afTarget="_blank"
+          afVariation={LinkVariation.SMALL}
+        >
           {job.employer.url}
-        </a>
+        </DigiLinkExternal>
         <p>{job.employer.email}</p>
         <p>{job.employer.phone_number}</p>
       </DigiLayoutBlock>
@@ -126,25 +132,26 @@ const ShowJob = ({ job }: IShowJobProps) => {
           afType={InfoCardType.RELATED}
           afVariation={InfoCardVariation.SECONDARY}
         >
-          <p>
-            <strong>
-              <h3>Ansök senast: {formatDate(job.application_deadline)}</h3>
-            </strong>
-            {daysLeft > 0 ? (
-              <p>
-                <em>Ansökningstiden går ut om {daysLeft} dagar</em>
-              </p>
-            ) : (
-              <p>
-                <em>Ansökningstiden har gått ut</em>
-              </p>
-            )}
-            <p>{formatPublicationDate(job.publication_date)}</p>
-          </p>
+          <strong>
+            <h3>Ansök senast: {formatDate(job.application_deadline)}</h3>
+          </strong>
+          {daysLeft > 0 ? (
+            <p>
+              <em>Ansökningstiden går ut om {daysLeft} dagar</em>
+            </p>
+          ) : (
+            <p>
+              <em>Ansökningstiden har gått ut</em>
+            </p>
+          )}
 
-          <ApplyNowButton />
+          <ApplyNowButton job={job} />
 
-          <p>Annons-Id: {job.id}</p>
+          <span>
+            {formatPublicationDate(job.publication_date)}
+            {". "}
+          </span>
+          <span>Annons-Id: {job.id}</span>
         </DigiInfoCard>
       </DigiLayoutBlock>
     </>
