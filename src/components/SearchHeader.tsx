@@ -12,14 +12,21 @@ import {
 import "../styles/searchHeader.css";
 import { useNavigate } from "react-router-dom";
 import { DigiFormInputSearchCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
+import { jobContext } from "../services/jobContext";
+import { useContext } from "react";
 
 export const SearchHeader = () => {
   const navigate = useNavigate();
+  const context = useContext(jobContext);
 
-  const handleSearchSubmit = (
+  const handleSearchSubmit = async (
     event: DigiFormInputSearchCustomEvent<string>
   ) => {
     const term = event.detail;
+
+    if (context) {
+      await context.fetchJobs(term);
+    }
 
     navigate(`/annonser`, { state: { searchTerm: term } });
   };

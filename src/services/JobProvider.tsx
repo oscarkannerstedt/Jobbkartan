@@ -6,7 +6,6 @@ import { jobContext } from "./jobContext";
 export const JobProvider = ({ children }: { children: React.ReactNode }) => {
   const [jobs, setJobs] = useState<IJob[]>([]);
   const [loading, setLoading] = useState<boolean>(false); // Ny loading-state
-  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const fetchJobs = async (term: string = "") => {
     setLoading(true); // Startar loadern
@@ -21,7 +20,7 @@ export const JobProvider = ({ children }: { children: React.ReactNode }) => {
 
       localStorage.setItem("jobs", JSON.stringify(fetchedJobs.hits));
 
-      console.log("fetched jobs from JobProvider", fetchedJobs.hits);
+      console.log("fetched jobs", fetchedJobs.hits);
     } catch (error) {
       console.error("Error fetching jobs: ", error);
     } finally {
