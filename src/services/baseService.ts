@@ -7,7 +7,7 @@ export const get = async <T>(url: string) => {
   return await axios.get<T>(url);
 };
 
-//Hämtar alla annonser.
+//get all jobs
 export const fetchAllJobs = async (): Promise<IJobs> => {
   try {
     const response = await axios.get<IJobs>(BASE_URL, {
@@ -25,7 +25,7 @@ export const fetchAllJobs = async (): Promise<IJobs> => {
   }
 };
 
-//Hämtar jobb annonser efter vad man sökt på.
+//get jobs from specific search term
 export const fetchJobsBySearchTerm = async (
   searchTerm: string
 ): Promise<IJobs> => {
@@ -48,4 +48,14 @@ export const fetchJobsBySearchTerm = async (
 //get one specific job
 export const getJob = async (id: number) => {
   return await get(`/${id}`);
+};
+
+//format date
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("sv-SE", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 };
