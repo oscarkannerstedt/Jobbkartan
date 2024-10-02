@@ -1,0 +1,9 @@
+.job-container {
+  grid-column: 1 / 2;
+  overflow: hidden; 
+  word-wrap: break-word;
+}
+
+.map-container {
+  grid-column: 3 / 5;
+}
