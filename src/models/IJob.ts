@@ -6,7 +6,8 @@ export interface IJob {
   application_deadline: string;
   number_of_vacancies: number;
   description: {
-    text: string;
+    //  text: string;
+    text_formatted: string;
     company_information: string;
   };
   employment_type: {
@@ -36,7 +37,7 @@ export interface IJob {
     workplace: string;
   };
   workplace_address: {
-    municipality: string;
+    municipality?: string | null;
     region: string;
     country: string;
     street_address: string;
