@@ -2,13 +2,16 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
 import { JobProvider } from "./services/JobProvider";
 import "./styles/theme.css";
+import ScreenSizeProvider from "./services/ScreenSizeProvider";
 
 function App() {
   return (
     <>
-      <JobProvider>
-        <RouterProvider router={router}></RouterProvider>
-      </JobProvider>
+      <ScreenSizeProvider>
+        <JobProvider>
+          <RouterProvider router={router}></RouterProvider>
+        </JobProvider>
+      </ScreenSizeProvider>
     </>
   );
 }

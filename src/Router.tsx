@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import SearchResults from "./pages/SearchResults";
 import SelectedJob from "./pages/SelectedJob";
 import NotFound from "./pages/NotFound";
+import { jobLoader } from "./loaders/jobLoader";
 
 export const router = createHashRouter([
   {
@@ -22,6 +23,7 @@ export const router = createHashRouter([
       {
         path: "/annonser/:id",
         element: <SelectedJob />,
+        loader: jobLoader,
       },
     ],
   },

@@ -1,12 +1,13 @@
 export interface IJob {
   id: string;
   label: string;
-  logo_url: string;
+  logo_url?: string | null;
   headline: string;
   application_deadline: string;
   number_of_vacancies: number;
   description: {
-    text: string;
+    //  text: string;
+    text_formatted: string;
     company_information: string;
   };
   employment_type: {
@@ -35,8 +36,16 @@ export interface IJob {
     name: string;
     workplace: string;
   };
+  application_details: {
+    information: string;
+    reference: string;
+    email: string;
+    via_af: boolean;
+    url: string;
+    other: string;
+  };
   workplace_address: {
-    municipality: string;
+    municipality?: string | null;
     region: string;
     country: string;
     street_address: string;
