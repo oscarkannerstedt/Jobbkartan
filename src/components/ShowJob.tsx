@@ -66,6 +66,15 @@ const ShowJob = ({ job }: IShowJobProps) => {
         <h2>{job.employer.name}</h2>
         <h3>{job.occupation.label}</h3>
         <h3>Kommun: {municipality ? municipality : "Ospecifierad ort"}</h3>
+        <DigiLayoutBlock
+          className="employment-information-container"
+          afContainer={LayoutBlockContainer.NONE}
+        >
+          <p>Antal tjänster: {job.number_of_vacancies}</p>
+          <span>Omfattning: {job.working_hours_type.label}</span>
+          <span>Varaktighet: {job.duration.label}</span>
+          <span>Anställningsform: {job.employment_type.label}</span>
+        </DigiLayoutBlock>
         <DigiInfoCard
           afHeading="Kvalikationer"
           afHeadingLevel={InfoCardHeadingLevel.H2}
