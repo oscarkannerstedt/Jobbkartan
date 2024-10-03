@@ -91,6 +91,27 @@ const RenderJobDetails = ({ job }: IShowJobProps) => {
         )}
         <p>{job.employer.email}</p>
         <p>{job.employer.phone_number}</p>
+        {job.application_contacts.length > 0 && (
+          <>
+            {job.application_contacts.map((contact, index) => (
+              <div key={index}>
+                <strong>{contact.name}</strong>
+                <br />
+                <strong>{contact.description}</strong> <br />
+                <strong>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </strong>{" "}
+                <br />
+                <strong>
+                  {" "}
+                  <a href={`tel:${contact.telephone}`}>{contact.telephone}</a>
+                </strong>{" "}
+                <br />
+                <strong>{contact.contact_type}</strong>
+              </div>
+            ))}
+          </>
+        )}
       </DigiLayoutBlock>
 
       <DigiLayoutBlock
