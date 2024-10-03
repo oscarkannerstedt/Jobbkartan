@@ -1,13 +1,11 @@
 import {
   DigiLayoutBlock,
-  DigiTypography,
   DigiLayoutColumns,
   DigiInfoCard,
   DigiLinkExternal,
 } from "@digi/arbetsformedlingen-react";
 import { IJob } from "../models/IJob";
 import {
-  TypographyVariation,
   LayoutBlockVariation,
   LayoutBlockContainer,
   LayoutColumnsElement,
@@ -149,23 +147,21 @@ const ShowJob = ({ job }: IShowJobProps) => {
 
   return (
     <>
-      <DigiTypography afVariation={TypographyVariation.SMALL}>
-        <DigiLayoutBlock
-          afVariation={LayoutBlockVariation.PRIMARY}
-          afContainer={LayoutBlockContainer.STATIC}
-        >
-          {isDesktop ? (
-            <DigiLayoutColumns
-              afElement={LayoutColumnsElement.DIV}
-              afVariation={LayoutColumnsVariation.THREE}
-            >
-              {renderJobDetails()}
-            </DigiLayoutColumns>
-          ) : (
-            <DigiLayoutBlock>{renderJobDetails()}</DigiLayoutBlock>
-          )}
-        </DigiLayoutBlock>
-      </DigiTypography>
+      <DigiLayoutBlock
+        afVariation={LayoutBlockVariation.PRIMARY}
+        afContainer={LayoutBlockContainer.STATIC}
+      >
+        {isDesktop ? (
+          <DigiLayoutColumns
+            afElement={LayoutColumnsElement.DIV}
+            afVariation={LayoutColumnsVariation.THREE}
+          >
+            {renderJobDetails()}
+          </DigiLayoutColumns>
+        ) : (
+          <DigiLayoutBlock>{renderJobDetails()}</DigiLayoutBlock>
+        )}
+      </DigiLayoutBlock>
     </>
   );
 };
