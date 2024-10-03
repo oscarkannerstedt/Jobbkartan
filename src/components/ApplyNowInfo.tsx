@@ -5,7 +5,7 @@ import {
 import { IShowJobProps } from "./ShowJob";
 import { LinkButtonSize, LinkButtonVariation } from "@digi/arbetsformedlingen";
 
-const ApplyNowButton = ({ job }: IShowJobProps) => {
+const ApplyNowInfo = ({ job }: IShowJobProps) => {
   return (
     <>
       <DigiLayoutContainer afVerticalPadding afNoGutter>
@@ -41,4 +41,4 @@ const ApplyNowButton = ({ job }: IShowJobProps) => {
   );
 };
 
-export default ApplyNowButton;
+export default ApplyNowInfo;
