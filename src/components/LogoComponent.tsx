@@ -12,8 +12,8 @@ const LogoComponent = ({ job }: IShowJobProps) => {
           <img
             src={job.logo_url}
             alt="Arbetsgivarens logga"
-            height={100}
-            width={180}
+            height={85}
+            width="auto"
             style={{ objectFit: "contain" }}
           />
         </a>
