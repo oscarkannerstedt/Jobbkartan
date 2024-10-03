@@ -18,7 +18,7 @@ export const SearchResults = () => {
 
   return (
     <DigiLayoutContainer>
-      <div>
+      <div style={{ margin: "15px" }}>
         {context.jobs.length > 0 ? (
           context.jobs.map((job) => (
             <DigiLayoutBlock
@@ -27,8 +27,9 @@ export const SearchResults = () => {
               afContainer={LayoutBlockContainer.FLUID}
               afMarginBottom={false}
               className="digiLayoutBlock"
+              style={{ margin: "10px" }}
             >
-              <h3 style={{ paddingTop: "15px", marginTop: "8px" }}>
+              <h3 style={{ paddingTop: "15px" }}>
                 <Link
                   to={`/annonser/${job.id}`}
                   aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
@@ -43,7 +44,7 @@ export const SearchResults = () => {
               <p style={{ margin: 0, lineHeight: ".1" }}>
                 {job.occupation.label}
               </p>
-              <p style={{ paddingBottom: "15px", marginBottom: "8px" }}>
+              <p style={{ paddingBottom: "15px" }}>
                 {formatPublicationDate(job.publication_date)}
               </p>
             </DigiLayoutBlock>
