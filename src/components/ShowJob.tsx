@@ -24,7 +24,7 @@ import {
   calculateDaysLeftToDeadline,
 } from "../services/baseService";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
-import ApplyNowButton from "./ApplyNowButton";
+import ApplyNowInfo from "./ApplyNowInfo";
 export interface IShowJobProps {
   job: IJob;
 }
@@ -147,7 +147,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
             </p>
           )}
 
-          <ApplyNowButton job={job} />
+          <ApplyNowInfo job={job} />
 
           <span>
             {formatPublicationDate(job.publication_date)}
