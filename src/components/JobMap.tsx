@@ -132,7 +132,7 @@ export const JobMap = () => {
 			{loading && <div>Loading...</div>}
 			{error && <div>Error: {error}</div>}
 			<Map
-				style={{ height: 800 }}
+				style={{ width: 500, height: 500 }}
 				defaultZoom={5}
 				defaultCenter={center}
 				mapId='b541ec0a861d850'
