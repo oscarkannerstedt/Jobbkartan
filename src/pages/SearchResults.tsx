@@ -2,14 +2,15 @@ import { useContext } from "react";
 import {
   LayoutBlockVariation,
   LayoutBlockContainer,
+  LinkVariation,
 } from "@digi/arbetsformedlingen";
 import {
   DigiLayoutContainer,
   DigiLayoutBlock,
+  DigiLink,
 } from "@digi/arbetsformedlingen-react";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import { jobContext } from "../services/jobContext";
-import { Link } from "react-router-dom";
 import { SearchHeader } from "../components/SearchHeader";
 
 export const SearchResults = () => {
@@ -33,12 +34,13 @@ export const SearchResults = () => {
                 style={{ margin: "10px" }}
               >
                 <h3 style={{ paddingTop: "15px" }}>
-                  <Link
-                    to={`/annonser/${job.id}`}
+                  <DigiLink
+                    afHref={`/#/annonser/${job.id}`}
+                    afVariation={LinkVariation.SMALL}
                     aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
                   >
                     {job.headline}
-                  </Link>
+                  </DigiLink>
                 </h3>
 
                 <h4>

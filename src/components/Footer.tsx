@@ -17,9 +17,8 @@ import {
   DigiIconEnvelope,
   DigiIconExternalLinkAlt,
   DigiLogo,
+  DigiLink,
 } from "@digi/arbetsformedlingen-react";
-
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -109,12 +108,12 @@ const Footer = () => {
             </div>
           </div>
           <div slot="content-bottom-left">
-            <Link to="/">
+            <DigiLink afHref={"/"}>
               <DigiLogo
                 afVariation={LogoVariation.LARGE}
                 afColor={LogoColor.SECONDARY}
               ></DigiLogo>
-            </Link>
+            </DigiLink>
           </div>
           <div slot="content-bottom-right">
             <p>Följ oss på</p>
