@@ -25,6 +25,8 @@ import {
 } from "../services/baseService";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import ApplyNowInfo from "./ApplyNowInfo";
+import QualificationsWindow from "./QualificationsWindow";
+import LogoComponent from "./LogoComponent";
 export interface IShowJobProps {
   job: IJob;
 }
@@ -47,35 +49,12 @@ const ShowJob = ({ job }: IShowJobProps) => {
         afContainer={LayoutBlockContainer.STATIC}
         className="job-container"
       >
-        {job.logo_url ? (
-          <a
-            href={job.employer.url}
-            target="_blank"
-            title="Besök arbetsgivarens hemsida"
-          >
-            <img
-              src={job.logo_url}
-              alt="Arbetsgivarens logga"
-              height={100}
-              width={180}
-              style={{ objectFit: "contain" }}
-            />
-          </a>
-        ) : null}
+        <LogoComponent job={job} />
         <h1>{job.headline}</h1>
         <h2>{job.employer.name}</h2>
         <h3>{job.occupation.label}</h3>
         <h3>Kommun: {municipality ? municipality : "Ospecifierad ort"}</h3>
-        <DigiInfoCard
-          afHeading="Kvalikationer"
-          afHeadingLevel={InfoCardHeadingLevel.H2}
-          afType={InfoCardType.TIP}
-          afVariation={InfoCardVariation.SECONDARY}
-        >
-          <h3>Arbetslivserfarenhet</h3>
-          <h4>Krav</h4>
-          <li>Här ska det in lite mer information</li>
-        </DigiInfoCard>
+        <QualificationsWindow job={job} />
         <h2>Om jobbet</h2>
         <div
           dangerouslySetInnerHTML={{
