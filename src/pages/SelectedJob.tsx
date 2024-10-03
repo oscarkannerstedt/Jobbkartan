@@ -21,7 +21,7 @@ const SelectedJob = () => {
 
   return (
     <>
-      <DigiLayoutBlock>
+      <DigiLayoutBlock afVerticalPadding={true}>
         <BackButton />
         {currentJob ? (
           <ShowJob job={currentJob} />
