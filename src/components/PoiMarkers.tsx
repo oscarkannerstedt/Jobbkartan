@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'; //useCallback,
+import { useCallback, useEffect, useRef, useState } from 'react'; //useCallback,
 import { AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
 import { JobInfoWindow as Job, JobInfoWindow } from '../models/JobInfoWindow';
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
@@ -14,18 +14,6 @@ export const PoiMarkers = ({ pois }: PoiMarkersProps) => {
 	const [markers, setMarkers] = useState<{ [key: string]: Marker }>({});
 	const [activeJob, setActiveJob] = useState<Job | null>(null);
 	const clusterer = useRef<MarkerClusterer | null>(null);
-
-	// const handleClick = useCallback(
-	// 	(ev: google.maps.MapMouseEvent) => {
-	// 		if (!map) return;
-	// 		if (!ev.latLng) return;
-
-	// 		console.log('marker clicked: ', ev.latLng.toString());
-	// 		map.panTo(ev.latLng);
-	// 		map.setZoom(11);
-	// 	},
-	// 	[map]
-	// );
 
 	const handleMarkerClick = (job: JobInfoWindow) => {
 		setActiveJob(job);
@@ -49,8 +37,9 @@ export const PoiMarkers = ({ pois }: PoiMarkersProps) => {
 		}
 	}, [markers]);
 
-	const setMarkerRef = (marker: Marker | null, key: string) => {
-		if (marker && markers[key]) return;
+	const setMarkerRef = useCallback((marker: Marker | null, key: string) => {
+		
+		if (marker && markers[key] === marker) return; 
 		if (!marker && !markers[key]) return;
 
 		setMarkers((prev) => {
@@ -62,33 +51,23 @@ export const PoiMarkers = ({ pois }: PoiMarkersProps) => {
 				return newMarkers;
 			}
 		});
-	};
+	}, [markers]); 
 
-	// return (
-	// 	<>
-	// 		{props.pois.map((poi: JobInfoWindow) => (
-	// 			<AdvancedMarker
-	// 				key={poi.id}
-	// 				position={poi.coordinates}
-	// 				ref={(marker) => setMarkerRef(marker, poi.id)}
-	// 				clickable={true}
-	// 				onClick={handleClick}
-	// 			>
-	// 				<Pin
-	// 					background={'#a00eda'}
-	// 					glyphColor={'#000'}
-	// 					borderColor={'#000'}
-	// 				/>
-	// 				{activeJob && (
-	// 					<JobInfoBubble
-	// 						job={activeJob}
-	// 						onCloseClick={() => setActiveJob(null)}
-	// 					></JobInfoBubble>
-	// 				)}
-	// 			</AdvancedMarker>
-	// 		))}
-	// 	</>
-	// );
+	// const setMarkerRef = (marker: Marker | null, key: string) => {
+	// 	if (marker && markers[key] === marker) return;
+	// 	if (!marker && !markers[key]) return;
+
+	// 	setMarkers((prev) => {
+	// 		if (marker) {
+	// 			return { ...prev, [key]: marker };
+	// 		} else {
+	// 			const newMarkers = { ...prev };
+	// 			delete newMarkers[key];
+	// 			return newMarkers;
+	// 		}
+	// 	});
+	// };
+
 	return (
 		<>
 			{pois.map((poi: JobInfoWindow) => (
