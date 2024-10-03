@@ -11,9 +11,13 @@ const QualificationsWindow = ({ job }: IShowJobProps) => {
     <>
       {(job.access_to_own_car ||
         job.driving_license_required ||
+        job.must_have.work_experiences.length > 0 ||
         job.nice_to_have.work_experiences.length > 0 ||
+        job.must_have.education.length > 0 ||
         job.nice_to_have.education.length > 0 ||
+        job.must_have.education_level.length > 0 ||
         job.nice_to_have.education_level.length > 0 ||
+        job.must_have.skills.length > 0 ||
         job.nice_to_have.skills.length > 0 ||
         job.must_have.languages.length > 0 ||
         job.nice_to_have.languages.length > 0) && (
@@ -34,9 +38,28 @@ const QualificationsWindow = ({ job }: IShowJobProps) => {
               </ul>
             </>
           )}
-          {job.nice_to_have.work_experiences.length > 0 && (
+          {job.must_have.work_experiences.length > 0 && (
             <>
               <h3>Arbetslivserfarenhet</h3>
+              <h4>Krav</h4>
+              <ul>
+                {job.must_have.work_experiences.map(
+                  (experience: { label: string }, index: number) => (
+                    <li key={index}>
+                      {experience.label} <span>- erfarenhet efterfrågas</span>
+                    </li>
+                  )
+                )}
+              </ul>
+            </>
+          )}
+
+          {job.nice_to_have.work_experiences.length > 0 && (
+            <>
+              {job.must_have.skills.length <= 0 && (
+                <h3>Arbetslivserfarenhet</h3>
+              )}
+
               <h4>Meriterande</h4>
               <ul>
                 {job.nice_to_have.work_experiences.map(
@@ -48,9 +71,31 @@ const QualificationsWindow = ({ job }: IShowJobProps) => {
             </>
           )}
 
-          {job.nice_to_have.education.length > 0 && (
+          {job.must_have.education.length > 0 && (
             <>
               <h3>Utbildning</h3>
+              <h4>Krav</h4>
+              <ul>
+                {job.must_have.education_level.map(
+                  (eduLevel: { label: string }, index: number) => (
+                    <li key={index}>
+                      {eduLevel.label}
+                      <span> inom </span>
+                      {job.must_have.education.map(
+                        (edu: { label: string }, index: number) => (
+                          <span key={index}>{edu.label}</span>
+                        )
+                      )}
+                    </li>
+                  )
+                )}
+              </ul>
+            </>
+          )}
+
+          {job.nice_to_have.education.length > 0 && (
+            <>
+              {job.must_have.skills.length <= 0 && <h3>Utbildning</h3>}
               <h4>Meriterande</h4>
               <ul>
                 {job.nice_to_have.education_level.map(
@@ -69,9 +114,24 @@ const QualificationsWindow = ({ job }: IShowJobProps) => {
             </>
           )}
 
-          {job.nice_to_have.skills.length > 0 && (
+          {job.must_have.skills.length > 0 && (
             <>
               <h3>Kompetenser</h3>
+              <h4>Krav</h4>
+              <ul>
+                {job.must_have.skills.map(
+                  (skill: { label: string }, index: number) => (
+                    <li key={index}>{skill.label}</li>
+                  )
+                )}
+              </ul>
+            </>
+          )}
+
+          {job.nice_to_have.skills.length > 0 && (
+            <>
+              {job.must_have.skills.length <= 0 && <h3>Kompetenser</h3>}
+
               <h4>Meriterande</h4>
               <ul>
                 {job.nice_to_have.skills.map((skill, index) => (
@@ -80,6 +140,7 @@ const QualificationsWindow = ({ job }: IShowJobProps) => {
               </ul>
             </>
           )}
+
           {job.must_have.languages.length > 0 && (
             <>
               <h3>Språk</h3>
