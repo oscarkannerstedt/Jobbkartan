@@ -15,6 +15,7 @@ const Header = () => {
       <DigiLayoutBlock
         afVariation={LayoutBlockVariation.PRIMARY}
         afContainer={LayoutBlockContainer.STATIC}
+        afVerticalPadding={true}
       >
         <DigiHeader
           afSystemName="Jobbkartan"

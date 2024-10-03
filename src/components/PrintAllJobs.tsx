@@ -4,16 +4,17 @@ import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate"
 import {
   DigiLayoutBlock,
   DigiLayoutContainer,
+  DigiLink,
   DigiLoaderSpinner,
 } from "@digi/arbetsformedlingen-react";
 import {
   LayoutBlockContainer,
   LayoutBlockVariation,
+  LinkVariation,
   LoaderSpinnerSize,
 } from "@digi/arbetsformedlingen";
 import "../styles/printAllJobb.css";
 import { SearchHeader } from "./SearchHeader";
-import { Link } from "react-router-dom";
 
 export const PrintAllJobs = () => {
   const context = useContext(jobContext);
@@ -26,18 +27,7 @@ export const PrintAllJobs = () => {
     window.scrollTo(0, 0);
   };
 
-  // Visa loadern om loading är true
-  if (loading) {
-    return (
-      <div className="spinner-container">
-        <DigiLoaderSpinner
-          afSize={LoaderSpinnerSize.LARGE}
-          afText="Laddar"
-        ></DigiLoaderSpinner>{" "}
-      </div>
-    );
-  }
-  // Visa loadern om loading är true
+  // show loader if loading is true
   if (loading) {
     return (
       <div className="spinner-container">
@@ -63,13 +53,14 @@ export const PrintAllJobs = () => {
               className="digiLayoutBlock"
             >
               <h3 style={{ paddingTop: "15px" }}>
-                <Link
-                  to={`/annonser/${job.id}`}
+                <DigiLink
+                  afHref={`/#/annonser/${job.id}`}
                   onClick={scrollToTop}
+                  afVariation={LinkVariation.SMALL}
                   aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
                 >
                   {job.headline}
-                </Link>
+                </DigiLink>
               </h3>
 
               <h4>
