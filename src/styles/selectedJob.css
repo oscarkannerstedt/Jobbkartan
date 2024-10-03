@@ -4,6 +4,11 @@
   word-wrap: break-word;
 }
 
+.employment-information-container > :nth-child(1) {
+  display: flex;
+  flex-direction: column;
+}
+
 .map-container {
   grid-column: 3 / 5;
 }
