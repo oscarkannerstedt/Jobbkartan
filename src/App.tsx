@@ -1,7 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
 import { JobProvider } from "./services/JobProvider";
-import "./styles/theme.css";
 import ScreenSizeProvider from "./services/ScreenSizeProvider";
 import { DigiTypography } from "@digi/arbetsformedlingen-react";
 
