@@ -6,7 +6,6 @@ export interface IJob {
   application_deadline: string;
   number_of_vacancies: number;
   description: {
-    //  text: string;
     text_formatted: string;
     company_information: string;
   };
@@ -44,6 +43,13 @@ export interface IJob {
     url: string;
     other: string;
   };
+  access_to_own_car: boolean;
+  driving_license_required: boolean;
+  driving_license: [
+    {
+      label: string;
+    }
+  ];
   workplace_address: {
     municipality?: string | null;
     region: string;
@@ -53,6 +59,70 @@ export interface IJob {
     city: string;
     coordinates: number[];
   };
+  must_have: {
+    skills: [
+      {
+        label: string;
+      }
+    ];
+    languages: [
+      {
+        label: string;
+      }
+    ];
+    work_experiences: [
+      {
+        label: string;
+      }
+    ];
+    education: [
+      {
+        label: string;
+      }
+    ];
+    education_level: [
+      {
+        label: string;
+      }
+    ];
+  };
+  nice_to_have: {
+    skills: [
+      {
+        label: string;
+      }
+    ];
+    languages: [
+      {
+        label: string;
+      }
+    ];
+    work_experiences: [
+      {
+        label: string;
+      }
+    ];
+    education: [
+      {
+        label: string;
+      }
+    ];
+    education_level: [
+      {
+        label: string;
+      }
+    ];
+  };
+
+  application_contacts: [
+    {
+      name: string;
+      description: string;
+      email: string;
+      telephone: string;
+      contact_type: string;
+    }
+  ];
   publication_date: string;
   occupation: {
     concept_id: string;
