@@ -5,6 +5,7 @@
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 
   --digi--color--border--secondary: #822998;
   --digi--color--background--inverted-1: linear-gradient(
