@@ -1,13 +1,11 @@
 import {
   DigiLayoutBlock,
-  DigiTypography,
   DigiLayoutColumns,
   DigiInfoCard,
   DigiLinkExternal,
 } from "@digi/arbetsformedlingen-react";
 import { IJob } from "../models/IJob";
 import {
-  TypographyVariation,
   LayoutBlockVariation,
   LayoutBlockContainer,
   LayoutColumnsElement,
@@ -24,7 +22,9 @@ import {
   calculateDaysLeftToDeadline,
 } from "../services/baseService";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
-import ApplyNowButton from "./ApplyNowButton";
+import ApplyNowInfo from "./ApplyNowInfo";
+import QualificationsWindow from "./QualificationsWindow";
+import LogoComponent from "./LogoComponent";
 export interface IShowJobProps {
   job: IJob;
 }
@@ -47,35 +47,21 @@ const ShowJob = ({ job }: IShowJobProps) => {
         afContainer={LayoutBlockContainer.STATIC}
         className="job-container"
       >
-        {job.logo_url ? (
-          <a
-            href={job.employer.url}
-            target="_blank"
-            title="Besök arbetsgivarens hemsida"
-          >
-            <img
-              src={job.logo_url}
-              alt="Arbetsgivarens logga"
-              height={100}
-              width={180}
-              style={{ objectFit: "contain" }}
-            />
-          </a>
-        ) : null}
+        <LogoComponent job={job} />
         <h1>{job.headline}</h1>
         <h2>{job.employer.name}</h2>
         <h3>{job.occupation.label}</h3>
         <h3>Kommun: {municipality ? municipality : "Ospecifierad ort"}</h3>
-        <DigiInfoCard
-          afHeading="Kvalikationer"
-          afHeadingLevel={InfoCardHeadingLevel.H2}
-          afType={InfoCardType.TIP}
-          afVariation={InfoCardVariation.SECONDARY}
+        <DigiLayoutBlock
+          className="employment-information-container"
+          afContainer={LayoutBlockContainer.NONE}
         >
-          <h3>Arbetslivserfarenhet</h3>
-          <h4>Krav</h4>
-          <li>Här ska det in lite mer information</li>
-        </DigiInfoCard>
+          <p>Antal tjänster: {job.number_of_vacancies}</p>
+          <span>Omfattning: {job.working_hours_type.label}</span>
+          <span>Varaktighet: {job.duration.label}</span>
+          <span>Anställningsform: {job.employment_type.label}</span>
+        </DigiLayoutBlock>
+        <QualificationsWindow job={job} />
         <h2>Om jobbet</h2>
         <div
           dangerouslySetInnerHTML={{
@@ -120,6 +106,27 @@ const ShowJob = ({ job }: IShowJobProps) => {
         )}
         <p>{job.employer.email}</p>
         <p>{job.employer.phone_number}</p>
+        {job.application_contacts.length > 0 && (
+          <>
+            {job.application_contacts.map((contact, index) => (
+              <div key={index}>
+                <strong>{contact.name}</strong>
+                <br />
+                <strong>{contact.description}</strong> <br />
+                <strong>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </strong>{" "}
+                <br />
+                <strong>
+                  {" "}
+                  <a href={`tel:${contact.telephone}`}>{contact.telephone}</a>
+                </strong>{" "}
+                <br />
+                <strong>{contact.contact_type}</strong>
+              </div>
+            ))}
+          </>
+        )}
       </DigiLayoutBlock>
 
       <DigiLayoutBlock
@@ -147,7 +154,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
             </p>
           )}
 
-          <ApplyNowButton job={job} />
+          <ApplyNowInfo job={job} />
 
           <span>
             {formatPublicationDate(job.publication_date)}
@@ -161,23 +168,21 @@ const ShowJob = ({ job }: IShowJobProps) => {
 
   return (
     <>
-      <DigiTypography afVariation={TypographyVariation.SMALL}>
-        <DigiLayoutBlock
-          afVariation={LayoutBlockVariation.PRIMARY}
-          afContainer={LayoutBlockContainer.STATIC}
-        >
-          {isDesktop ? (
-            <DigiLayoutColumns
-              afElement={LayoutColumnsElement.DIV}
-              afVariation={LayoutColumnsVariation.THREE}
-            >
-              {renderJobDetails()}
-            </DigiLayoutColumns>
-          ) : (
-            <DigiLayoutBlock>{renderJobDetails()}</DigiLayoutBlock>
-          )}
-        </DigiLayoutBlock>
-      </DigiTypography>
+      <DigiLayoutBlock
+        afVariation={LayoutBlockVariation.PRIMARY}
+        afContainer={LayoutBlockContainer.STATIC}
+      >
+        {isDesktop ? (
+          <DigiLayoutColumns
+            afElement={LayoutColumnsElement.DIV}
+            afVariation={LayoutColumnsVariation.THREE}
+          >
+            {renderJobDetails()}
+          </DigiLayoutColumns>
+        ) : (
+          <DigiLayoutBlock>{renderJobDetails()}</DigiLayoutBlock>
+        )}
+      </DigiLayoutBlock>
     </>
   );
 };

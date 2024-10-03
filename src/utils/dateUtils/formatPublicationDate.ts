@@ -27,6 +27,6 @@ export const formatPublicationDate = (dateString: string): string => {
     return `Publicerad ${publicationDate.toLocaleDateString(
       "sv-SE",
       options
-    )}, ${formattedTime}`;
+    )}, kl. ${formattedTime}`;
   }
 };
