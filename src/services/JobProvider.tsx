@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IJob } from "../models/IJob";
 import { fetchAllJobs, fetchJobsBySearchTerm } from "./baseService";
 import { jobContext } from "./jobContext";
@@ -21,8 +21,6 @@ export const JobProvider = ({ children }: { children: React.ReactNode }) => {
         fetchedJobs = await fetchAllJobs(offset, limit);
       }
       setJobs(fetchedJobs.hits);
-
-      localStorage.setItem("jobs", JSON.stringify(fetchedJobs.hits));
 
       console.log("fetched jobs", fetchedJobs.hits);
       return fetchedJobs.hits;
