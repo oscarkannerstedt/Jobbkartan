@@ -9,12 +9,12 @@
 }
 
 #search button {
-  color: black;
+  color: #2e0249;
   background-color: #00ffff;
 }
 
 #search button:hover {
-  background-color: #2e0249;
+  background-color: #00cccc;
 }
 
 .container-left-search-header .sc-digi-layout-container-h {
