@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IJobs } from "../models/IJobs";
+import { IJob } from "../models/IJob";
 
 const BASE_URL = "https://jobsearch.api.jobtechdev.se/search";
 
@@ -46,7 +47,7 @@ export const fetchJobsBySearchTerm = async (
 };
 
 //get one specific job
-export const getJob = async (id: number) => {
+export const getJob = async (id: number): Promise<{ data: IJob }> => {
   return await get(`/${id}`);
 };
 
