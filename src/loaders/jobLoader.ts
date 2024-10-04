@@ -1,22 +1,27 @@
-import { getJob } from "../services/baseService";
-import { getJobsFromLocalStorage } from "../utils/localstorageUtils";
-import { Params } from "react-router-dom";
+// import { getJob } from '../services/baseService';
 
-interface IJobLoader {
-  params: Params<string>;
-}
+// // interface IJobLoader {
+// // 	params: Params<string>;
+// // 	jobs: IJob[];
+// // }
 
-export const jobLoader = async ({ params }: IJobLoader) => {
-  const id = params.id;
-  if (id) {
-    const savedJobs = getJobsFromLocalStorage();
-    const jobFromStorage = savedJobs.find((job) => job.id === id);
-    if (jobFromStorage) {
-      return jobFromStorage;
-    }
+// export const jobLoader = async () => {
+// 	const id = params.id;
 
-    const job = await getJob(parseInt(id));
-    return job.data;
-  }
-  return null;
-};
+// 	if (!id) {
+// 		return null;
+// 	}
+
+// 	const numericId = parseInt(id);
+// 	if (isNaN(numericId)) {
+// 		return null;
+// 	}
+
+// 	try {
+// 		const job = await getJob(numericId);
+// 		return job.data;
+// 	} catch (error) {
+// 		console.error('Error fetching job:', error);
+// 		return null;
+// 	}
+// };
