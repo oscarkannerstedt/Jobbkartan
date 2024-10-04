@@ -1,18 +1,47 @@
 body {
-	background-color: var(--digi--global--color--profile--white--darkest);
+  background-color: var(--digi--global--color--profile--white--darkest);
+}
+
+.job-list-container {
+  margin: 15px;
+}
+
+.job-item-container {
+  display: flex;
+  align-items: center;
+}
+
+.job-item-container img {
+  margin-right: 15px;
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+}
+
+.job-title {
+  padding-top: 15px;
+}
+
+.job-occupation {
+  margin: 0;
+}
+
+.job-publication-date {
+  padding-bottom: 15px;
 }
 
 .digiLayoutBlock {
-	background-color: var(--digi--global--color--profile--white);
+  background-color: var(--digi--global--color--profile--white);
+  margin: 10px;
 }
 
 .spinner-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .spinner-container .digi-loader-spinner {
-	margin-top: -100px;
+  margin-top: -100px;
 }

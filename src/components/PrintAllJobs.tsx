@@ -43,7 +43,7 @@ export const PrintAllJobs = () => {
     <>
       <SearchHeader />
       <DigiLayoutContainer>
-        <div style={{ margin: "15px" }}>
+        <div className="job-list-container">
           {jobs.length > 0 ? (
             jobs.map((job) => (
               <DigiLayoutBlock
@@ -52,23 +52,13 @@ export const PrintAllJobs = () => {
                 afContainer={LayoutBlockContainer.FLUID}
                 afMarginBottom={false}
                 className="digiLayoutBlock"
-                style={{ margin: "10px" }}
               >
-                <div style={{ display: "flex", alignItems: "center" }}>
+                <div className="job-item-container">
                   {job.logo_url && (
-                    <img
-                      src={job.logo_url}
-                      alt={`${job.employer.name} logo`}
-                      style={{
-                        marginRight: "15px",
-                        height: "50px",
-                        width: "50px",
-                        objectFit: "contain",
-                      }}
-                    />
+                    <img src={job.logo_url} alt={`${job.employer.name} logo`} />
                   )}
                   <div>
-                    <h3 style={{ paddingTop: "15px" }}>
+                    <h3 className="job-title">
                       <DigiLink
                         afHref={`/#/annonser/${job.id}`}
                         onClick={scrollToTop}
@@ -82,8 +72,8 @@ export const PrintAllJobs = () => {
                     <h4>
                       {job.employer.name} - {job.workplace_address.municipality}
                     </h4>
-                    <p style={{ margin: 0 }}>{job.occupation.label}</p>
-                    <p style={{ paddingBottom: "15px" }}>
+                    <p className="job-occupation">{job.occupation.label}</p>
+                    <p className="job-publication-date">
                       {formatPublicationDate(job.publication_date)}
                     </p>
                   </div>
