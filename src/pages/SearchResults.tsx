@@ -12,6 +12,8 @@ import {
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import { jobContext } from "../services/jobContext";
 import { SearchHeader } from "../components/SearchHeader";
+import defaultLogo from "../assets/jobbkartan_logo_1.png";
+import "../styles/searchResults.css";
 
 export const SearchResults = () => {
   const context = useContext(jobContext);
@@ -22,7 +24,7 @@ export const SearchResults = () => {
     <>
       <SearchHeader />
       <DigiLayoutContainer>
-        <div style={{ margin: "15px" }}>
+        <div className="job-list-container">
           {context.jobs.length > 0 ? (
             context.jobs.map((job) => (
               <DigiLayoutBlock
@@ -31,25 +33,32 @@ export const SearchResults = () => {
                 afContainer={LayoutBlockContainer.FLUID}
                 afMarginBottom={false}
                 className="digiLayoutBlock"
-                style={{ margin: "10px" }}
               >
-                <h3 style={{ paddingTop: "15px" }}>
-                  <DigiLink
-                    afHref={`/#/annonser/${job.id}`}
-                    afVariation={LinkVariation.SMALL}
-                    aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
-                  >
-                    {job.headline}
-                  </DigiLink>
-                </h3>
+                <div className="job-item-container">
+                  <img
+                    src={job.logo_url || defaultLogo}
+                    alt={`${job.employer.name} logo`}
+                  />
+                  <div>
+                    <h3 className="job-title">
+                      <DigiLink
+                        afHref={`/#/annonser/${job.id}`}
+                        afVariation={LinkVariation.SMALL}
+                        aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
+                      >
+                        {job.headline}
+                      </DigiLink>
+                    </h3>
 
-                <h4>
-                  {job.employer.name} - {job.workplace_address.municipality}
-                </h4>
-                <p style={{ margin: 0 }}>{job.occupation.label}</p>
-                <p style={{ paddingBottom: "15px" }}>
-                  {formatPublicationDate(job.publication_date)}
-                </p>
+                    <h4>
+                      {job.employer.name} - {job.workplace_address.municipality}
+                    </h4>
+                    <p className="job-occupation">{job.occupation.label}</p>
+                    <p className="job-publication-date">
+                      {formatPublicationDate(job.publication_date)}
+                    </p>
+                  </div>
+                </div>
               </DigiLayoutBlock>
             ))
           ) : (
