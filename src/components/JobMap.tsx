@@ -7,7 +7,11 @@ import { useEffect, useState } from 'react';
 import { geocodeAddress } from '../services/geocodeService';
 import { IJob } from '../models/IJob';
 
-export const JobMap = () => {
+interface JobMapProps {
+	jobId?: string;
+}
+
+export const JobMap = ({ jobId }: JobMapProps) => {
 	const { jobs } = useJobs();
 	const [jobLocations, setJobLocations] = useState<JobInfoWindow[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
@@ -17,8 +21,22 @@ export const JobMap = () => {
 		const fetchJobLocations = async () => {
 			setLoading(true);
 			setError(null);
+
+			let selectedJobs = jobs;
+
+			if (jobId) {
+				const job = jobs.find((j) => j.id === jobId);
+				if (job) {
+					selectedJobs = [job];
+				} else {
+					setError(`Job with ID ${jobId} not found.`);
+					setLoading(false);
+					return;
+				}
+			}
+
 			const locations = await Promise.all(
-				jobs.map(async (job) => await getJobLocation(job))
+				selectedJobs.map(async (job) => await getJobLocation(job))
 			);
 
 			const validLocations = locations.filter(
@@ -35,7 +53,7 @@ export const JobMap = () => {
 		};
 
 		fetchJobLocations();
-	}, [jobs]);
+	}, [jobs, jobId]);
 
 	const getJobLocation = async (job: IJob): Promise<JobInfoWindow | null> => {
 		const {
@@ -82,7 +100,8 @@ export const JobMap = () => {
 			return null;
 		}
 
-		// Geocoding
+		// NECCESSARY?
+		// Geocoding fallback if no coords, but street and city
 		try {
 			const location = await geocodeAddress(`${streetAddress}, ${city}`);
 
