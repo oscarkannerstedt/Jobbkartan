@@ -8,13 +8,6 @@
   -webkit-font-smoothing: antialiased;
 
   --digi--color--border--secondary: #2e0249;
-  --digi--color--background--inverted-1: linear-gradient(
-    180deg,
-    #2e0249 0%,
-    #2e0249 60%,
-    #6a0dad 80%,
-    #7a00b9 100%
-  );
 }
 
 .digi-logo__img {
@@ -28,12 +21,3 @@
 .digi-logo svg {
   display: none;
 }
-
-/* --digi--color--background--inverted-1: linear-gradient(
-	  180deg,
-	  #2e0249 0%,
-	  #6a0dad 35%,
-	  #7a00b9 100%
-	) !important; */
-
-/* --COLOR--BACKGROUND--DEFAULT: #2196f3 !important; */
