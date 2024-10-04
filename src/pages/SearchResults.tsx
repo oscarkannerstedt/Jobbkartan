@@ -12,6 +12,7 @@ import {
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import { jobContext } from "../services/jobContext";
 import { SearchHeader } from "../components/SearchHeader";
+import defaultLogo from "../assets/jobbkartan_logo_1.png";
 import "../styles/searchResults.css";
 
 export const SearchResults = () => {
@@ -34,9 +35,10 @@ export const SearchResults = () => {
                 className="digiLayoutBlock"
               >
                 <div className="job-item-container">
-                  {job.logo_url && (
-                    <img src={job.logo_url} alt={`${job.employer.name} logo`} />
-                  )}
+                  <img
+                    src={job.logo_url || defaultLogo}
+                    alt={`${job.employer.name} logo`}
+                  />
                   <div>
                     <h3 className="job-title">
                       <DigiLink

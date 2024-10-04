@@ -13,6 +13,7 @@ import {
   LinkVariation,
   LoaderSpinnerSize,
 } from "@digi/arbetsformedlingen";
+import defaultLogo from "../assets/jobbkartan_logo_1.png";
 import "../styles/printAllJobb.css";
 import { SearchHeader } from "./SearchHeader";
 
@@ -54,9 +55,11 @@ export const PrintAllJobs = () => {
                 className="digiLayoutBlock"
               >
                 <div className="job-item-container">
-                  {job.logo_url && (
-                    <img src={job.logo_url} alt={`${job.employer.name} logo`} />
-                  )}
+                  <img
+                    src={job.logo_url || defaultLogo}
+                    alt={`${job.employer.name} logo`}
+                  />
+
                   <div>
                     <h3 className="job-title">
                       <DigiLink
