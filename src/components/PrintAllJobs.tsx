@@ -13,6 +13,7 @@ import {
   LinkVariation,
   LoaderSpinnerSize,
 } from "@digi/arbetsformedlingen";
+import defaultLogo from "../assets/jobbkartan_logo_1.png";
 import "../styles/printAllJobb.css";
 import { SearchHeader } from "./SearchHeader";
 import NavigationPagination from "./NavigationPagination";
@@ -50,7 +51,7 @@ export const PrintAllJobs = () => {
     <>
       <SearchHeader />
       <DigiLayoutContainer>
-        <div style={{ margin: "15px" }}>
+        <div className="job-list-container">
           {jobs.length > 0 ? (
             jobs.map((job) => (
               <DigiLayoutBlock
@@ -59,26 +60,34 @@ export const PrintAllJobs = () => {
                 afContainer={LayoutBlockContainer.FLUID}
                 afMarginBottom={false}
                 className="digiLayoutBlock"
-                style={{ margin: "10px" }}
               >
-                <h3 style={{ paddingTop: "15px" }}>
-                  <DigiLink
-                    afHref={`/#/annonser/${job.id}`}
-                    onClick={scrollToTop}
-                    afVariation={LinkVariation.SMALL}
-                    aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
-                  >
-                    {job.headline}
-                  </DigiLink>
-                </h3>
+                <div className="job-item-container">
+                  <img
+                    src={job.logo_url || defaultLogo}
+                    alt={`${job.employer.name} logo`}
+                  />
 
-                <h4>
-                  {job.employer.name} - {job.workplace_address.municipality}
-                </h4>
-                <p style={{ margin: 0 }}>{job.occupation.label}</p>
-                <p style={{ paddingBottom: "15px" }}>
-                  {formatPublicationDate(job.publication_date)}
-                </p>
+                  <div>
+                    <h3 className="job-title">
+                      <DigiLink
+                        afHref={`/#/annonser/${job.id}`}
+                        onClick={scrollToTop}
+                        afVariation={LinkVariation.SMALL}
+                        aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
+                      >
+                        {job.headline}
+                      </DigiLink>
+                    </h3>
+
+                    <h4>
+                      {job.employer.name} - {job.workplace_address.municipality}
+                    </h4>
+                    <p className="job-occupation">{job.occupation.label}</p>
+                    <p className="job-publication-date">
+                      {formatPublicationDate(job.publication_date)}
+                    </p>
+                  </div>
+                </div>
               </DigiLayoutBlock>
             ))
           ) : (
