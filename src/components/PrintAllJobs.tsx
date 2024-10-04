@@ -54,24 +54,40 @@ export const PrintAllJobs = () => {
                 className="digiLayoutBlock"
                 style={{ margin: "10px" }}
               >
-                <h3 style={{ paddingTop: "15px" }}>
-                  <DigiLink
-                    afHref={`/#/annonser/${job.id}`}
-                    onClick={scrollToTop}
-                    afVariation={LinkVariation.SMALL}
-                    aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
-                  >
-                    {job.headline}
-                  </DigiLink>
-                </h3>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  {job.logo_url && (
+                    <img
+                      src={job.logo_url}
+                      alt={`${job.employer.name} logo`}
+                      style={{
+                        marginRight: "15px",
+                        height: "50px",
+                        width: "50px",
+                        objectFit: "contain",
+                      }}
+                    />
+                  )}
+                  <div>
+                    <h3 style={{ paddingTop: "15px" }}>
+                      <DigiLink
+                        afHref={`/#/annonser/${job.id}`}
+                        onClick={scrollToTop}
+                        afVariation={LinkVariation.SMALL}
+                        aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
+                      >
+                        {job.headline}
+                      </DigiLink>
+                    </h3>
 
-                <h4>
-                  {job.employer.name} - {job.workplace_address.municipality}
-                </h4>
-                <p style={{ margin: 0 }}>{job.occupation.label}</p>
-                <p style={{ paddingBottom: "15px" }}>
-                  {formatPublicationDate(job.publication_date)}
-                </p>
+                    <h4>
+                      {job.employer.name} - {job.workplace_address.municipality}
+                    </h4>
+                    <p style={{ margin: 0 }}>{job.occupation.label}</p>
+                    <p style={{ paddingBottom: "15px" }}>
+                      {formatPublicationDate(job.publication_date)}
+                    </p>
+                  </div>
+                </div>
               </DigiLayoutBlock>
             ))
           ) : (
