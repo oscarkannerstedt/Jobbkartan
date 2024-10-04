@@ -15,26 +15,33 @@ import {
 } from "@digi/arbetsformedlingen";
 import "../styles/printAllJobb.css";
 import { SearchHeader } from "./SearchHeader";
+import NavigationPagination from "./NavigationPagination";
+import usePagination from "../hooks/usePagination";
 
 export const PrintAllJobs = () => {
+  const itemsPerPage = 5;
+  const {
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    loading: paginationLoading,
+  } = usePagination(itemsPerPage);
+
   const context = useContext(jobContext);
 
   if (!context) return <p>Laddar...</p>;
-
-  const { jobs, loading } = context;
+  const { jobs, loading: contextLoading } = context;
 
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
 
   // show loader if loading is true
-  if (loading) {
+  if (!jobs) return <p>Laddar...</p>;
+  if (contextLoading || paginationLoading) {
     return (
       <div className="spinner-container">
-        <DigiLoaderSpinner
-          afSize={LoaderSpinnerSize.LARGE}
-          afText="Laddar"
-        ></DigiLoaderSpinner>{" "}
+        <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE} afText="Laddar" />
       </div>
     );
   }
@@ -79,6 +86,12 @@ export const PrintAllJobs = () => {
           )}
         </div>
       </DigiLayoutContainer>
+      <NavigationPagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+        afTotalResult={jobs.length}
+      />
     </>
   );
 };
