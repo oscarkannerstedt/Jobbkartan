@@ -10,7 +10,12 @@ const BackButton = () => {
 
   return (
     <>
-      <DigiButton afSize="medium" afVariation="primary" onClick={handleGoBack}>
+      <DigiButton
+        afSize="medium"
+        afVariation="primary"
+        onClick={handleGoBack}
+        afId="back-button"
+      >
         <DigiIconArrowLeft slot="icon" />
         Tillbaka
       </DigiButton>
