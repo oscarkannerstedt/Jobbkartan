@@ -1,15 +1,39 @@
 @import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css";
 @import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css";
-@import "styles/selectedJob.css"; 
+@import "styles/selectedJob.css";
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+
+  --digi--color--border--secondary: #2e0249;
+  --digi--color--background--inverted-1: linear-gradient(
+    180deg,
+    #2e0249 0%,
+    #2e0249 60%,
+    #6a0dad 80%,
+    #7a00b9 100%
+  );
+}
 
 .digi-logo__img {
-	background-image: url("./assets/jobbkartan_logo_1.png");
-	background-size: contain;
-	background-repeat: no-repeat;
-	width: 50px;
-	height: 50px;
+  background-image: url("./assets/jobbkartan_logo_1.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
 }
 
 .digi-logo svg {
-	display: none;
+  display: none;
 }
+
+/* --digi--color--background--inverted-1: linear-gradient(
+	  180deg,
+	  #2e0249 0%,
+	  #6a0dad 35%,
+	  #7a00b9 100%
+	) !important; */
+
+/* --COLOR--BACKGROUND--DEFAULT: #2196f3 !important; */
