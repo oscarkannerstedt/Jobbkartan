@@ -3,7 +3,11 @@ import { IJob } from "../models/IJob";
 
 interface IJobSContextType {
   jobs: IJob[];
-  fetchJobs: (searchTerm?: string) => Promise<void>;
+  fetchJobs: (
+    searchTerm?: string,
+    offset?: number,
+    limit?: number
+  ) => Promise<IJob[]>;
   loading: boolean;
 }
 
