@@ -25,6 +25,7 @@ import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate"
 import ApplyNowInfo from "./ApplyNowInfo";
 import QualificationsWindow from "./QualificationsWindow";
 import LogoComponent from "./LogoComponent";
+import { JobMap } from "./JobMap";
 export interface IShowJobProps {
   job: IJob;
 }
@@ -134,7 +135,9 @@ const ShowJob = ({ job }: IShowJobProps) => {
         afContainer={LayoutBlockContainer.STATIC}
         className="map-container"
       >
-        <h2>En karta här</h2>
+        <div>
+          <JobMap jobId={job.id}></JobMap>
+        </div>
         <DigiInfoCard
           afHeading="Sök jobbet"
           afHeadingLevel={InfoCardHeadingLevel.H2}
