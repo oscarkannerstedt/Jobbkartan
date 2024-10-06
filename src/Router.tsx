@@ -3,7 +3,7 @@ import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import SearchResults from "./pages/SearchResults";
 import SelectedJob from "./pages/SelectedJob";
-import NotFound from "./components/NotFound"; // NotFound-komponent
+import NotFound from "./components/NotFound"; // NotFound-component
 
 export const router = createHashRouter([
 	{
@@ -22,10 +22,10 @@ export const router = createHashRouter([
 				path: "/annonser/:id",
 				element: <SelectedJob />,
 			},
-			// Catch-all route för alla icke-matchande rutter
+			// Catch-all route for all non matching routes
 			{
 				path: "*",
-				element: <NotFound />, // Laddar NotFound-komponent om ingen annan route matchar
+				element: <NotFound />, // Loads NotFound-component if no other route matches
 			},
 		],
 	},
