@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   LayoutBlockVariation,
   LayoutBlockContainer,
@@ -8,17 +8,35 @@ import {
   DigiLayoutContainer,
   DigiLayoutBlock,
   DigiLink,
+  DigiNavigationPagination,
 } from "@digi/arbetsformedlingen-react";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import { jobContext } from "../services/jobContext";
 import { SearchHeader } from "../components/SearchHeader";
 import defaultLogo from "../assets/jobbkartan_logo_1.png";
 import "../styles/searchResults.css";
+import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 
 export const SearchResults = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const context = useContext(jobContext);
 
   if (!context) return <p>Laddar...</p>;
+  const jobs = context.jobs;
+
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+  const limit = 10;
+  const totalPages = Math.ceil(jobs.length / limit);
+  const start = (currentPage - 1) * limit;
+  const end = start + limit;
+
+  const handlePageChange = (e: DigiNavigationPaginationCustomEvent<number>) => {
+    const pageNumber = e.detail;
+    setCurrentPage(pageNumber);
+    scrollToTop();
+  };
 
   return (
     <>
@@ -26,7 +44,7 @@ export const SearchResults = () => {
       <DigiLayoutContainer>
         <div className="job-list-container">
           {context.jobs.length > 0 ? (
-            context.jobs.map((job) => (
+            jobs.slice(start, end).map((job) => (
               <DigiLayoutBlock
                 key={job.id}
                 afVariation={LayoutBlockVariation.PRIMARY}
@@ -65,6 +83,15 @@ export const SearchResults = () => {
             <p>Inga jobb tillgängliga...</p>
           )}
         </div>
+        <DigiNavigationPagination
+          afTotalPages={totalPages}
+          afInitActivePage={currentPage}
+          onAfOnPageChange={handlePageChange}
+          af-total-results={jobs.length}
+          af-current-result-start={start + 1}
+          afCurrentResultEnd={Math.min(end, jobs.length)}
+          afResultName="annonser"
+        />
       </DigiLayoutContainer>
     </>
   );
