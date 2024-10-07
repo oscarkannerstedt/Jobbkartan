@@ -10,7 +10,7 @@ export const get = async <T>(url: string) => {
 
 //get all jobs
 export const fetchAllJobs = async (
-  offset: number = 0,
+  offset: number,
   limit: number = 25
 ): Promise<IJobs> => {
   try {
@@ -32,7 +32,7 @@ export const fetchAllJobs = async (
 //get jobs from specific search term
 export const fetchJobsBySearchTerm = async (
   searchTerm: string,
-  offset: number = 0,
+  offset: number,
   limit: number = 25
 ): Promise<IJobs> => {
   try {
