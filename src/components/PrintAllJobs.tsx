@@ -74,7 +74,7 @@ export const PrintAllJobs = () => {
                     alt={`${job.employer.name} logo`}
                   />
 
-                  <div>
+                  <div className="text-container">
                     <h3 className="job-title">
                       <DigiLink
                         afHref={`/#/annonser/${job.id}`}
