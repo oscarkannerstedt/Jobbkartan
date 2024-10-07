@@ -5,7 +5,6 @@ body {
 .job-list-container {
   display: flex;
   flex-direction: column;
-  margin: 15px;
 }
 
 .job-item-container {
@@ -19,35 +18,11 @@ body {
   max-width: 100%;
 }
 
-.text-container {
-  max-width: 100%;
-}
-
 .job-item-container img {
   margin-right: 15px;
   height: 60px;
   width: 60px;
   object-fit: contain;
-}
-
-.job-title {
-  padding-top: 15px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-  flex-grow: 1;
-}
-
-h4 {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
-
-p {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
 }
 
 .job-occupation {
@@ -78,11 +53,9 @@ p {
   .job-list-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-    margin: 15px;
   }
 
   .job-item-container {
-    align-items: start;
     min-height: 250px;
     word-wrap: break-word;
     overflow-wrap: break-word;
