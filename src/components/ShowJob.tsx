@@ -35,6 +35,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
     job.workplace_address || {};
   const context = useContext(ScreenSizeContext);
   const daysLeft = calculateDaysLeftToDeadline(job.application_deadline);
+  const ZoomLevel = 12;
 
   if (!context) {
     throw new Error("SomeComponent must be used within a ScreenSizeProvider");
@@ -136,7 +137,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
         className="map-container"
       >
         <div>
-          <JobMap jobId={job.id}></JobMap>
+          <JobMap jobId={job.id} zoomLevel={ZoomLevel}></JobMap>
         </div>
         <DigiInfoCard
           afHeading="Sök jobbet"
