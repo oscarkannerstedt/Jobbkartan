@@ -3,6 +3,8 @@ import {
   FormInputType,
   LayoutBlockContainer,
   LayoutBlockVariation,
+  LayoutColumnsElement,
+  LayoutColumnsVariation,
 } from "@digi/arbetsformedlingen";
 import {
   DigiFormInputSearch,
@@ -16,10 +18,19 @@ import { DigiFormInputSearchCustomEvent } from "@digi/arbetsformedlingen/dist/ty
 import { jobContext } from "../services/jobContext";
 import { useContext } from "react";
 import { JobMap } from "./JobMap";
+import ScreenSizeContext from "../contexts/ScreenSizeContext";
 
 export const SearchHeader = () => {
   const navigate = useNavigate();
   const context = useContext(jobContext);
+
+  const sizeContext = useContext(ScreenSizeContext);
+
+  if (!sizeContext) {
+    throw new Error("SomeComponent must be used within a ScreenSizeProvider");
+  }
+
+  const { isDesktop } = sizeContext;
 
   const handleSearchSubmit = async (
     event: DigiFormInputSearchCustomEvent<string>
@@ -39,30 +50,44 @@ export const SearchHeader = () => {
         afVariation={LayoutBlockVariation.TRANSPARENT}
         afContainer={LayoutBlockContainer.FLUID}
       >
-        <div className="container-left-search-header">
-          <DigiLayoutColumns style={{ outerHeight: "100%" }}>
-            <DigiLayoutContainer className="container-content">
-              <DigiLayoutContainer className="heading-search-bar">
-                <h1 className="search-bar-heading">Jobbkartan</h1>
-                <p className="search-bar-text">Lediga jobb för hela sverige</p>
-              </DigiLayoutContainer>
-              <DigiFormInputSearch
-                afLabel="Sök på ett eller flera ord"
-                afVariation={FormInputSearchVariation.MEDIUM}
-                afType={FormInputType.SEARCH}
-                afButtonText="Sök"
-                afLabelDescription="Skriv t.e.x frontend örebro"
-                onAfOnSubmitSearch={handleSearchSubmit}
-                id="search"
-              ></DigiFormInputSearch>
-            </DigiLayoutContainer>
-            <DigiLayoutContainer style={{ outerHeight: "100%" }}>
-              <div style={{ width: "100%", height: "100%", marginTop: 20 }}>
-                <JobMap></JobMap>
-              </div>
-            </DigiLayoutContainer>
-          </DigiLayoutColumns>
-        </div>
+        {/* <div className="container-left-search-header"> */}
+        <DigiLayoutColumns
+          afElement={LayoutColumnsElement.DIV}
+          afVariation={LayoutColumnsVariation.TWO}
+          // style={{ outerHeight: "100%" }}
+        >
+          <DigiLayoutContainer className="container-content">
+            {/* <DigiLayoutContainer className="heading-search-bar"> */}
+            <h1 className="search-bar-heading">Jobbkartan</h1>
+            <p className="search-bar-text">Lediga jobb för hela sverige</p>
+            {/* </DigiLayoutContainer> */}
+            <DigiFormInputSearch
+              afLabel="Sök på ett eller flera ord"
+              afVariation={FormInputSearchVariation.MEDIUM}
+              afType={FormInputType.SEARCH}
+              afButtonText="Sök"
+              afLabelDescription="Skriv t.e.x frontend örebro"
+              onAfOnSubmitSearch={handleSearchSubmit}
+              id="search"
+            ></DigiFormInputSearch>
+          </DigiLayoutContainer>
+          <DigiLayoutContainer
+            style={{ outerHeight: "100%" }}
+            className="map-container"
+          >
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                marginTop: 20,
+                marginBottom: 20,
+              }}
+            >
+              <JobMap></JobMap>
+            </div>
+          </DigiLayoutContainer>
+        </DigiLayoutColumns>
+        {/* </div> */}
       </DigiLayoutBlock>
     </div>
   );
