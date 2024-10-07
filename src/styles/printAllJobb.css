@@ -3,12 +3,15 @@ body {
 }
 
 .job-list-container {
+  display: flex;
+  flex-direction: column;
   margin: 15px;
 }
 
 .job-item-container {
   display: flex;
   align-items: center;
+  word-wrap: break-word;
 }
 
 .job-item-container img {
@@ -20,6 +23,18 @@ body {
 
 .job-title {
   padding-top: 15px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+h4 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .job-occupation {
@@ -44,4 +59,17 @@ body {
 
 .spinner-container .digi-loader-spinner {
   margin-top: -100px;
+}
+
+@media (min-width: 992px) {
+  .job-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    margin: 15px;
+  }
+
+  .job-item-container {
+    align-items: start;
+    min-height: 250px;
+  }
 }
