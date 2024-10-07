@@ -42,7 +42,8 @@ const ShowJob = ({ job }: IShowJobProps) => {
   }
   const { isDesktop } = context;
 
-  const renderJobDetails = () => (
+  const renderJobDetails = () => {
+    if (job !== undefined) return (
     <>
       <DigiLayoutBlock
         afVariation={LayoutBlockVariation.PRIMARY}
@@ -137,7 +138,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
         className="map-container"
       >
         <div>
-          <JobMap jobId={job.id} zoomLevel={ZoomLevel}></JobMap>
+          <JobMap jobId={job.id} zoomLevel={ZoomLevel} detailView={true}></JobMap>
         </div>
         <DigiInfoCard
           afHeading="Sök jobbet"
@@ -168,7 +169,8 @@ const ShowJob = ({ job }: IShowJobProps) => {
         </DigiInfoCard>
       </DigiLayoutBlock>
     </>
-  );
+  )
+}
 
   return (
     <>
