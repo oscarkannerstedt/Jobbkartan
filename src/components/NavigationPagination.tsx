@@ -14,7 +14,7 @@ const NavigationPagination = ({
   afTotalResult,
   onPageChange,
 }: IPaginationProps) => {
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const afCurrentResultStart = (currentPage - 1) * itemsPerPage + 1;
   const afCurrentResultEnd = Math.min(
     currentPage * itemsPerPage,
