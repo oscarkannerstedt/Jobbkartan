@@ -30,7 +30,7 @@ export const PrintAllJobs = () => {
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
-  const limit = 5;
+  const limit = 10;
   const totalPages = Math.ceil(jobs.length / limit);
   const start = (currentPage - 1) * limit;
   const end = start + limit;
@@ -60,7 +60,7 @@ export const PrintAllJobs = () => {
       <DigiLayoutContainer>
         <div className="job-list-container">
           {jobs.length > 0 ? (
-            jobs.map((job) => (
+            jobs.slice(start, end).map((job) => (
               <DigiLayoutBlock
                 key={job.id}
                 afVariation={LayoutBlockVariation.PRIMARY}
