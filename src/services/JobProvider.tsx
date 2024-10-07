@@ -1,38 +1,39 @@
-import { useEffect, useState } from 'react';
-import { IJob } from '../models/IJob';
-import { fetchAllJobs, fetchJobsBySearchTerm } from './baseService';
-import { jobContext } from './jobContext';
+import { useCallback, useEffect, useState } from "react";
+import { IJob } from "../models/IJob";
+import { fetchAllJobs, fetchJobsBySearchTerm } from "./baseService";
+import { jobContext } from "./jobContext";
 
 export const JobProvider = ({ children }: { children: React.ReactNode }) => {
-	const [jobs, setJobs] = useState<IJob[]>([]);
-	const [loading, setLoading] = useState<boolean>(false); // Ny loading-state
+  const [jobs, setJobs] = useState<IJob[]>([]);
+  const [loading, setLoading] = useState<boolean>(false); // Ny loading-state
 
-	const fetchJobs = async (term: string = '') => {
-		setLoading(true); // Startar loadern
-		try {
-			let fetchedJobs;
-			if (term) {
-				fetchedJobs = await fetchJobsBySearchTerm(term);
-			} else {
-				fetchedJobs = await fetchAllJobs();
-			}
-			setJobs(fetchedJobs.hits);
+  const fetchJobs = useCallback(
+    async (term: string = "", offset: number = 0, limit: number = 50) => {
+      setLoading(true);
+      try {
+        const fetchedJobs = term
+          ? await fetchJobsBySearchTerm(term, offset, limit)
+          : await fetchAllJobs(offset, limit);
 
-			console.log('fetched jobs', fetchedJobs.hits);
-		} catch (error) {
-			console.error('Error fetching jobs: ', error);
-		} finally {
-			setLoading(false); // Stänger av loadern när datan har laddats
-		}
-	};
+        setJobs(fetchedJobs.hits);
+        return fetchedJobs.hits;
+      } catch (error) {
+        console.error("Error fetching jobs: ", error);
+        return [];
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
 
-	useEffect(() => {
-		fetchJobs();
-	}, []);
+  useEffect(() => {
+    fetchJobs();
+  }, [fetchJobs]);
 
-	return (
-		<jobContext.Provider value={{ jobs, fetchJobs, loading }}>
-			{children}
-		</jobContext.Provider>
-	);
+  return (
+    <jobContext.Provider value={{ jobs, fetchJobs, loading }}>
+      {children}
+    </jobContext.Provider>
+  );
 };

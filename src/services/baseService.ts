@@ -9,12 +9,15 @@ export const get = async <T>(url: string) => {
 };
 
 //get all jobs
-export const fetchAllJobs = async (): Promise<IJobs> => {
+export const fetchAllJobs = async (
+  offset: number,
+  limit: number = 50
+): Promise<IJobs> => {
   try {
     const response = await axios.get<IJobs>(BASE_URL, {
       params: {
-        offset: 0,
-        limit: 25,
+        offset,
+        limit,
         q: "",
       },
     });
@@ -28,13 +31,15 @@ export const fetchAllJobs = async (): Promise<IJobs> => {
 
 //get jobs from specific search term
 export const fetchJobsBySearchTerm = async (
-  searchTerm: string
+  searchTerm: string,
+  offset: number,
+  limit: number = 50
 ): Promise<IJobs> => {
   try {
     const response = await axios.get<IJobs>(BASE_URL, {
       params: {
-        offset: 0,
-        limit: 25,
+        offset,
+        limit,
         q: searchTerm,
       },
     });
