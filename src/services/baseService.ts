@@ -11,7 +11,7 @@ export const get = async <T>(url: string) => {
 //get all jobs
 export const fetchAllJobs = async (
   offset: number,
-  limit: number = 25
+  limit: number = 50
 ): Promise<IJobs> => {
   try {
     const response = await axios.get<IJobs>(BASE_URL, {
@@ -33,7 +33,7 @@ export const fetchAllJobs = async (
 export const fetchJobsBySearchTerm = async (
   searchTerm: string,
   offset: number,
-  limit: number = 25
+  limit: number = 50
 ): Promise<IJobs> => {
   try {
     const response = await axios.get<IJobs>(BASE_URL, {
