@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { jobContext } from "../services/jobContext";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import {
@@ -6,6 +6,7 @@ import {
   DigiLayoutContainer,
   DigiLink,
   DigiLoaderSpinner,
+  DigiNavigationPagination,
 } from "@digi/arbetsformedlingen-react";
 import {
   LayoutBlockContainer,
@@ -16,26 +17,39 @@ import {
 import defaultLogo from "../assets/jobbkartan_logo_1.png";
 import "../styles/printAllJobb.css";
 import { SearchHeader } from "./SearchHeader";
+import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 
 export const PrintAllJobs = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const context = useContext(jobContext);
 
   if (!context) return <p>Laddar...</p>;
-
   const { jobs, loading } = context;
 
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
+  const limit = 10;
+  const totalPages = Math.ceil(jobs.length / limit);
+  const start = (currentPage - 1) * limit;
+  const end = start + limit;
+
+  const handlePageChange = (e: DigiNavigationPaginationCustomEvent<number>) => {
+    const pageNumber = e.detail;
+    setCurrentPage(pageNumber);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   // show loader if loading is true
+  if (!jobs) return <p>Laddar...</p>;
   if (loading) {
     return (
       <div className="spinner-container">
-        <DigiLoaderSpinner
-          afSize={LoaderSpinnerSize.LARGE}
-          afText="Laddar"
-        ></DigiLoaderSpinner>{" "}
+        <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE} afText="Laddar" />
       </div>
     );
   }
@@ -46,7 +60,7 @@ export const PrintAllJobs = () => {
       <DigiLayoutContainer>
         <div className="job-list-container">
           {jobs.length > 0 ? (
-            jobs.map((job) => (
+            jobs.slice(start, end).map((job) => (
               <DigiLayoutBlock
                 key={job.id}
                 afVariation={LayoutBlockVariation.PRIMARY}
@@ -87,6 +101,16 @@ export const PrintAllJobs = () => {
             <p>Inga jobb tillgängliga...</p>
           )}
         </div>
+
+        <DigiNavigationPagination
+          afTotalPages={totalPages}
+          afInitActivePage={currentPage}
+          onAfOnPageChange={handlePageChange}
+          af-total-results={jobs.length}
+          af-current-result-start={start + 1}
+          afCurrentResultEnd={Math.min(end, jobs.length)}
+          afResultName="annonser"
+        />
       </DigiLayoutContainer>
     </>
   );
