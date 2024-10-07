@@ -8,13 +8,15 @@ import { getJobLocation } from '../utils/jobUtils';
 
 interface JobMapProps {
 	jobId?: string;
+	zoomLevel?: number;
 }
 
-export const JobMap = ({ jobId }: JobMapProps) => {
+export const JobMap = ({ jobId, zoomLevel }: JobMapProps) => {
 	const { jobs } = useJobs();
 	const [jobLocations, setJobLocations] = useState<JobInfoWindow[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
+	const [mapCenter, setMapCenter]= useState<{ lat: number, lng: number}>({ lat: 62.23150, lng: 16.19320 });
 
 	useEffect(() => {
 		const fetchJobLocations = async () => {
@@ -59,7 +61,19 @@ export const JobMap = ({ jobId }: JobMapProps) => {
 		fetchJobLocations();
 	}, [jobs, jobId]);
 
-	const center = calculateCenter(jobLocations);
+	useEffect(() => {
+		if (jobLocations.length > 0) {
+			if (jobLocations.length === 1) {
+				const singleLocation = jobLocations[0].coordinates;
+				setMapCenter({ lat: singleLocation.lat, lng: singleLocation.lng });
+			} else {
+			const center = calculateCenter(jobLocations);
+			setMapCenter(center);
+			}
+		} else {
+			setMapCenter({ lat: 62.23150, lng: 16.19320 });
+		}
+	}, [jobLocations]);
 
 	return (
 		<>
@@ -67,8 +81,8 @@ export const JobMap = ({ jobId }: JobMapProps) => {
 			{error && <div>Error: {error}</div>}
 			<Map
 				style={{ width: 500, height: 500 }}
-				defaultZoom={5}
-				defaultCenter={center}
+				defaultZoom={zoomLevel}
+				defaultCenter={mapCenter}
 				mapId='b541ec0a861d850'
 				onCameraChanged={(ev: MapCameraChangedEvent) =>
 					console.log(
