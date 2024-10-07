@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { jobContext } from "../services/jobContext";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import {
@@ -21,6 +21,7 @@ import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/di
 
 export const PrintAllJobs = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const layoutBlockRef = useRef<HTMLDivElement>(null);
 
   const context = useContext(jobContext);
 
@@ -35,13 +36,19 @@ export const PrintAllJobs = () => {
   const start = (currentPage - 1) * limit;
   const end = start + limit;
 
+  const scrollToBlockTop = () => {
+    if (layoutBlockRef.current) {
+      layoutBlockRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   const handlePageChange = (e: DigiNavigationPaginationCustomEvent<number>) => {
     const pageNumber = e.detail;
     setCurrentPage(pageNumber);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    scrollToBlockTop();
   };
 
   // show loader if loading is true
@@ -58,7 +65,7 @@ export const PrintAllJobs = () => {
     <>
       <SearchHeader />
       <DigiLayoutContainer>
-        <div className="job-list-container">
+        <div className="job-list-container" ref={layoutBlockRef}>
           {jobs.length > 0 ? (
             jobs.slice(start, end).map((job) => (
               <DigiLayoutBlock
@@ -74,7 +81,7 @@ export const PrintAllJobs = () => {
                     alt={`${job.employer.name} logo`}
                   />
 
-                  <div>
+                  <div className="text-container">
                     <h3 className="job-title">
                       <DigiLink
                         afHref={`/#/annonser/${job.id}`}

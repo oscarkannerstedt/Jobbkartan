@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef, useState } from "react";
 import {
   LayoutBlockVariation,
   LayoutBlockContainer,
@@ -8,25 +8,50 @@ import {
   DigiLayoutContainer,
   DigiLayoutBlock,
   DigiLink,
+  DigiNavigationPagination,
 } from "@digi/arbetsformedlingen-react";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import { jobContext } from "../services/jobContext";
 import { SearchHeader } from "../components/SearchHeader";
 import defaultLogo from "../assets/jobbkartan_logo_1.png";
 import "../styles/searchResults.css";
+import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 
 export const SearchResults = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const context = useContext(jobContext);
+  const layoutBlockRef = useRef<HTMLDivElement>(null);
 
   if (!context) return <p>Laddar...</p>;
+  const jobs = context.jobs;
+
+  const limit = 10;
+  const totalPages = Math.ceil(jobs.length / limit);
+  const start = (currentPage - 1) * limit;
+  const end = start + limit;
+
+  const scrollToBlockTop = () => {
+    if (layoutBlockRef.current) {
+      layoutBlockRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  const handlePageChange = (e: DigiNavigationPaginationCustomEvent<number>) => {
+    const pageNumber = e.detail;
+    setCurrentPage(pageNumber);
+    scrollToBlockTop();
+  };
 
   return (
     <>
       <SearchHeader />
       <DigiLayoutContainer>
-        <div className="job-list-container">
+        <div className="job-list-container" ref={layoutBlockRef}>
           {context.jobs.length > 0 ? (
-            context.jobs.map((job) => (
+            jobs.slice(start, end).map((job) => (
               <DigiLayoutBlock
                 key={job.id}
                 afVariation={LayoutBlockVariation.PRIMARY}
@@ -39,7 +64,7 @@ export const SearchResults = () => {
                     src={job.logo_url || defaultLogo}
                     alt={`${job.employer.name} logo`}
                   />
-                  <div>
+                  <div className="text-container">
                     <h3 className="job-title">
                       <DigiLink
                         afHref={`/#/annonser/${job.id}`}
@@ -65,6 +90,15 @@ export const SearchResults = () => {
             <p>Inga jobb tillgängliga...</p>
           )}
         </div>
+        <DigiNavigationPagination
+          afTotalPages={totalPages}
+          afInitActivePage={currentPage}
+          onAfOnPageChange={handlePageChange}
+          af-total-results={jobs.length}
+          af-current-result-start={start + 1}
+          afCurrentResultEnd={Math.min(end, jobs.length)}
+          afResultName="annonser"
+        />
       </DigiLayoutContainer>
     </>
   );
