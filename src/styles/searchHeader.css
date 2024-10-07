@@ -6,6 +6,13 @@
     #6a0dad 80%,
     #7a00b9 100%
   );
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.desktop-layout {
+  display: flex;
+  flex-direction: row;
 }
 
 .container-content {
@@ -15,10 +22,20 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  /* max-width: 800px; */
   text-align: center;
   color: white;
   max-width: 300px;
   margin: 0 auto;
+}
+
+.map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  margin-top: 20px;
 }
 
 #search {
@@ -38,12 +55,6 @@
   background-color: #00cccc;
 }
 
-/* .container-left-search-header .sc-digi-layout-container-h {
-  display: flex;
-  color: white;
-  --digi--layout-container--margin-bottom: 20px !important;
-} */
-
 .sc-digi-form-label-h .digi-form-label.sc-digi-form-label {
   color: white;
 }
@@ -57,20 +68,12 @@
   margin-top: 0;
 }
 
-.map-container {
-  width: 100%; /* Se till att den tar upp hela bredden */
-  height: auto; /* Höjden justeras automatiskt */
-  margin-top: 20px; /* Om du vill ha lite avstånd från input-fältet */
-}
+@media screen and (max-width: 768px) {
+  .desktop-layout {
+    flex-direction: column;
+  }
 
-/* @media screen and (min-width: 992px) {
-  .container-left-search-header .sc-digi-layout-container-h {
-    max-width: 50%;
-    display: flex; */
-/* align-items: center; */
-/* justify-content: space-between; */
-/* color: white; */
-/* --digi--layout-container--margin-top: 40px !important; */
-/* --digi--layout-container--margin-bottom: 40px !important; */
-/* }
-} */
+  .map-container {
+    height: 200px;
+  }
+}
