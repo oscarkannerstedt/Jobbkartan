@@ -48,6 +48,8 @@ export const SearchResults = () => {
     scrollToBlockTop();
   };
 
+  console.log("Current Page:", currentPage);
+
   return (
     <>
       <SearchHeader />
