@@ -86,7 +86,7 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 			{loading && <div>Loading...</div>}
 			{error && <div>Error: {error}</div>}
 			<Map
-				style={{ width: 500, height: 500 }}
+				style={{ width: '100%', height: '100%' }}
 				defaultZoom={zoomLevel}
 				defaultCenter={mapCenter}
 				mapId='b541ec0a861d850'

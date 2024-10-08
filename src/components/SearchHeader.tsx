@@ -57,8 +57,8 @@ export const SearchHeader = () => {
                 id="search"
               ></DigiFormInputSearch>
             </DigiLayoutContainer>
-            <DigiLayoutContainer style={{ outerHeight: "100%" }}>
-              <div style={{ width: "100%", height: "100%", marginTop: 20 }}>
+            <DigiLayoutContainer className='map-outer-container'>
+              <div className="map-container">
                 <JobMap zoomLevel={zoomLevel} ></JobMap>
               </div>
             </DigiLayoutContainer>
