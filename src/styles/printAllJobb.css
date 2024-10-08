@@ -52,11 +52,11 @@ body {
 @media (min-width: 992px) {
   .job-list-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
   }
 
   .job-item-container {
-    min-height: 250px;
+    min-height: 260px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: normal;
