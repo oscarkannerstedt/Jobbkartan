@@ -1,32 +1,34 @@
-import { APIProvider } from '@vis.gl/react-google-maps';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './Router';
+import { APIProvider } from "@vis.gl/react-google-maps";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Router";
 // import { JobMap } from './components/JobMap';
+import { JobProvider } from "./services/JobProvider";
+import ScreenSizeProvider from "./services/ScreenSizeProvider";
+import { DigiTypography } from "@digi/arbetsformedlingen-react";
+import { PaginationProvider } from "./services/PaginationProvider";
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-import { JobProvider } from './services/JobProvider';
-import ScreenSizeProvider from './services/ScreenSizeProvider';
-import { DigiTypography } from '@digi/arbetsformedlingen-react';
-
 function App() {
-	return (
-		<>
-			<DigiTypography>
-				<ScreenSizeProvider>
-					<JobProvider>
-						<APIProvider
-							apiKey={apiKey}
-							onLoad={() => console.log('Maps API has loaded.')}
-						>
-							{/* <JobMap></JobMap> */}
-							<RouterProvider router={router}></RouterProvider>
-						</APIProvider>
-					</JobProvider>
-				</ScreenSizeProvider>
-			</DigiTypography>
-		</>
-	);
+  return (
+    <>
+      <DigiTypography>
+        <PaginationProvider>
+          <ScreenSizeProvider>
+            <JobProvider>
+              <APIProvider
+                apiKey={apiKey}
+                onLoad={() => console.log("Maps API has loaded.")}
+              >
+                {/* <JobMap></JobMap> */}
+                <RouterProvider router={router}></RouterProvider>
+              </APIProvider>
+            </JobProvider>
+          </ScreenSizeProvider>
+        </PaginationProvider>
+      </DigiTypography>
+    </>
+  );
 }
 
 export default App;

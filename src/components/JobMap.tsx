@@ -4,18 +4,20 @@ import { PoiMarkers } from './PoiMarkers';
 import { JobInfoWindow } from '../models/JobInfoWindow';
 import { calculateCenter } from '../utils/calculateCenter';
 import { useEffect, useState } from 'react';
-import { geocodeAddress } from '../services/geocodeService';
-import { IJob } from '../models/IJob';
+import { getJobLocation } from '../utils/jobUtils';
 
-interface JobMapProps {
+interface IJobMapProps {
 	jobId?: string;
+	zoomLevel?: number;
+	detailView?: boolean;
 }
 
-export const JobMap = ({ jobId }: JobMapProps) => {
+export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 	const { jobs } = useJobs();
 	const [jobLocations, setJobLocations] = useState<JobInfoWindow[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
+	const [mapCenter, setMapCenter]= useState<{ lat: number, lng: number}>({ lat: 62.23150, lng: 16.19320});
 
 	useEffect(() => {
 		const fetchJobLocations = async () => {
@@ -34,138 +36,74 @@ export const JobMap = ({ jobId }: JobMapProps) => {
 					return;
 				}
 			}
+			try {
+				const locations = await Promise.all(
+					selectedJobs.map(async (job) => await getJobLocation(job))
+				);
 
-			const locations = await Promise.all(
-				selectedJobs.map(async (job) => await getJobLocation(job))
-			);
+				const validLocations = locations.filter(
+					(location): location is JobInfoWindow =>
+						location !== null &&
+						location.coordinates.lat !== 0 &&
+						location.coordinates.lng !== 0
+				);
 
-			const validLocations = locations.filter(
-				(location): location is JobInfoWindow =>
-					location !== null &&
-					location.coordinates.lat !== 0 &&
-					location.coordinates.lng !== 0
-			);
+				console.log('Valid Locations:', validLocations);
 
-			console.log('Valid Locations:', validLocations);
-
-			setJobLocations(validLocations);
-			setLoading(false);
+				setJobLocations(validLocations);
+			} catch (err) {
+				console.error('Error fetching job locations:', err);
+				setError('Failed to fetch job locations.');
+			} finally {
+				setLoading(false);
+			}
 		};
 
 		fetchJobLocations();
 	}, [jobs, jobId]);
 
-	const getJobLocation = async (job: IJob): Promise<JobInfoWindow | null> => {
-		const {
-			street_address: streetAddress,
-			city,
-			coordinates,
-		} = job.workplace_address;
-
-		const logoUrl = job.logo_url;
-
-		if (coordinates && coordinates.length === 2) {
-			const lat = Number(coordinates[1]);
-			const lng = Number(coordinates[0]);
-			if (lat !== 0 && lng !== 0) {
-				console.log(
-					`Using existing coordinates for job ID ${job.id}:`,
-					coordinates
-				);
-
-				return {
-					id: job.id,
-					logo: logoUrl || '', // add fallback?
-					headline: job.headline,
-					employerName: job.employer.name,
-					address: streetAddress,
-					city: city,
-					coordinates: {
-						lat: lat,
-						lng: lng,
-					},
-				};
+	useEffect(() => {
+		console.log("vi har ett antal joblocations", jobLocations.length);
+		if (jobLocations.length > 0) {
+			if (jobLocations.length === 1) {
+				const singleLocation = jobLocations[0].coordinates;
+				console.log("längden är ett", singleLocation.lat + ": " + singleLocation.lng);
+				setMapCenter({ lat: singleLocation.lat, lng: singleLocation.lng });
 			} else {
-				console.warn(
-					`Invalid coordinates for job ID ${job.id}: lat=${lat}, lng=${lng}`
-				);
-				return null;
+				console.log("vi hade flere än en");
+			const center = calculateCenter(jobLocations);
+			setMapCenter(center);
 			}
+		} else {
+			console.log("längden var mindre än 1, vi kör defaulten");
+			setMapCenter({ lat: 62.23150, lng: 16.19320 });
 		}
-
-		if (!streetAddress || !city) {
-			console.warn(
-				`Invalid address for job ID ${job.id}: streetAddress or city is missing.`
-			);
-			return null;
-		}
-
-		// NECCESSARY?
-		// Geocoding fallback if no coords, but street and city
-		try {
-			const location = await geocodeAddress(`${streetAddress}, ${city}`);
-
-			if (!location) {
-				console.warn(
-					`No valid address found for ${streetAddress}, ${city}`
-				);
-				return null;
-			}
-
-			const lat = location.lat();
-			const lng = location.lng();
-			console.log(
-				`Geocoded ${streetAddress}, ${city} to coordinates: lat=${lat}, lng=${lng}`
-			);
-
-			if (lat !== 0 && lng !== 0) {
-				return {
-					id: job.id,
-					logo: logoUrl || '', // add fallback?
-					headline: job.headline,
-					employerName: job.employer.name,
-					address: streetAddress,
-					city: city,
-					coordinates: {
-						lat: lat, // location.lat(),
-						lng: lng, // location.lng(),
-					},
-				};
-			} else {
-				console.warn(
-					`Geocoding returned invalid coordinates for ${streetAddress}, ${city}: lat=${lat}, lng=${lng}`
-				);
-				return null;
-			}
-		} catch (error) {
-			console.error('Geocode failed for address:', streetAddress, error);
-			setError(`Geocode failed for address: ${streetAddress}`);
-			return null;
-		}
-	};
-
-	const center = calculateCenter(jobLocations);
+	}, [jobLocations]);
 
 	return (
 		<>
 			{loading && <div>Loading...</div>}
 			{error && <div>Error: {error}</div>}
 			<Map
-				style={{ width: 500, height: 500 }}
-				defaultZoom={5}
-				defaultCenter={center}
+				style={{ width: '100%', height: '100%' }}
+				defaultZoom={zoomLevel}
+				defaultCenter={mapCenter}
 				mapId='b541ec0a861d850'
-				onCameraChanged={(ev: MapCameraChangedEvent) =>
-					console.log(
-						'camera changed:',
-						ev.detail.center,
-						'zoom:',
-						ev.detail.zoom
-					)
+				onCameraChanged={(ev: MapCameraChangedEvent) => {
+					console.log('camera changed:',ev.detail.center,'zoom:',ev.detail.zoom);
+					console.log("center shitta", mapCenter.lat + ":" + mapCenter.lng);
+					
+					//ev.map.setCenter(ev.detail.center);
+					}
 				}
+				center={detailView === true ? mapCenter : null }
+				
 			>
 				<PoiMarkers pois={jobLocations}></PoiMarkers>
 			</Map>
+			<p className="map-warning">
+      			Observera att alla sökresultat inte kan visas på kartan eftersom vissa annonser saknar adress eller koordinater.
+    		</p>
 		</>
 	);
 };
