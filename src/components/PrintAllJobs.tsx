@@ -26,7 +26,13 @@ export const PrintAllJobs = () => {
   const context = useContext(jobContext);
 
   if (!context) return <p>Laddar...</p>;
-  const { jobs, loading } = context;
+
+  const { jobs, loading, fetchJobs } = context;
+
+  const handleSearch = (searchTerm: string) => {
+    fetchJobs(searchTerm);
+    setCurrentPage(1);
+  };
 
   const scrollToTop = () => {
     window.scrollTo(0, 0);
@@ -70,7 +76,7 @@ export const PrintAllJobs = () => {
 
   return (
     <>
-      <SearchHeader />
+      <SearchHeader onSearch={handleSearch} />
       <DigiLayoutContainer>
         <div className="job-list-container" ref={layoutBlockRef}>
           {jobs.slice(start, end).map((job) => (
