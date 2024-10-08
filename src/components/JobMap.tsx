@@ -6,13 +6,13 @@ import { calculateCenter } from '../utils/calculateCenter';
 import { useEffect, useState } from 'react';
 import { getJobLocation } from '../utils/jobUtils';
 
-interface JobMapProps {
+interface IJobMapProps {
 	jobId?: string;
 	zoomLevel?: number;
 	detailView?: boolean;
 }
 
-export const JobMap = ({ jobId, zoomLevel, detailView }: JobMapProps) => {
+export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 	const { jobs } = useJobs();
 	const [jobLocations, setJobLocations] = useState<JobInfoWindow[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
