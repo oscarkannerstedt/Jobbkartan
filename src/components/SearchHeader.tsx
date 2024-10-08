@@ -62,19 +62,20 @@ export const SearchHeader = ({ onSearch }: ISearchHeaderProps) => {
 	};
 
 	return (
-		// <div id='search-header'>
 		<DigiLayoutBlock
 			afVariation={LayoutBlockVariation.TRANSPARENT}
 			afContainer={LayoutBlockContainer.FLUID}
 			id='search-header'
 		>
-			{/* {isDesktop ? ( */}
+
 			<DigiLayoutContainer afVariation={LayoutContainerVariation.STATIC}>
+
 				<DigiLayoutColumns
 					afElement={LayoutColumnsElement.DIV}
 					afVariation={LayoutColumnsVariation.TWO}
 					className='column-layout'
 				>
+
 					<DigiLayoutContainer className='container-content'>
 						<div className='search-title'>
 							<h1 className='search-bar-heading'>Jobbkartan</h1>
@@ -92,50 +93,17 @@ export const SearchHeader = ({ onSearch }: ISearchHeaderProps) => {
 							id='search'
 						></DigiFormInputSearch>
 					</DigiLayoutContainer>
+
 					<DigiLayoutContainer>
 						<div className='map-container'>
 							<JobMap zoomLevel={zoomLevel}></JobMap>
 						</div>
 					</DigiLayoutContainer>
+
 				</DigiLayoutColumns>
+
 			</DigiLayoutContainer>
-			{/* ) : (
-				<DigiLayoutContainer
-					afVariation={LayoutContainerVariation.STATIC}
-				>
-					<DigiLayoutColumns
-						afElement={LayoutColumnsElement.DIV}
-						afVariation={LayoutColumnsVariation.TWO}
-						className='column-layout'
-					>
-						<DigiLayoutContainer className='container-content'>
-							<div className='search-title'>
-								<h1 className='search-bar-heading'>
-									Jobbkartan
-								</h1>
-								<p className='search-bar-text'>
-									Lediga jobb för hela sverige
-								</p>
-							</div>
-							<DigiFormInputSearch
-								afLabel='Sök på ett eller flera ord'
-								afVariation={FormInputSearchVariation.MEDIUM}
-								afType={FormInputType.SEARCH}
-								afButtonText='Sök'
-								afLabelDescription='Skriv t.e.x frontend örebro'
-								onAfOnSubmitSearch={handleSearchSubmit}
-								id='search'
-							></DigiFormInputSearch>
-						</DigiLayoutContainer>
-						<DigiLayoutContainer>
-							<div className='map-container'>
-								<JobMap zoomLevel={zoomLevel}></JobMap>
-							</div>
-						</DigiLayoutContainer>
-					</DigiLayoutColumns>
-				</DigiLayoutContainer>
-			)} */}
+
 		</DigiLayoutBlock>
-		// </div>
 	);
 };
