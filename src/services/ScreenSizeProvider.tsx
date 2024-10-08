@@ -5,7 +5,7 @@ interface IContextType {
   children: ReactNode;
 }
 
-export const ScreenSizeProvider: React.FC<IContextType> = ({ children }) => {
+export const ScreenSizeProvider = ({ children }: IContextType) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
