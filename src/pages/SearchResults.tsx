@@ -1,29 +1,32 @@
-// import { useContext, useRef, useState } from "react";
-// import {
-//   LayoutBlockVariation,
-//   LayoutBlockContainer,
-//   LinkVariation,
-// } from "@digi/arbetsformedlingen";
-// import {
-//   DigiLayoutContainer,
-//   DigiLayoutBlock,
-//   DigiLink,
-//   DigiNavigationPagination,
-// } from "@digi/arbetsformedlingen-react";
-// import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
-// import { jobContext } from "../services/jobContext";
-// import { SearchHeader } from "../components/SearchHeader";
-// import defaultLogo from "../assets/jobbkartan_logo_1.png";
-// import "../styles/searchResults.css";
-// import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
+import { useContext, useRef } from "react";
+import {
+  LayoutBlockVariation,
+  LayoutBlockContainer,
+  LinkVariation,
+} from "@digi/arbetsformedlingen";
+import {
+  DigiLayoutContainer,
+  DigiLayoutBlock,
+  DigiLink,
+  DigiNavigationPagination,
+} from "@digi/arbetsformedlingen-react";
+import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
+import { jobContext } from "../services/jobContext";
+import { SearchHeader } from "../components/SearchHeader";
+import defaultLogo from "../assets/jobbkartan_logo_1.png";
+import "../styles/searchResults.css";
+import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
+import PaginationContext from "../contexts/PaginationContext";
 
-// export const SearchResults = () => {
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const context = useContext(jobContext);
-//   const layoutBlockRef = useRef<HTMLDivElement>(null);
+export const SearchResults = () => {
+  const paginationContext = useContext(PaginationContext);
+  const context = useContext(jobContext);
+  const layoutBlockRef = useRef<HTMLDivElement>(null);
 
-//   if (!context) return <p>Laddar...</p>;
-//   const jobs = context.jobs;
+  if (!context || !paginationContext) return <p>Laddar...</p>;
+
+  const { currentPage, setCurrentPage } = paginationContext;
+  const jobs = context.jobs;
 
 //   const limit = 10;
 //   const totalPages = Math.ceil(jobs.length / limit);
@@ -39,11 +42,13 @@
 //     }
 //   };
 
-//   const handlePageChange = (e: DigiNavigationPaginationCustomEvent<number>) => {
-//     const pageNumber = e.detail;
-//     setCurrentPage(pageNumber);
-//     scrollToBlockTop();
-//   };
+  const handlePageChange = (e: DigiNavigationPaginationCustomEvent<number>) => {
+    const pageNumber = e.detail;
+    setCurrentPage(pageNumber);
+    scrollToBlockTop();
+  };
+
+  console.log("Current Page:", currentPage);
 
 //   return (
 //     <>

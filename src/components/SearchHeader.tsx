@@ -16,6 +16,7 @@ import { DigiFormInputSearchCustomEvent } from "@digi/arbetsformedlingen/dist/ty
 import { jobContext } from "../services/jobContext";
 import { useContext } from "react";
 import { JobMap } from "./JobMap";
+import PaginationContext from "../contexts/PaginationContext";
 
 interface SearchHeaderProps {
   onSearch: (searchTerm: string) => void; // Lägg till onSearch som prop
@@ -24,6 +25,7 @@ interface SearchHeaderProps {
 export const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
   const navigate = useNavigate();
   const context = useContext(jobContext);
+  const paginationContext = useContext(PaginationContext);
   const zoomLevel = 4.5;
 
   const handleSearchSubmit = async (
@@ -34,6 +36,10 @@ export const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
     if (context) {
       await context.fetchJobs(term);
       onSearch(term);
+    }
+
+    if (paginationContext) {
+      paginationContext.setCurrentPage(1);
     }
 
     navigate(`/annonser`, { state: { searchTerm: term } });
