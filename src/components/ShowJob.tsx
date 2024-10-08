@@ -35,13 +35,15 @@ const ShowJob = ({ job }: IShowJobProps) => {
     job.workplace_address || {};
   const context = useContext(ScreenSizeContext);
   const daysLeft = calculateDaysLeftToDeadline(job.application_deadline);
+  const ZoomLevel = 12;
 
   if (!context) {
     throw new Error("SomeComponent must be used within a ScreenSizeProvider");
   }
   const { isDesktop } = context;
 
-  const renderJobDetails = () => (
+  const renderJobDetails = () => {
+    if (job !== undefined) return (
     <>
       <DigiLayoutBlock
         afVariation={LayoutBlockVariation.PRIMARY}
@@ -136,7 +138,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
         className="map-container"
       >
         <div>
-          <JobMap jobId={job.id}></JobMap>
+          <JobMap jobId={job.id} zoomLevel={ZoomLevel} detailView={true}></JobMap>
         </div>
         <DigiInfoCard
           afHeading="Sök jobbet"
@@ -167,7 +169,8 @@ const ShowJob = ({ job }: IShowJobProps) => {
         </DigiInfoCard>
       </DigiLayoutBlock>
     </>
-  );
+  )
+}
 
   return (
     <>

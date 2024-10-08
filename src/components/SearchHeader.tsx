@@ -23,6 +23,7 @@ import ScreenSizeContext from "../contexts/ScreenSizeContext";
 export const SearchHeader = () => {
   const navigate = useNavigate();
   const context = useContext(jobContext);
+  const zoomLevel = 4.5;
 
   const sizeContext = useContext(ScreenSizeContext);
 
@@ -70,7 +71,7 @@ export const SearchHeader = () => {
               ></DigiFormInputSearch>
             </DigiLayoutContainer>
             <div className="map-container">
-              <JobMap></JobMap>
+                <JobMap zoomLevel={zoomLevel} ></JobMap>
             </div>
           </DigiLayoutColumns>
         ) : (
