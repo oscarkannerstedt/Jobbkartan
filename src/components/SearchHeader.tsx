@@ -22,6 +22,7 @@ export const SearchHeader = () => {
   const navigate = useNavigate();
   const context = useContext(jobContext);
   const paginationContext = useContext(PaginationContext);
+  const zoomLevel = 4.5;
 
   const handleSearchSubmit = async (
     event: DigiFormInputSearchCustomEvent<string>
@@ -62,9 +63,9 @@ export const SearchHeader = () => {
                 id="search"
               ></DigiFormInputSearch>
             </DigiLayoutContainer>
-            <DigiLayoutContainer style={{ outerHeight: "100%" }}>
-              <div style={{ width: "100%", height: "100%", marginTop: 20 }}>
-                <JobMap></JobMap>
+            <DigiLayoutContainer className="map-outer-container">
+              <div className="map-container">
+                <JobMap zoomLevel={zoomLevel}></JobMap>
               </div>
             </DigiLayoutContainer>
           </DigiLayoutColumns>

@@ -41,3 +41,11 @@
 .digi-logo svg {
   display: none;
 }
+
+/* map warning text */
+.map-warning {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  text-align: center; 
+  font-style: italic; 
+}
