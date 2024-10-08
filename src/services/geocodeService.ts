@@ -3,11 +3,15 @@ export const geocodeAddress = (address: string): Promise<google.maps.LatLng | nu
   
     return new Promise((resolve, reject) => {
       geocoder.geocode({ address }, (results, status) => {
-        if (status === 'OK' && results && results[0].geometry.location) {
+        if (status === 'OK' && results && results[0].geometry && results[0].geometry.location) {
+          if (results[0].partial_match) {
+            console.warn(`Partial match found for address: ${address}`);
+          }
           resolve(results[0].geometry.location);
         } else {
-          console.error(`Geocode was not successful for the following reason: ${status}`);
-          reject(null);
+          const errorMessage = `Geocode failed for address: ${address} with status: ${status}`;  
+          console.error(errorMessage);
+          reject(new Error(errorMessage));
         }
       });
     });

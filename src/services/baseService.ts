@@ -53,7 +53,7 @@ export const fetchJobsBySearchTerm = async (
 
 //get one specific job
 export const getJob = async (id: number): Promise<{ data: IJob }> => {
-  return await get(`/${id}`);
+  return await get(`https://jobsearch.api.jobtechdev.se/ad/${id}`);
 };
 
 //format date
