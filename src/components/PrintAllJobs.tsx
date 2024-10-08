@@ -37,6 +37,7 @@ export const PrintAllJobs = () => {
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
+
   const limit = 10;
   const totalPages = Math.ceil(jobs.length / limit);
   const start = (currentPage - 1) * limit;
@@ -57,14 +58,20 @@ export const PrintAllJobs = () => {
     scrollToBlockTop();
   };
 
-  // show loader if loading is true
-  if (!jobs) return <p>Laddar...</p>;
+  // Show loader if loading is true
   if (loading) {
     return (
       <div className="spinner-container">
-        <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE} afText="Laddar" />
+        <DigiLoaderSpinner
+          afSize={LoaderSpinnerSize.LARGE}
+          afText="Laddar..."
+        />
       </div>
     );
+  }
+
+  if (jobs.length === 0) {
+    return <p>Inga jobb tillgängliga...</p>;
   }
 
   return (
@@ -72,47 +79,43 @@ export const PrintAllJobs = () => {
       <SearchHeader onSearch={handleSearch} />
       <DigiLayoutContainer>
         <div className="job-list-container" ref={layoutBlockRef}>
-          {jobs.length > 0 ? (
-            jobs.slice(start, end).map((job) => (
-              <DigiLayoutBlock
-                key={job.id}
-                afVariation={LayoutBlockVariation.PRIMARY}
-                afContainer={LayoutBlockContainer.FLUID}
-                afMarginBottom={false}
-                className="digiLayoutBlock"
-              >
-                <div className="job-item-container">
-                  <img
-                    src={job.logo_url || defaultLogo}
-                    alt={`${job.employer.name} logo`}
-                  />
+          {jobs.slice(start, end).map((job) => (
+            <DigiLayoutBlock
+              key={job.id}
+              afVariation={LayoutBlockVariation.PRIMARY}
+              afContainer={LayoutBlockContainer.FLUID}
+              afMarginBottom={false}
+              className="digiLayoutBlock"
+            >
+              <div className="job-item-container">
+                <img
+                  src={job.logo_url || defaultLogo}
+                  alt={`${job.employer.name} logo`}
+                />
 
-                  <div className="text-container">
-                    <h3 className="job-title">
-                      <DigiLink
-                        afHref={`/#/annonser/${job.id}`}
-                        onClick={scrollToTop}
-                        afVariation={LinkVariation.SMALL}
-                        aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
-                      >
-                        {job.headline}
-                      </DigiLink>
-                    </h3>
+                <div className="text-container">
+                  <h3 className="job-title">
+                    <DigiLink
+                      afHref={`/#/annonser/${job.id}`}
+                      onClick={scrollToTop}
+                      afVariation={LinkVariation.SMALL}
+                      aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
+                    >
+                      {job.headline}
+                    </DigiLink>
+                  </h3>
 
-                    <h4>
-                      {job.employer.name} - {job.workplace_address.municipality}
-                    </h4>
-                    <p className="job-occupation">{job.occupation.label}</p>
-                    <p className="job-publication-date">
-                      {formatPublicationDate(job.publication_date)}
-                    </p>
-                  </div>
+                  <h4>
+                    {job.employer.name} - {job.workplace_address.municipality}
+                  </h4>
+                  <p className="job-occupation">{job.occupation.label}</p>
+                  <p className="job-publication-date">
+                    {formatPublicationDate(job.publication_date)}
+                  </p>
                 </div>
-              </DigiLayoutBlock>
-            ))
-          ) : (
-            <p>Inga jobb tillgängliga...</p>
-          )}
+              </div>
+            </DigiLayoutBlock>
+          ))}
         </div>
 
         <DigiNavigationPagination
