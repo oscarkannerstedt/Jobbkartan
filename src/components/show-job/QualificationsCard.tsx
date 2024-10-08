@@ -4,9 +4,9 @@ import {
   InfoCardVariation,
 } from "@digi/arbetsformedlingen";
 import { DigiInfoCard } from "@digi/arbetsformedlingen-react";
-import { IShowJobProps } from "./ShowJob";
+import { IShowJobProps } from "../../models/IShowJobProps";
 
-const QualificationsWindow = ({ job }: IShowJobProps) => {
+const QualificationsCard = ({ job }: IShowJobProps) => {
   return (
     <>
       {(job.access_to_own_car ||
@@ -174,4 +174,4 @@ const QualificationsWindow = ({ job }: IShowJobProps) => {
   );
 };
 
-export default QualificationsWindow;
+export default QualificationsCard;

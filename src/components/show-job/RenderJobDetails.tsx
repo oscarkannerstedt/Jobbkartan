@@ -1,30 +1,20 @@
 import {
-  InfoCardHeadingLevel,
-  InfoCardType,
-  InfoCardVariation,
   LayoutBlockContainer,
   LayoutBlockVariation,
   LinkVariation,
 } from "@digi/arbetsformedlingen";
 import {
-  DigiInfoCard,
   DigiLayoutBlock,
   DigiLinkExternal,
 } from "@digi/arbetsformedlingen-react";
-import LogoComponent from "./LogoComponent";
-import QualificationsWindow from "./QualificationsWindow";
-import {
-  calculateDaysLeftToDeadline,
-  formatDate,
-} from "../services/baseService";
-import ApplyNowInfo from "./ApplyNowInfo";
-import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
-import { IShowJobProps } from "./ShowJob";
+import LogoComponent from "../LogoComponent";
+import QualificationsCard from "./QualificationsCard";
+import { IShowJobProps } from "../../models/IShowJobProps";
+import MapAndApplyNowCards from "./MapAndApplyNowCards";
 
 const RenderJobDetails = ({ job }: IShowJobProps) => {
   const { municipality, street_address, postcode, city, region } =
     job.workplace_address || {};
-  const daysLeft = calculateDaysLeftToDeadline(job.application_deadline);
   return (
     <>
       <DigiLayoutBlock
@@ -46,7 +36,7 @@ const RenderJobDetails = ({ job }: IShowJobProps) => {
           <span>Varaktighet: {job.duration.label}</span>
           <span>Anställningsform: {job.employment_type.label}</span>
         </DigiLayoutBlock>
-        <QualificationsWindow job={job} />
+        <QualificationsCard job={job} />
         <h2>Om jobbet</h2>
         <div
           dangerouslySetInnerHTML={{
@@ -114,38 +104,7 @@ const RenderJobDetails = ({ job }: IShowJobProps) => {
         )}
       </DigiLayoutBlock>
 
-      <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.PRIMARY}
-        afContainer={LayoutBlockContainer.STATIC}
-        className="map-container"
-      >
-        <h2>En karta här</h2>
-        <DigiInfoCard
-          afHeading="Sök jobbet"
-          afHeadingLevel={InfoCardHeadingLevel.H2}
-          afType={InfoCardType.RELATED}
-          afVariation={InfoCardVariation.SECONDARY}
-        >
-          <strong>
-            <h3>Ansök senast: {formatDate(job.application_deadline)}</h3>
-          </strong>
-          {daysLeft > 0 ? (
-            <p>
-              <em>Ansökningstiden går ut om {daysLeft} dagar</em>
-            </p>
-          ) : (
-            <p>
-              <em>Ansökningstiden har gått ut</em>
-            </p>
-          )}
-          <ApplyNowInfo job={job} />
-          <span>
-            {formatPublicationDate(job.publication_date)}
-            {". "}
-          </span>
-          <span>Annons-Id: {job.id}</span>
-        </DigiInfoCard>
-      </DigiLayoutBlock>
+      <MapAndApplyNowCards job={job} />
     </>
   );
 };
