@@ -17,7 +17,11 @@ import { jobContext } from "../services/jobContext";
 import { useContext } from "react";
 import { JobMap } from "./JobMap";
 
-export const SearchHeader = () => {
+interface SearchHeaderProps {
+  onSearch: (searchTerm: string) => void; // Lägg till onSearch som prop
+}
+
+export const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
   const navigate = useNavigate();
   const context = useContext(jobContext);
   const zoomLevel = 4.5;
@@ -29,6 +33,7 @@ export const SearchHeader = () => {
 
     if (context) {
       await context.fetchJobs(term);
+      onSearch(term);
     }
 
     navigate(`/annonser`, { state: { searchTerm: term } });
@@ -57,9 +62,9 @@ export const SearchHeader = () => {
                 id="search"
               ></DigiFormInputSearch>
             </DigiLayoutContainer>
-            <DigiLayoutContainer className='map-outer-container'>
+            <DigiLayoutContainer className="map-outer-container">
               <div className="map-container">
-                <JobMap zoomLevel={zoomLevel} ></JobMap>
+                <JobMap zoomLevel={zoomLevel}></JobMap>
               </div>
             </DigiLayoutContainer>
           </DigiLayoutColumns>
