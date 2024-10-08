@@ -16,6 +16,7 @@ body {
   white-space: normal;
   padding: 15px;
   max-width: 100%;
+  color: inherit; 
 }
 
 .job-item-container img {

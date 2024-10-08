@@ -87,7 +87,15 @@ export const PrintAllJobs = () => {
               afMarginBottom={false}
               className="digiLayoutBlock"
             >
-              <div className="job-item-container">
+              <a
+                href={`/#/annonser/${job.id}`}
+                onClick={scrollToTop}
+                className="job-item-container"
+                aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
+                style={{
+                  textDecoration: "none",
+                }}
+              >
                 <img
                   src={job.logo_url || defaultLogo}
                   alt={`${job.employer.name} logo`}
@@ -113,7 +121,7 @@ export const PrintAllJobs = () => {
                     {formatPublicationDate(job.publication_date)}
                   </p>
                 </div>
-              </div>
+              </a>
             </DigiLayoutBlock>
           ))}
         </div>
