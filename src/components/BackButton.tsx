@@ -5,7 +5,7 @@ const BackButton = () => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate("/");
+    navigate("/annonser");
   };
 
   return (
