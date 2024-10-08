@@ -82,7 +82,6 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 
 	return (
 		<>
-			<p>{ mapCenter.lat + ":" + mapCenter.lng}</p>
 			{loading && <div>Loading...</div>}
 			{error && <div>Error: {error}</div>}
 			<Map
@@ -102,6 +101,9 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 			>
 				<PoiMarkers pois={jobLocations}></PoiMarkers>
 			</Map>
+			<p className="map-warning">
+      			Observera att alla sökresultat inte kan visas på kartan eftersom vissa annonser saknar adress eller koordinater.
+    		</p>
 		</>
 	);
 };
