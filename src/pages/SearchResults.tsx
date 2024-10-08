@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import {
   LayoutBlockVariation,
   LayoutBlockContainer,
@@ -16,13 +16,16 @@ import { SearchHeader } from "../components/SearchHeader";
 import defaultLogo from "../assets/jobbkartan_logo_1.png";
 import "../styles/searchResults.css";
 import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
+import PaginationContext from "../contexts/PaginationContext";
 
 export const SearchResults = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const paginationContext = useContext(PaginationContext);
   const context = useContext(jobContext);
   const layoutBlockRef = useRef<HTMLDivElement>(null);
 
-  if (!context) return <p>Laddar...</p>;
+  if (!context || !paginationContext) return <p>Laddar...</p>;
+
+  const { currentPage, setCurrentPage } = paginationContext;
   const jobs = context.jobs;
 
   const limit = 10;
