@@ -1,7 +1,3 @@
-body {
-  background-color: var(--digi--global--color--profile--white--darkest);
-}
-
 .job-list-container {
   display: flex;
   flex-direction: column;
@@ -36,17 +32,6 @@ body {
 .digiLayoutBlock {
   background-color: var(--digi--global--color--profile--white);
   margin: 10px;
-}
-
-.spinner-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.spinner-container .digi-loader-spinner {
-  margin-top: -100px;
 }
 
 @media (min-width: 992px) {

@@ -1,92 +1,124 @@
-import { useContext } from "react";
+import { useContext, useRef, useState } from "react";
 import { jobContext } from "../services/jobContext";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import {
   DigiLayoutBlock,
   DigiLayoutContainer,
+  DigiLink,
   DigiLoaderSpinner,
+  DigiNavigationPagination,
 } from "@digi/arbetsformedlingen-react";
 import {
   LayoutBlockContainer,
   LayoutBlockVariation,
+  LinkVariation,
   LoaderSpinnerSize,
 } from "@digi/arbetsformedlingen";
+import defaultLogo from "../assets/jobbkartan_logo_1.png";
 import "../styles/printAllJobb.css";
 import { SearchHeader } from "./SearchHeader";
-import { Link } from "react-router-dom";
+import { DigiNavigationPaginationCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 
 export const PrintAllJobs = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const layoutBlockRef = useRef<HTMLDivElement>(null);
+
   const context = useContext(jobContext);
 
   if (!context) return <p>Laddar...</p>;
-
   const { jobs, loading } = context;
 
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
+  const limit = 10;
+  const totalPages = Math.ceil(jobs.length / limit);
+  const start = (currentPage - 1) * limit;
+  const end = start + limit;
 
-  // Visa loadern om loading är true
+  const scrollToBlockTop = () => {
+    if (layoutBlockRef.current) {
+      layoutBlockRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  const handlePageChange = (e: DigiNavigationPaginationCustomEvent<number>) => {
+    const pageNumber = e.detail;
+    setCurrentPage(pageNumber);
+    scrollToBlockTop();
+  };
+
+  // show loader if loading is true
+  if (!jobs) return <p>Laddar...</p>;
   if (loading) {
     return (
       <div className="spinner-container">
-        <DigiLoaderSpinner
-          afSize={LoaderSpinnerSize.LARGE}
-          afText="Laddar"
-        ></DigiLoaderSpinner>{" "}
-      </div>
-    );
-  }
-  // Visa loadern om loading är true
-  if (loading) {
-    return (
-      <div className="spinner-container">
-        <DigiLoaderSpinner
-          afSize={LoaderSpinnerSize.LARGE}
-          afText="Laddar"
-        ></DigiLoaderSpinner>{" "}
+        <DigiLoaderSpinner afSize={LoaderSpinnerSize.LARGE} afText="Laddar" />
       </div>
     );
   }
 
   return (
-    <DigiLayoutContainer>
+    <>
       <SearchHeader />
-      <div>
-        {jobs.length > 0 ? (
-          jobs.map((job) => (
-            <DigiLayoutBlock
-              key={job.id}
-              afVariation={LayoutBlockVariation.PRIMARY}
-              afContainer={LayoutBlockContainer.FLUID}
-              afMarginBottom={false}
-              className="digiLayoutBlock"
-            >
-              <h3 style={{ paddingTop: "15px" }}>
-                <Link
-                  to={`/annonser/${job.id}`}
-                  onClick={scrollToTop}
-                  aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
-                >
-                  {job.headline}
-                </Link>
-              </h3>
+      <DigiLayoutContainer>
+        <div className="job-list-container" ref={layoutBlockRef}>
+          {jobs.length > 0 ? (
+            jobs.slice(start, end).map((job) => (
+              <DigiLayoutBlock
+                key={job.id}
+                afVariation={LayoutBlockVariation.PRIMARY}
+                afContainer={LayoutBlockContainer.FLUID}
+                afMarginBottom={false}
+                className="digiLayoutBlock"
+              >
+                <div className="job-item-container">
+                  <img
+                    src={job.logo_url || defaultLogo}
+                    alt={`${job.employer.name} logo`}
+                  />
 
-              <h4>
-                {job.employer.name} - {job.workplace_address.municipality}
-              </h4>
-              <p style={{ margin: 0, lineHeight: ".1" }}>
-                {job.occupation.label}
-              </p>
-              <p style={{ paddingBottom: "15px" }}>
-                {formatPublicationDate(job.publication_date)}
-              </p>
-            </DigiLayoutBlock>
-          ))
-        ) : (
-          <p>Inga jobb tillgängliga...</p>
-        )}
-      </div>
-    </DigiLayoutContainer>
+                  <div className="text-container">
+                    <h3 className="job-title">
+                      <DigiLink
+                        afHref={`/#/annonser/${job.id}`}
+                        onClick={scrollToTop}
+                        afVariation={LinkVariation.SMALL}
+                        aria-label={`Gå till annons för ${job.headline} hos ${job.employer.name} i ${job.workplace_address.municipality}`}
+                      >
+                        {job.headline}
+                      </DigiLink>
+                    </h3>
+
+                    <h4>
+                      {job.employer.name} - {job.workplace_address.municipality}
+                    </h4>
+                    <p className="job-occupation">{job.occupation.label}</p>
+                    <p className="job-publication-date">
+                      {formatPublicationDate(job.publication_date)}
+                    </p>
+                  </div>
+                </div>
+              </DigiLayoutBlock>
+            ))
+          ) : (
+            <p>Inga jobb tillgängliga...</p>
+          )}
+        </div>
+
+        <DigiNavigationPagination
+          afTotalPages={totalPages}
+          afInitActivePage={currentPage}
+          onAfOnPageChange={handlePageChange}
+          af-total-results={jobs.length}
+          af-current-result-start={start + 1}
+          afCurrentResultEnd={Math.min(end, jobs.length)}
+          afResultName="annonser"
+        />
+      </DigiLayoutContainer>
+    </>
   );
 };
