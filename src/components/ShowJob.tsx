@@ -151,7 +151,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
 				afContainer={LayoutBlockContainer.STATIC}
 				className="map-container"
 			>
-				<div>
+				<div className="map-container">
 					<JobMap jobId={job.id}></JobMap>
 				</div>
 				<DigiInfoCard
