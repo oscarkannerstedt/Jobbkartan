@@ -14,16 +14,20 @@ import {
   DigiLayoutContainer,
 } from "@digi/arbetsformedlingen-react";
 import "../styles/searchHeader.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { DigiFormInputSearchCustomEvent } from "@digi/arbetsformedlingen/dist/types/components";
 import { jobContext } from "../services/jobContext";
 import { useContext } from "react";
 import { JobMap } from "./JobMap";
 import PaginationContext from "../contexts/PaginationContext";
 
-export const SearchHeader = () => {
-	const navigate = useNavigate();
-	const context = useContext(jobContext);
+interface ISearchHeaderProps {
+  onSearch: (searchTerm: string) => void;
+}
+
+export const SearchHeader = ({ onSearch }: ISearchHeaderProps) => {
+  // const navigate = useNavigate();
+  const context = useContext(jobContext);
   const paginationContext = useContext(PaginationContext);
 	const zoomLevel = 4.5;
 
@@ -37,21 +41,24 @@ export const SearchHeader = () => {
 
 	// const { isDesktop } = sizeContext;
 
-	const handleSearchSubmit = async (
-		event: DigiFormInputSearchCustomEvent<string>
-	) => {
-		const term = event.detail;
+  const handleSearchSubmit = async (
+    event: DigiFormInputSearchCustomEvent<string>
+  ) => {
+    event.preventDefault();
+
+    const term = event.detail;
 
     if (context) {
       await context.fetchJobs(term);
+      onSearch(term);
     }
 
     if (paginationContext) {
       paginationContext.setCurrentPage(1);
     }
 
-		navigate(`/annonser`, { state: { searchTerm: term } });
-	};
+    // navigate(`/annonser`, { state: { searchTerm: term } });
+  };
 
 	return (
 		// <div id='search-header'>
