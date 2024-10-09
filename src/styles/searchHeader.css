@@ -40,6 +40,7 @@
 
 #search button:hover {
   background-color:   #ae46d7;
+  border-color: #ae46d7; 
 }
 
 .sc-digi-form-label-h .digi-form-label.sc-digi-form-label {
