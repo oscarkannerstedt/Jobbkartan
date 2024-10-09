@@ -7,19 +7,27 @@ import { JobInfoBubble } from './JobInfoBubble';
 
 interface PoiMarkersProps {
 	pois: JobInfoWindow[];
+	detailView?: boolean;
 }
 
-export const PoiMarkers = ({ pois }: PoiMarkersProps) => {
+export const PoiMarkers = ({ pois, detailView }: PoiMarkersProps) => {
 	const map = useMap();
 	const [markers, setMarkers] = useState<{ [key: string]: Marker }>({});
 	const [activeJob, setActiveJob] = useState<Job | null>(null);
 	const clusterer = useRef<MarkerClusterer | null>(null);
 
 	const handleMarkerClick = (job: JobInfoWindow) => {
-		setActiveJob(job);
+		if (!detailView && pois.length > 1) {
+			setActiveJob(job);
+		}
 		map?.panTo(job.coordinates);
 		map?.setZoom(9);
 	};
+
+	const handleCloseInfoWindow = () => {
+		setActiveJob(null);
+		map?.setZoom(4.5);
+	}
 
 	useEffect(() => {
 		if (!map) return;
@@ -53,21 +61,6 @@ export const PoiMarkers = ({ pois }: PoiMarkersProps) => {
 		});
 	}, [markers]); 
 
-	// const setMarkerRef = (marker: Marker | null, key: string) => {
-	// 	if (marker && markers[key] === marker) return;
-	// 	if (!marker && !markers[key]) return;
-
-	// 	setMarkers((prev) => {
-	// 		if (marker) {
-	// 			return { ...prev, [key]: marker };
-	// 		} else {
-	// 			const newMarkers = { ...prev };
-	// 			delete newMarkers[key];
-	// 			return newMarkers;
-	// 		}
-	// 	});
-	// };
-
 	return (
 		<>
 			{pois.map((poi: JobInfoWindow) => (
@@ -87,10 +80,10 @@ export const PoiMarkers = ({ pois }: PoiMarkersProps) => {
 			))}
 
 			{/* Render the InfoWindow when an active job is selected */}
-			{activeJob && (
+			{!detailView && activeJob && (
 				<JobInfoBubble
 					job={activeJob}
-					onCloseClick={() => setActiveJob(null)}
+					onCloseClick={handleCloseInfoWindow}
 				/>
 			)}
 		</>
