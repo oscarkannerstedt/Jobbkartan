@@ -1,25 +1,32 @@
 import {
   DigiLayoutBlock,
   DigiLayoutColumns,
+  DigiLoaderSpinner,
 } from "@digi/arbetsformedlingen-react";
 import {
   LayoutBlockVariation,
   LayoutBlockContainer,
   LayoutColumnsElement,
   LayoutColumnsVariation,
+  LoaderSpinnerSize,
 } from "@digi/arbetsformedlingen";
-import ScreenSizeContext from "../contexts/ScreenSizeContext";
 import { useContext } from "react";
 import { IShowJobProps } from "../models/IShowJobProps";
 import RenderJobDetails from "./show-job/RenderJobDetails";
+import { jobContext } from "../contexts/jobContext";
 
 const ShowJob = ({ job }: IShowJobProps) => {
-  const screenSizeContext = useContext(ScreenSizeContext);
+  const jobContextValue = useContext(jobContext);
 
-  if (!screenSizeContext) {
-    throw new Error("SomeComponent must be used within a ScreenSizeProvider");
+  // Show loader while job info is loading
+  if (jobContextValue && jobContextValue.loading) {
+    return (
+      <DigiLoaderSpinner
+        afSize={LoaderSpinnerSize.LARGE}
+        afText="Laddar jobbinformation..."
+      />
+    );
   }
-  const { isDesktop } = screenSizeContext;
 
   return (
     <>
@@ -27,18 +34,12 @@ const ShowJob = ({ job }: IShowJobProps) => {
         afVariation={LayoutBlockVariation.PRIMARY}
         afContainer={LayoutBlockContainer.STATIC}
       >
-        {isDesktop ? (
-          <DigiLayoutColumns
-            afElement={LayoutColumnsElement.DIV}
-            afVariation={LayoutColumnsVariation.THREE}
-          >
-            <RenderJobDetails job={job} />
-          </DigiLayoutColumns>
-        ) : (
-          <DigiLayoutBlock>
-            <RenderJobDetails job={job} />
-          </DigiLayoutBlock>
-        )}
+        <DigiLayoutColumns
+          afElement={LayoutColumnsElement.DIV}
+          afVariation={LayoutColumnsVariation.THREE}
+        >
+          <RenderJobDetails job={job} />
+        </DigiLayoutColumns>
       </DigiLayoutBlock>
     </>
   );

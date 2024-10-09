@@ -1,6 +1,8 @@
 @import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css";
 @import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css";
 @import "styles/selectedJob.css";
+@import "styles/header.css";
+@import "styles/paginationButtons.css"; 
 
 :root {
   font-synthesis: none;
@@ -45,7 +47,11 @@
 /* map warning text */
 .map-warning {
   font-size: 1rem;
-  margin-bottom: 10px;
+  margin-top: 10px;
   text-align: center; 
   font-style: italic; 
+}
+
+.sc-digi-expandable-accordion-h {
+  --digi--expandable-accordion--border-bottom-color: #a00eda;
 }
