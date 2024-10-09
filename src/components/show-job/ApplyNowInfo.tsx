@@ -2,7 +2,7 @@ import {
   DigiLayoutContainer,
   DigiLinkButton,
 } from "@digi/arbetsformedlingen-react";
-import { IShowJobProps } from "./ShowJob";
+import { IShowJobProps } from "../../models/IShowJobProps";
 import { LinkButtonSize, LinkButtonVariation } from "@digi/arbetsformedlingen";
 
 const ApplyNowInfo = ({ job }: IShowJobProps) => {
