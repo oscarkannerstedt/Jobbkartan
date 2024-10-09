@@ -50,3 +50,7 @@
   text-align: center; 
   font-style: italic; 
 }
+
+.sc-digi-expandable-accordion-h {
+  --digi--expandable-accordion--border-bottom-color: #a00eda;
+}
