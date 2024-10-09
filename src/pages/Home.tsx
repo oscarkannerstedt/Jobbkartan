@@ -47,7 +47,7 @@ const Home = () => {
 								afVariation={LinkButtonVariation.PRIMARY}
 								onAfOnClick={handleNavigate}
 							>
-								Visa Jobbannonser
+								Visa jobbannonser
 							</DigiLinkButton>
 						</div>
 					</DigiLayoutContainer>
