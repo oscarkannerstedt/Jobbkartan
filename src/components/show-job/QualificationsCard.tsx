@@ -92,6 +92,18 @@ const QualificationsCard = ({ job }: IShowJobProps) => {
           afType={InfoCardType.TIP}
           afVariation={InfoCardVariation.SECONDARY}
         >
+          {job.access_to_own_car && <li>Tillgång till egen bil</li>}
+
+          {job.driving_license_required && (
+            <>
+              <h3>Körkort</h3>
+              <ul>
+                {job.driving_license.map((license, index) => (
+                  <li key={index}>{license.label}</li>
+                ))}
+              </ul>
+            </>
+          )}
           {renderQualificationsSection(
             "Arbetslivserfarenhet",
             job.must_have.work_experiences,
