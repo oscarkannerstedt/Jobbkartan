@@ -6,19 +6,19 @@ import {
 import { DigiInfoCard } from "@digi/arbetsformedlingen-react";
 import { IShowJobProps } from "../../models/IShowJobProps";
 
-interface Qualification {
+interface IQualification {
   label: string;
 }
 
 const QualificationsCard = ({ job }: IShowJobProps) => {
   const renderQualificationsSection = (
     title: string,
-    mustHave: Qualification[],
-    niceToHave: Qualification[],
+    mustHave: IQualification[],
+    niceToHave: IQualification[],
     isSkillOrEducation: boolean,
     isExperienceSection: boolean
   ) => {
-    const renderExperience = (items: Qualification[], isMustHave: boolean) => {
+    const renderExperience = (items: IQualification[], isMustHave: boolean) => {
       return items.map((item, index) => (
         <li key={index}>
           {item.label}
@@ -37,7 +37,7 @@ const QualificationsCard = ({ job }: IShowJobProps) => {
         return (
           <>
             <span> inom </span>
-            {educationData.map((edu: Qualification, eduIndex: number) => (
+            {educationData.map((edu: IQualification, eduIndex: number) => (
               <span key={eduIndex}>
                 {edu.label}
                 {eduIndex < educationData.length - 1 && ", "}
