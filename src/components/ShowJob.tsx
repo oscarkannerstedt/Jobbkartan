@@ -40,12 +40,14 @@ const ShowJob = ({ job }: IShowJobProps) => {
 	const screenSizeContext = useContext(ScreenSizeContext);
 	const jobContextValue = useContext(jobContext);
 	const daysLeft = calculateDaysLeftToDeadline(job.application_deadline);
+  const zoomLevel = 12;
+
 
 	if (!screenSizeContext) {
 		throw new Error("SomeComponent must be used within a ScreenSizeProvider");
 	}
 
-	const { isDesktop } = screenSizeContext;
+	// const { isDesktop } = screenSizeContext;
 
 	// Show loader while job info is loading
 	if (jobContextValue && jobContextValue.loading) {
@@ -151,8 +153,8 @@ const ShowJob = ({ job }: IShowJobProps) => {
 				afContainer={LayoutBlockContainer.STATIC}
 				className="map-container"
 			>
-				<div>
-					<JobMap jobId={job.id}></JobMap>
+				<div className="map-container">
+					<JobMap jobId={job.id} zoomLevel={zoomLevel} detailView={true}></JobMap>
 				</div>
 				<DigiInfoCard
 					afHeading="Sök jobbet"
@@ -191,16 +193,16 @@ const ShowJob = ({ job }: IShowJobProps) => {
 				afVariation={LayoutBlockVariation.PRIMARY}
 				afContainer={LayoutBlockContainer.STATIC}
 			>
-				{isDesktop ? (
+				{/* {isDesktop ? ( */}
 					<DigiLayoutColumns
 						afElement={LayoutColumnsElement.DIV}
 						afVariation={LayoutColumnsVariation.THREE}
 					>
 						{renderJobDetails()}
 					</DigiLayoutColumns>
-				) : (
+				{/* ) : (
 					<DigiLayoutBlock>{renderJobDetails()}</DigiLayoutBlock>
-				)}
+				)} */}
 			</DigiLayoutBlock>
 		</>
 	);
