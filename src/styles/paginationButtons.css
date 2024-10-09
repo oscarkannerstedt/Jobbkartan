@@ -1,0 +1,6 @@
+.sc-digi-button-h .digi-button--variation-primary.sc-digi-button { 
+  --COLOR--BACKGROUND--DEFAULT: #a00eda;
+  --COLOR--BACKGROUND--HOVER: #a337cd; 
+  --COLOR--BACKGROUND--FOCUS: #73099d; 
+  --COLOR--BACKGROUND--ACTIVE: #8a0dbb; 
+}
