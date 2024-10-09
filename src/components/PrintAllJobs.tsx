@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from "react";
-import { jobContext } from "../services/jobContext";
+import { jobContext } from "../contexts/jobContext";
 import { formatPublicationDate } from "../utils/dateUtils/formatPublicationDate";
 import {
   DigiLayoutBlock,

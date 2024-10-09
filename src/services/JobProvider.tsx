@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { IJob } from "../models/IJob";
 import { fetchAllJobs, fetchJobsBySearchTerm } from "./baseService";
-import { jobContext } from "./jobContext";
+import { jobContext } from "../contexts/jobContext";
 
 export const JobProvider = ({ children }: { children: React.ReactNode }) => {
   const [jobs, setJobs] = useState<IJob[]>([]);
