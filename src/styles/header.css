@@ -1,0 +1,15 @@
+.digi-header-navigation-item--active.sc-digi-header-navigation-item-s>a { 
+  box-shadow: inset 0 -4px 0 0 #a00eda;
+}
+
+.sc-digi-header-navigation-h {
+  --digi--header--border-color: none; 
+}
+
+.sc-digi-header-h {
+  --digi--header--border-color: none; 
+}
+
+.digi-header-navigation__inner.sc-digi-header-navigation.sc-digi-header-navigation-s {
+  background: var(--digi--layout-block--background--primary);
+}
