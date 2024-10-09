@@ -17,14 +17,16 @@ import { IShowJobProps } from "../../models/IShowJobProps";
 
 const MapAndApplyNowCards = ({ job }: IShowJobProps) => {
   const daysLeft = calculateDaysLeftToDeadline(job.application_deadline);
+  const zoomLevel = 12;
+
   return (
     <DigiLayoutBlock
       afVariation={LayoutBlockVariation.PRIMARY}
       afContainer={LayoutBlockContainer.STATIC}
-      className="map-container"
+      className="map-applycard-container"
     >
-      <div>
-        <JobMap jobId={job.id}></JobMap>
+      <div className="map-container">
+        <JobMap jobId={job.id} zoomLevel={zoomLevel} detailView={true}></JobMap>
       </div>
       <DigiInfoCard
         afHeading="Sök jobbet"
