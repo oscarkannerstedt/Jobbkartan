@@ -1,9 +1,27 @@
-#home-container
+/* #home-container
 	.sc-digi-layout-block-h
 	.digi-layout-block--profile.sc-digi-layout-block {
 	background: #2e0249;
-}
+} */
 
 #home-container {
 	background: #2e0249;
+}
+
+.home-container {
+	display: flex;
+	flex-direction: row-reverse;
+	background-color: aqua;
+	align-items: center;
+}
+
+.digi-layout-container {
+	display: grid;
+}
+
+.home-lower-sub-container {
+	background-color: red;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }

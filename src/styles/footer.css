@@ -1,21 +1,21 @@
 #footer-container
-  .sc-digi-layout-block-h
-  .digi-layout-block--profile.sc-digi-layout-block {
-  background: linear-gradient(
-    180deg,
-    #2e0249 0%,
-    #2e0249 60%,
-    #6a0dad 80%,
-    #7a00b9 100%
-  );
+	.sc-digi-layout-block-h
+	.digi-layout-block--profile.sc-digi-layout-block {
+	background: linear-gradient(
+		180deg,
+		#2e0249 0%,
+		#2e0249 60%,
+		#6a0dad 80%,
+		#7a00b9 100%
+	);
 }
 
 #footer-container {
-  background: linear-gradient(
-    180deg,
-    #2e0249 0%,
-    #2e0249 60%,
-    #6a0dad 80%,
-    #7a00b9 100%
-  );
+	background: linear-gradient(
+		180deg,
+		#2e0249 0%,
+		#2e0249 60%,
+		#6a0dad 80%,
+		#7a00b9 100%
+	);
 }

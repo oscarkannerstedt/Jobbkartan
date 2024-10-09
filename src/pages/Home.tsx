@@ -1,10 +1,13 @@
 import {
 	LayoutBlockContainer,
 	LayoutBlockVariation,
+	LayoutColumnsElement,
+	LayoutColumnsVariation,
 } from "@digi/arbetsformedlingen";
 import {
 	DigiLayoutBlock,
-	DigiLayoutContainer,
+	DigiLayoutColumns,
+	DigiMediaImage,
 	DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 import { useNavigate } from "react-router-dom";
@@ -20,18 +23,33 @@ const Home = () => {
 
 	return (
 		<div id="home-container">
-			<DigiLayoutBlock
-				afVariation={LayoutBlockVariation.TRANSPARENT}
-				afContainer={LayoutBlockContainer.STATIC}
+			<DigiLayoutColumns
+				afElement={LayoutColumnsElement.DIV}
+				afVariation={LayoutColumnsVariation.TWO}
 			>
-				<DigiTypography>
-					<div className="home-container">
-						<h1>Välkommen till Jobbkartan!</h1>
-						<p>Klicka på knappen nedan för att se alla jobbannonser.</p>
-						<button onClick={handleNavigate}>Visa Jobbannonser</button>
-					</div>
-				</DigiTypography>
-			</DigiLayoutBlock>
+				<DigiLayoutBlock
+					afVariation={LayoutBlockVariation.TRANSPARENT}
+					afContainer={LayoutBlockContainer.STATIC}
+				>
+					<DigiTypography>
+						<div className="home-container">
+							<DigiMediaImage
+								afUnlazy
+								afHeight="750"
+								afWidth="750"
+								afSrc="./src/assets/karta_startsidan.png"
+								afAlt="Karta över lediga jobb i Sverige"
+							></DigiMediaImage>
+							...
+							<h1>Välkommen till Jobbkartan!</h1>
+						</div>
+						<div className="home-lower-sub-container">
+							<p>Klicka på knappen nedan för att se alla jobbannonser.</p>
+							<button onClick={handleNavigate}>Visa Jobbannonser</button>
+						</div>
+					</DigiTypography>
+				</DigiLayoutBlock>
+			</DigiLayoutColumns>
 		</div>
 	);
 };
