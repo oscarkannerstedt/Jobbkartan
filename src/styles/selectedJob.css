@@ -1,7 +1,7 @@
 .job-container {
-  grid-column: 1 / 2;
   overflow: hidden; 
   word-wrap: break-word;
+  display: block;
 }
 
 .employment-information-container > :nth-child(1) {
@@ -9,6 +9,30 @@
   flex-direction: column;
 }
 
-/* .map-container {
-  grid-column: 3 / 5;
-} */
+/* the colored line on the apply now card */
+.sc-digi-info-card-h {
+  --digi--info-card--border: var(--digi--border-width--complementary-2) solid #a00eda;
+ }
+
+/* apply now button */
+.sc-digi-link-button-s>a { 
+  background: linear-gradient(
+  180deg,
+  #2e0249 0%,
+  #2e0249 60%,
+  #6a0dad 80%,
+  #7a00b9 100%
+  );
+  border: none;
+}
+
+/* apply now button hover */
+.sc-digi-link-button-s>a:hover {
+  background: linear-gradient(
+  180deg,
+  #4c1a6e 0%,
+  #4c1a6e 60%,
+  #8c35cf 80%,
+  #9f46e0 100%
+  );
+}
