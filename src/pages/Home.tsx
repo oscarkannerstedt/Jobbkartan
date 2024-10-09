@@ -3,11 +3,14 @@ import {
 	LayoutBlockVariation,
 	LayoutColumnsElement,
 	LayoutColumnsVariation,
+	LinkButtonSize,
+	LinkButtonVariation,
 } from "@digi/arbetsformedlingen";
 import {
 	DigiLayoutBlock,
 	DigiLayoutColumns,
 	DigiLayoutContainer,
+	DigiLinkButton,
 	DigiMediaImage,
 } from "@digi/arbetsformedlingen-react";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +36,20 @@ const Home = () => {
 				>
 					<DigiLayoutContainer>
 						<h1 className="welcome-text">Välkommen till Jobbkartan!</h1>
+						<div className="home-lower-sub-container">
+							<p className="home-body-text">
+								Klicka på knappen nedan för att använda kartan och för att
+								söka/se jobbannonser.
+							</p>
+							<DigiLinkButton
+								afHref="./#/annonser"
+								afSize={LinkButtonSize.MEDIUMLARGE}
+								afVariation={LinkButtonVariation.PRIMARY}
+								onAfOnClick={handleNavigate}
+							>
+								Visa Jobbannonser
+							</DigiLinkButton>
+						</div>
 					</DigiLayoutContainer>
 					<DigiLayoutContainer>
 						<DigiMediaImage
@@ -43,13 +60,6 @@ const Home = () => {
 							afAlt="Karta över lediga jobb i Sverige"
 						></DigiMediaImage>
 					</DigiLayoutContainer>
-					<div className="home-lower-sub-container">
-						<p className="home-body-text">
-							Klicka på knappen nedan för att använda kartan och för att söka/se
-							jobbannonser.
-						</p>
-						<button onClick={handleNavigate}>Visa Jobbannonser</button>
-					</div>
 				</DigiLayoutColumns>
 			</DigiLayoutBlock>
 		</div>
