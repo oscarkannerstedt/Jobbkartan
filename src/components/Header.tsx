@@ -38,7 +38,7 @@ const Header = () => {
 								<a href="/#/fel-url-lol">Mina sidor</a>
 							</DigiHeaderNavigationItem>
 							<DigiHeaderNavigationItem>
-								<a href="/#/annonser">Sök jobb i Jobbkartan</a>
+								<a href="/#/annonser">Sök jobb via Jobbkartan</a>
 							</DigiHeaderNavigationItem>
 							<DigiHeaderNavigationItem>
 								<a href="/#/fel-url-lol">Other languages</a>
