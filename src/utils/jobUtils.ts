@@ -1,6 +1,7 @@
 import { IJob } from '../models/IJob';
 import { JobInfoWindow } from '../models/JobInfoWindow';
 import { geocodeAddress } from '../services/geocodeService';
+import defaultLogo from "../assets/jobbkartan_logo_1.png";
 
 export const getJobLocation = async (
 	job: IJob
@@ -72,10 +73,12 @@ const createJobLocation = (
 	logoUrl: string | undefined | null
 ): JobInfoWindow => ({
 	id: job.id,
-	logo: logoUrl || '',
+	logo: logoUrl || defaultLogo,
 	headline: job.headline,
+    occupation: job.occupation.label,
 	employerName: job.employer.name,
 	address: job.workplace_address.street_address,
 	city: job.workplace_address.city,
+    municipality: job.workplace_address.municipality || '',
 	coordinates: { lat, lng },
 });

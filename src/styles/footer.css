@@ -19,3 +19,7 @@
 		#7a00b9 100%
 	);
 }
+
+.sc-digi-footer-card-h {
+  --digi--footer-card--border-bottom: solid var(--digi--border-width--primary) #7a00b9;
+}

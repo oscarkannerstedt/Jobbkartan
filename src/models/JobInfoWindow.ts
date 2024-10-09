@@ -3,8 +3,10 @@ export type JobInfoWindow = {
 	logo: string;
 	headline: string;
 	employerName: string;
+	occupation: string;
 	address: string;
 	city: string;
+	municipality: string;
 	coordinates: {
 		lat: number;
 		lng: number;
