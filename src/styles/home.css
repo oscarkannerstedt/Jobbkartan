@@ -40,6 +40,20 @@ p {
 	font-weight: 900;
 }
 
-.map-img-start {
-	border-radius: 150px;
+.map-img-start
+	.sc-digi-media-image-h
+	.sc-digi-media-image-s
+	.digi-media-image__image
+	.sc-digi-media-image
+	.digi-media-image__padded-box
+	.hydrated {
+	border-radius: 250px;
+}
+
+@media screen and (max-width: 992px) {
+	.sc-digi-layout-columns-h .digi-layout-columns.sc-digi-layout-columns {
+		display: flex;
+		flex-direction: column;
+		grid-template-columns: 1fr; /* Gör om till en kolumn */
+	}
 }
