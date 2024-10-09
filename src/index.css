@@ -2,6 +2,7 @@
 @import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css";
 @import "styles/selectedJob.css";
 @import "styles/header.css";
+@import "styles/paginationButtons.css"; 
 
 :root {
   font-synthesis: none;
