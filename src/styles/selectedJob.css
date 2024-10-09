@@ -12,3 +12,29 @@
 /* .map-container {
   grid-column: 3 / 5;
 } */
+
+.sc-digi-info-card-h {
+  --digi--info-card--border: var(--digi--border-width--complementary-2) solid #a00eda;
+
+ }
+
+ .sc-digi-link-button-s>a {
+  background: linear-gradient(
+    180deg,
+    #2e0249 0%,
+    #2e0249 60%,
+    #6a0dad 80%,
+    #7a00b9 100%
+  );
+  border: none;
+ }
+
+ .sc-digi-link-button-s>a:hover {
+  background: linear-gradient(
+    180deg,
+    #4c1a6e 0%,
+    #4c1a6e 60%,
+    #8c35cf 80%,
+    #9f46e0 100%
+  );
+ }
