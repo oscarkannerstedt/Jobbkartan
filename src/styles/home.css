@@ -4,15 +4,25 @@
 	background: #2e0249;
 } */
 
+h1,
+p {
+	color: white;
+}
+
+.home-body-text {
+	padding-top: 1.5rem;
+}
+
 #home-container {
 	background: #2e0249;
 }
 
 .home-container {
 	display: flex;
-	flex-direction: row-reverse;
-	background-color: aqua;
+	flex-direction: row;
+	/* background-color: aqua; */
 	align-items: center;
+	justify-content: space-evenly;
 }
 
 .digi-layout-container {
@@ -20,8 +30,16 @@
 }
 
 .home-lower-sub-container {
-	background-color: red;
+	/* background-color: red; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.welcome-text {
+	font-weight: 900;
+}
+
+.map-img-start {
+	border-radius: 150px;
 }

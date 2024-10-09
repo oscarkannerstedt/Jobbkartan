@@ -33,18 +33,20 @@ const Home = () => {
 				>
 					<DigiTypography>
 						<div className="home-container">
+							<h1 className="welcome-text">Välkommen till Jobbkartan!</h1>
 							<DigiMediaImage
+								className="map-img-start"
 								afUnlazy
-								afHeight="750"
+								afHeight="500"
 								afWidth="750"
 								afSrc="./src/assets/karta_startsidan.png"
 								afAlt="Karta över lediga jobb i Sverige"
 							></DigiMediaImage>
-							...
-							<h1>Välkommen till Jobbkartan!</h1>
 						</div>
 						<div className="home-lower-sub-container">
-							<p>Klicka på knappen nedan för att se alla jobbannonser.</p>
+							<p className="home-body-text">
+								Klicka på knappen nedan för att se alla jobbannonser.
+							</p>
 							<button onClick={handleNavigate}>Visa Jobbannonser</button>
 						</div>
 					</DigiTypography>
