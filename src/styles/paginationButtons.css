@@ -1,6 +1,13 @@
 .sc-digi-button-h .digi-button--variation-primary.sc-digi-button { 
-  --COLOR--BACKGROUND--DEFAULT: #a00eda;
-  --COLOR--BACKGROUND--HOVER: #a337cd; 
+  --COLOR--BACKGROUND--DEFAULT: #560a85;
+  --COLOR--BACKGROUND--HOVER: #6b0e90; 
   --COLOR--BACKGROUND--FOCUS: #73099d; 
   --COLOR--BACKGROUND--ACTIVE: #8a0dbb; 
+}
+
+.sc-digi-button-h .digi-button--variation-secondary.sc-digi-button {
+ 
+  --COLOR--BACKGROUND--HOVER: #f8e8ff; 
+  --COLOR--BACKGROUND--FOCUS: #e5caf0; 
+  --COLOR--BACKGROUND--ACTIVE: #e0c5ea; 
 }
