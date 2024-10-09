@@ -6,167 +6,119 @@ import {
 import { DigiInfoCard } from "@digi/arbetsformedlingen-react";
 import { IShowJobProps } from "../../models/IShowJobProps";
 
+interface Qualification {
+  label: string;
+}
+
 const QualificationsCard = ({ job }: IShowJobProps) => {
+  const renderQualificationsSection = (
+    title: string,
+    mustHave: Qualification[],
+    niceToHave: Qualification[],
+    isSkillOrEducation: boolean,
+    isExperienceSection: boolean
+  ) => {
+    const renderExperience = (items: Qualification[], isMustHave: boolean) => {
+      return items.map((item, index) => (
+        <li key={index}>
+          {item.label}
+          {isExperienceSection && <span> - erfarenhet efterfrågas</span>}
+          {isSkillOrEducation && renderEducation(isMustHave)}
+        </li>
+      ));
+    };
+
+    const renderEducation = (isMustHave: boolean) => {
+      const educationData = isMustHave
+        ? job.must_have.education
+        : job.nice_to_have.education;
+
+      if (educationData.length > 0) {
+        return (
+          <>
+            <span> inom </span>
+            {educationData.map((edu: Qualification, eduIndex: number) => (
+              <span key={eduIndex}>
+                {edu.label}
+                {eduIndex < educationData.length - 1 && ", "}
+              </span>
+            ))}
+          </>
+        );
+      }
+      return null;
+    };
+
+    return (
+      <>
+        {mustHave.length > 0 && (
+          <>
+            <h3>{title}</h3>
+            <h4>Krav</h4>
+            <ul>{renderExperience(mustHave, true)}</ul>{" "}
+          </>
+        )}
+        {niceToHave.length > 0 && (
+          <>
+            <h3>{title}</h3>
+            <h4>Meriterande</h4>
+            <ul>{renderExperience(niceToHave, false)}</ul>{" "}
+          </>
+        )}
+      </>
+    );
+  };
+
+  const hasQualifications =
+    job.access_to_own_car ||
+    job.driving_license_required ||
+    job.must_have.work_experiences.length > 0 ||
+    job.nice_to_have.work_experiences.length > 0 ||
+    job.must_have.education.length > 0 ||
+    job.nice_to_have.education.length > 0 ||
+    job.must_have.education_level.length > 0 ||
+    job.nice_to_have.education_level.length > 0 ||
+    job.must_have.skills.length > 0 ||
+    job.nice_to_have.skills.length > 0 ||
+    job.must_have.languages.length > 0 ||
+    job.nice_to_have.languages.length > 0;
+
   return (
     <>
-      {(job.access_to_own_car ||
-        job.driving_license_required ||
-        job.must_have.work_experiences.length > 0 ||
-        job.nice_to_have.work_experiences.length > 0 ||
-        job.must_have.education.length > 0 ||
-        job.nice_to_have.education.length > 0 ||
-        job.must_have.education_level.length > 0 ||
-        job.nice_to_have.education_level.length > 0 ||
-        job.must_have.skills.length > 0 ||
-        job.nice_to_have.skills.length > 0 ||
-        job.must_have.languages.length > 0 ||
-        job.nice_to_have.languages.length > 0) && (
+      {hasQualifications && (
         <DigiInfoCard
-          afHeading="Kvalikationer"
+          afHeading="Kvalifikationer"
           afHeadingLevel={InfoCardHeadingLevel.H2}
           afType={InfoCardType.TIP}
           afVariation={InfoCardVariation.SECONDARY}
         >
-          {job.access_to_own_car && <li>Tillgång till egen bil</li>}
-          {job.driving_license_required && (
-            <>
-              <h3>Körkort</h3>
-              <ul>
-                {job.driving_license.map((license, index) => (
-                  <li key={index}>{license.label}</li>
-                ))}
-              </ul>
-            </>
+          {renderQualificationsSection(
+            "Arbetslivserfarenhet",
+            job.must_have.work_experiences,
+            job.nice_to_have.work_experiences,
+            false,
+            true
           )}
-          {job.must_have.work_experiences.length > 0 && (
-            <>
-              <h3>Arbetslivserfarenhet</h3>
-              <h4>Krav</h4>
-              <ul>
-                {job.must_have.work_experiences.map(
-                  (experience: { label: string }, index: number) => (
-                    <li key={index}>
-                      {experience.label} <span>- erfarenhet efterfrågas</span>
-                    </li>
-                  )
-                )}
-              </ul>
-            </>
+          {renderQualificationsSection(
+            "Utbildning",
+            job.must_have.education_level,
+            job.nice_to_have.education_level,
+            true,
+            false
           )}
-
-          {job.nice_to_have.work_experiences.length > 0 && (
-            <>
-              {job.must_have.skills.length <= 0 && (
-                <h3>Arbetslivserfarenhet</h3>
-              )}
-
-              <h4>Meriterande</h4>
-              <ul>
-                {job.nice_to_have.work_experiences.map(
-                  (experience: { label: string }, index: number) => (
-                    <li key={index}>{experience.label}</li>
-                  )
-                )}
-              </ul>
-            </>
+          {renderQualificationsSection(
+            "Kompetenser",
+            job.must_have.skills,
+            job.nice_to_have.skills,
+            false,
+            false
           )}
-
-          {job.must_have.education.length > 0 && (
-            <>
-              <h3>Utbildning</h3>
-              <h4>Krav</h4>
-              <ul>
-                {job.must_have.education_level.map(
-                  (eduLevel: { label: string }, index: number) => (
-                    <li key={index}>
-                      {eduLevel.label}
-                      <span> inom </span>
-                      {job.must_have.education.map(
-                        (edu: { label: string }, index: number) => (
-                          <span key={index}>{edu.label}</span>
-                        )
-                      )}
-                    </li>
-                  )
-                )}
-              </ul>
-            </>
-          )}
-
-          {job.nice_to_have.education.length > 0 && (
-            <>
-              {job.must_have.skills.length <= 0 && <h3>Utbildning</h3>}
-              <h4>Meriterande</h4>
-              <ul>
-                {job.nice_to_have.education_level.map(
-                  (eduLevel: { label: string }, index: number) => (
-                    <li key={index}>
-                      {eduLevel.label} <span> inom </span>{" "}
-                      {job.nice_to_have.education.map(
-                        (edu: { label: string }, index: number) => (
-                          <span key={index}>{edu.label}</span>
-                        )
-                      )}
-                    </li>
-                  )
-                )}
-              </ul>
-            </>
-          )}
-
-          {job.must_have.skills.length > 0 && (
-            <>
-              <h3>Kompetenser</h3>
-              <h4>Krav</h4>
-              <ul>
-                {job.must_have.skills.map(
-                  (skill: { label: string }, index: number) => (
-                    <li key={index}>{skill.label}</li>
-                  )
-                )}
-              </ul>
-            </>
-          )}
-
-          {job.nice_to_have.skills.length > 0 && (
-            <>
-              {job.must_have.skills.length <= 0 && <h3>Kompetenser</h3>}
-
-              <h4>Meriterande</h4>
-              <ul>
-                {job.nice_to_have.skills.map((skill, index) => (
-                  <li key={index}>{skill.label}</li>
-                ))}
-              </ul>
-            </>
-          )}
-
-          {job.must_have.languages.length > 0 && (
-            <>
-              <h3>Språk</h3>
-              <h4>Krav</h4>
-              <ul>
-                {job.must_have.languages.map(
-                  (language: { label: string }, index: number) => (
-                    <li key={index}>{language.label}</li>
-                  )
-                )}
-              </ul>
-            </>
-          )}
-
-          {job.nice_to_have.languages.length > 0 && (
-            <>
-              {job.must_have.languages.length <= 0 && <h3>Språk</h3>}
-              <h4>Meriterande</h4>
-              <ul>
-                {job.nice_to_have.languages.map(
-                  (language: { label: string }, index: number) => (
-                    <li key={index}>{language.label}</li>
-                  )
-                )}
-              </ul>
-            </>
+          {renderQualificationsSection(
+            "Språk",
+            job.must_have.languages,
+            job.nice_to_have.languages,
+            false,
+            false
           )}
         </DigiInfoCard>
       )}
