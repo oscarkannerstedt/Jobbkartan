@@ -11,7 +11,7 @@ import { getJob } from "../services/baseService";
 const SelectedJob = () => {
   const { id } = useParams<{ id: string }>();
   const { jobs } = useJobs();
-  const [job, setJob] = useState<IJob | null>(null); // if api-get
+  const [job, setJob] = useState<IJob | null>(null);
   const [loading, setLoading] = useState(true);
   //const currentJob = useLoaderData() as IJob | null;
 
