@@ -1,5 +1,5 @@
 import { DigiLayoutBlock } from "@digi/arbetsformedlingen-react";
-import { IShowJobProps } from "./ShowJob";
+import { IShowJobProps } from "../models/IShowJobProps";
 
 const LogoComponent = ({ job }: IShowJobProps) => {
   return (
