@@ -9,6 +9,10 @@ p {
 	color: white;
 }
 
+.welcome-text {
+	padding-top: 1.5rem;
+}
+
 .home-body-text {
 	padding-top: 1.5rem;
 }
@@ -40,13 +44,8 @@ p {
 	font-weight: 900;
 }
 
-.map-img-start
-	.sc-digi-media-image-h
-	.sc-digi-media-image-s
-	.digi-media-image__image
-	.sc-digi-media-image
-	.digi-media-image__padded-box
-	.hydrated {
+.map-img-start {
+	padding-top: 1.5rem;
 	border-radius: 250px;
 }
 

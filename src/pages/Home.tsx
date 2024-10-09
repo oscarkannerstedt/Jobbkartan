@@ -36,7 +36,7 @@ const Home = () => {
 					</DigiLayoutContainer>
 					<DigiLayoutContainer>
 						<DigiMediaImage
-							className="map-img-start "
+							className="map-img-start"
 							afUnlazy
 							afFullwidth={true}
 							afSrc="./src/assets/karta_startsidan.png"
@@ -45,7 +45,8 @@ const Home = () => {
 					</DigiLayoutContainer>
 					<div className="home-lower-sub-container">
 						<p className="home-body-text">
-							Klicka på knappen nedan för att se alla jobbannonser.
+							Klicka på knappen nedan för att använda kartan och för att söka/se
+							jobbannonser.
 						</p>
 						<button onClick={handleNavigate}>Visa Jobbannonser</button>
 					</div>
