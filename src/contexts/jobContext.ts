@@ -8,6 +8,7 @@ interface IJobSContextType {
     offset?: number,
     limit?: number
   ) => Promise<IJob[]>;
+  fetchJobsByCircle: (postion: string, radius: number) => Promise<void>;
   loading: boolean;
 }
 

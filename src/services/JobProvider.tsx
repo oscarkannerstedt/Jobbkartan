@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { IJob } from "../models/IJob";
-import { fetchAllJobs, fetchJobsBySearchTerm } from "./baseService";
+import { fetchAllJobs, fetchJobsByCircleSearch, fetchJobsBySearchTerm } from "./baseService";
 import { jobContext } from "../contexts/jobContext";
 
 export const JobProvider = ({ children }: { children: React.ReactNode }) => {
@@ -27,12 +27,27 @@ export const JobProvider = ({ children }: { children: React.ReactNode }) => {
     []
   );
 
+  const fetchJobsByCircle = useCallback(
+    async (position: string, radius: number) => {
+      setLoading(true);
+      try {
+        const fetchedJobs = await fetchJobsByCircleSearch(position, radius, 0);
+        setJobs(fetchedJobs.hits);
+      } catch (error) {
+        console.error("Error fetching jobs by circle: ", error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
+
   useEffect(() => {
     fetchJobs();
   }, [fetchJobs]);
 
   return (
-    <jobContext.Provider value={{ jobs, fetchJobs, loading }}>
+    <jobContext.Provider value={{ jobs, fetchJobs, fetchJobsByCircle, loading }}>
       {children}
     </jobContext.Provider>
   );
