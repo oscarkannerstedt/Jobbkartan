@@ -46,8 +46,6 @@ const ShowJob = ({ job }: IShowJobProps) => {
     throw new Error("SomeComponent must be used within a ScreenSizeProvider");
   }
 
-  // const { isDesktop } = screenSizeContext;
-
   // Show loader while job info is loading
   if (jobContextValue && jobContextValue.loading) {
     return (
@@ -150,7 +148,7 @@ const ShowJob = ({ job }: IShowJobProps) => {
       <DigiLayoutBlock
         afVariation={LayoutBlockVariation.PRIMARY}
         afContainer={LayoutBlockContainer.STATIC}
-        className="map-container"
+        className="map-applycard-container"
       >
         <div className="map-container">
           <JobMap
@@ -196,16 +194,12 @@ const ShowJob = ({ job }: IShowJobProps) => {
         afVariation={LayoutBlockVariation.PRIMARY}
         afContainer={LayoutBlockContainer.STATIC}
       >
-        {/* {isDesktop ? ( */}
         <DigiLayoutColumns
           afElement={LayoutColumnsElement.DIV}
           afVariation={LayoutColumnsVariation.THREE}
         >
           {renderJobDetails()}
         </DigiLayoutColumns>
-        {/* ) : (
-					<DigiLayoutBlock>{renderJobDetails()}</DigiLayoutBlock>
-				)} */}
       </DigiLayoutBlock>
     </>
   );
