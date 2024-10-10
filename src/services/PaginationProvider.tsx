@@ -1,11 +1,11 @@
 import { ReactNode, useState } from "react";
 import PaginationContext from "../contexts/PaginationContext";
 
-interface PaginationProviderProps {
+interface IPaginationProviderProps {
   children: ReactNode;
 }
 
-export const PaginationProvider = ({ children }: PaginationProviderProps) => {
+export const PaginationProvider = ({ children }: IPaginationProviderProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   return (

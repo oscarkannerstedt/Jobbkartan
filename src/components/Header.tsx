@@ -8,10 +8,11 @@ import {
   DigiHeaderNavigationItem,
   DigiLayoutBlock,
 } from "@digi/arbetsformedlingen-react";
-import { useState } from "react";
+import { useNavigation } from "../hooks/useNavigation";
 
 const Header = () => {
-  const [currentPage, setCurrentPage] = useState("start");
+  const { currentPage, setCurrentPage } = useNavigation();
+
   const handleNavigationClick = (page: string) => {
     setCurrentPage(page);
   };
