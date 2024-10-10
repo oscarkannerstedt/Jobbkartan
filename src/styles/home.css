@@ -1,0 +1,38 @@
+h1,
+p {
+	color: white;
+}
+
+.welcome-text {
+	padding-top: 1.5rem;
+	font-weight: 900;
+}
+
+.home-body-text {
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}
+
+#home-container {
+	background: #2e0249;
+}
+
+.home-lower-sub-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.digi-media-image__image {
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+	border-radius: 250px;
+}
+
+@media screen and (max-width: 992px) {
+	.sc-digi-layout-columns-h .digi-layout-columns.sc-digi-layout-columns {
+		display: flex;
+		flex-direction: column;
+		grid-template-columns: 1fr;
+	}
+}

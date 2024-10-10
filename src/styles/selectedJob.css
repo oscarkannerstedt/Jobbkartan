@@ -27,7 +27,7 @@
 }
 
 /* apply now button hover */
-.sc-digi-link-button-s>a:hover {
+.sc-digi-link-button-s>a:hover, .sc-digi-link-button-s>a:active, .sc-digi-link-button-s>a:focus {
   background: linear-gradient(
   180deg,
   #4c1a6e 0%,
