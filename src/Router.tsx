@@ -6,23 +6,28 @@ import NotFound from "./components/NotFound";
 import { PrintAllJobs } from "./components/PrintAllJobs";
 
 export const router = createHashRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    errorElement: <NotFound />, // Loads NotFound-component if no route matches entered URL
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/annonser",
-        element: <PrintAllJobs />,
-      },
-      {
-        path: "/annonser/:id",
-        element: <SelectedJob />,
-      },
-    ],
-  },
+	{
+		path: "/",
+		element: <Layout />,
+		errorElement: <NotFound />, // Loads NotFound-component if no route matches entered URL
+		children: [
+			{
+				path: "/",
+				element: <Home />,
+			},
+			{
+				path: "/annonser",
+				element: <PrintAllJobs />,
+			},
+			{
+				path: "/annonser/:id",
+				element: <SelectedJob />,
+			},
+			// Catch-all route for every non-matching route
+			{
+				path: "*",
+				element: <NotFound />, // Loads NotFound-component if no route matches entered URL
+			},
+		],
+	},
 ]);
