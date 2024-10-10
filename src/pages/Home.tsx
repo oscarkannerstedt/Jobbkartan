@@ -1,28 +1,32 @@
 import {
-	LayoutBlockContainer,
-	LayoutBlockVariation,
-	LayoutColumnsElement,
-	LayoutColumnsVariation,
-	LinkButtonSize,
-	LinkButtonVariation,
+  LayoutBlockContainer,
+  LayoutBlockVariation,
+  LayoutColumnsElement,
+  LayoutColumnsVariation,
+  LinkButtonSize,
+  LinkButtonVariation,
 } from "@digi/arbetsformedlingen";
 import {
-	DigiLayoutBlock,
-	DigiLayoutColumns,
-	DigiLayoutContainer,
-	DigiLinkButton,
-	DigiMediaImage,
+  DigiLayoutBlock,
+  DigiLayoutColumns,
+  DigiLayoutContainer,
+  DigiLinkButton,
+  DigiMediaImage,
 } from "@digi/arbetsformedlingen-react";
 import { useNavigate } from "react-router-dom";
+import { useNavigation } from "../hooks/useNavigation";
 
 import "../styles/home.css";
 
 const Home = () => {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { setCurrentPage } = useNavigation();
 
-	const handleNavigate = () => {
-		navigate("/annonser");
-	};
+  const handleNavigate = () => {
+    navigate("/annonser");
+    setCurrentPage("annonser");
+  };
+
 
 	return (
 		<>
