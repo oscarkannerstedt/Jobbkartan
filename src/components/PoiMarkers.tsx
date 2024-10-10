@@ -74,7 +74,14 @@ export const PoiMarkers = ({
 		map?.setZoom(6);
 	};
 
-	// eslint-disable-next-line react-hooks/rules-of-hooks
+	useEffect(() => {
+		if (!map || clusterer.current) return;
+
+		if (!clusterer.current) {
+			clusterer.current = new MarkerClusterer({ map });
+		}
+	}, [map]);
+	
 	useEffect(() => {
 		if (!map || !clusterer.current) return;
 
@@ -89,18 +96,13 @@ export const PoiMarkers = ({
 			};
 		} else {
 			const markerArray = Object.values(markers);
-			clusterer.current.addMarkers(markerArray);
+			if (markerArray.length > 0) {
+                clusterer.current.addMarkers(markerArray); // Lägg till markers i clusterern
+            }
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isCircleSearchActive, map, handleClick]);
 
-	useEffect(() => {
-		if (!map) return;
+	}, [isCircleSearchActive, map, handleClick, markers]);
 
-		if (!clusterer.current) {
-			clusterer.current = new MarkerClusterer({ map });
-		}
-	}, [map]);
 
 	const setMarkerRef = useCallback(
 		(marker: Marker | null, key: string) => {
