@@ -32,8 +32,6 @@ export const PoiMarkers = ({
 	const [circleCenter, setCircleCenter] = useState<google.maps.LatLng | null>(
 		null
 	);
-	const [mousePosition, setMousePosition] =
-		useState<google.maps.LatLng | null>(null);
 	const radius = 30;
 
 	if (!context) {
@@ -42,13 +40,6 @@ export const PoiMarkers = ({
 	}
 
 	const { fetchJobsByCircle } = context;
-
-	const handleMouseMove = useCallback((ev: MapMouseEvent) => {
-		const googleMapsEvent = ev as unknown as google.maps.MapMouseEvent;
-		if (googleMapsEvent.latLng) {
-			setMousePosition(googleMapsEvent.latLng);
-		}
-	}, []);
 
 	const handleClick = useCallback(
 		(ev: MapMouseEvent) => {
@@ -62,7 +53,6 @@ export const PoiMarkers = ({
 					googleMapsEvent.latLng
 				);
 				setCircleCenter(googleMapsEvent.latLng);
-				setMousePosition(null);
 
 				const position = `${googleMapsEvent.latLng.lat()},${googleMapsEvent.latLng.lng()}`;
 				fetchJobsByCircle(position, radius);
@@ -92,14 +82,9 @@ export const PoiMarkers = ({
 			clusterer.current.clearMarkers();
 			setMarkers({});
 
-			const moveListener = map.addListener('mousemove', handleMouseMove);
-			const clickListener = map.addListener('click', (ev: MapMouseEvent) => {
-				handleClick(ev);
-				// Remove mousemove listener on click
-				google.maps.event.removeListener(moveListener);
-			});
+			const clickListener = map.addListener('click', handleClick);
+			
 			return () => {
-				google.maps.event.removeListener(moveListener);
 				google.maps.event.removeListener(clickListener);
 			};
 		} else {
@@ -107,7 +92,7 @@ export const PoiMarkers = ({
 			clusterer.current.addMarkers(markerArray);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isCircleSearchActive, map, handleMouseMove, handleClick]);
+	}, [isCircleSearchActive, map, handleClick]);
 
 	useEffect(() => {
 		if (!map) return;
@@ -137,19 +122,8 @@ export const PoiMarkers = ({
 
 	return (
 		<>
-			{isCircleSearchActive && mousePosition && (
-				<Circle
-					radius={30000}
-					center={mousePosition}
-					strokeColor={'#a00eda'}
-					strokeOpacity={1}
-					strokeWeight={3}
-					fillColor={'#a00eda'}
-					fillOpacity={0.3}
-				/>
-			)}
 
-			{circleCenter && (
+			{isCircleSearchActive && circleCenter && (
 				<Circle
 					radius={30000}
 					center={circleCenter}

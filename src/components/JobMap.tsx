@@ -5,6 +5,7 @@ import { JobInfoWindow } from '../models/JobInfoWindow';
 import { calculateCenter } from '../utils/calculateCenter';
 import { useEffect, useState } from 'react';
 import { getJobLocation } from '../utils/jobUtils';
+import { DigiButton } from '@digi/arbetsformedlingen-react';
 
 interface IJobMapProps {
 	jobId?: string;
@@ -88,9 +89,9 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 			{loading && <div>Loading...</div>}
 			{error && <div>Error: {error}</div>}
 			{!detailView && (
-			<button onClick={() => setIsCircleSearchActive(prev => !prev)}>
-  				{isCircleSearchActive ? 'Avsluta cirkelsök' : 'Aktivera cirkelsök'}
-			</button>
+			<DigiButton onClick={() => setIsCircleSearchActive(prev => !prev)}>
+  				{isCircleSearchActive ? 'Avsluta kartsök' : 'Aktivera kartsök'}
+			</DigiButton>
 			)}
 			
 			<Map
