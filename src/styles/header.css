@@ -1,24 +1,20 @@
-.digi-header-navigation-item--active.sc-digi-header-navigation-item-s>a { 
-  box-shadow: inset 0 -4px 0 0 #a00eda;
+.digi-header-navigation-item--active.sc-digi-header-navigation-item-s > a {
+	box-shadow: inset 0 -4px 0 0 #a00eda;
 }
 
 .sc-digi-header-navigation-h {
-  --digi--header--border-color: none; 
+	--digi--header--border-color: none;
 }
 
 .sc-digi-header-h {
-  --digi--header--border-color: none; 
+	--digi--header--border-color: none;
 }
 
 .digi-header-navigation__inner.sc-digi-header-navigation.sc-digi-header-navigation-s {
-  background: var(--digi--layout-block--background--primary);
+	background: var(--digi--layout-block--background--primary);
 }
 
-.sc-digi-header-navigation-item-h .sc-digi-header-navigation-item-s>a:hover{
-  --digi--header-navigation-item--color-hover: #7a00b9;
-  background-color: #f8e8ff; 
-}
-
-.sc-digi-button-h .digi-button .sc-digi-button-s { 
-  --digi--icon--color: #8d18bb;
+.sc-digi-header-navigation-item-h .sc-digi-header-navigation-item-s > a:hover {
+	--digi--header-navigation-item--color-hover: #7a00b9;
+	background-color: #f8e8ff;
 }

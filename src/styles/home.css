@@ -1,16 +1,13 @@
-h1,
-p {
-	color: white;
-}
-
 .welcome-text {
 	padding-top: 1.5rem;
 	font-weight: 900;
+	color: white;
 }
 
 .home-body-text {
 	padding-top: 1.5rem;
 	padding-bottom: 1.5rem;
+	color: white;
 }
 
 #home-container {
