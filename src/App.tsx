@@ -5,7 +5,7 @@ import { JobProvider } from "./services/JobProvider";
 import ScreenSizeProvider from "./services/ScreenSizeProvider";
 import { DigiTypography } from "@digi/arbetsformedlingen-react";
 import { PaginationProvider } from "./services/PaginationProvider";
-import { NavigationProvider } from "./services/navigationProvider";
+import { NavigationProvider } from "./services/NavigationProvider";
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
