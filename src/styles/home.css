@@ -10,14 +10,26 @@
 	color: white;
 }
 
-#home-container {
+.home-container {
 	background: #2e0249;
+}
+
+.background-container {
+	background-color: white;
 }
 
 .home-lower-sub-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.home-main-body-text-1 {
+	background-color: white;
+}
+
+.home-main-body-text-2 {
+	background-color: white;
 }
 
 .digi-media-image__image {
