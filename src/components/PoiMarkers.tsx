@@ -74,6 +74,19 @@ export const PoiMarkers = ({
 		map?.setZoom(6);
 	};
 
+	const clearAndResetMarkers = useCallback(() => {
+		if (!clusterer.current) return;
+	
+		clusterer.current.clearMarkers(); 
+	
+		setMarkers((prev) => {
+			if (Object.keys(prev).length !== 0) {
+				return {};
+			}
+			return prev; 
+		});
+	}, []);
+
 	useEffect(() => {
 		if (!map || clusterer.current) return;
 
@@ -86,14 +99,14 @@ export const PoiMarkers = ({
 		if (!map || !clusterer.current) return;
 
 		if (isCircleSearchActive) {
-			clusterer.current.clearMarkers();
-			setMarkers({});
-
+			clearAndResetMarkers();
+			
 			const clickListener = map.addListener('click', handleClick);
 			
 			return () => {
 				google.maps.event.removeListener(clickListener);
 			};
+
 		} else {
 			const markerArray = Object.values(markers);
 
@@ -102,8 +115,7 @@ export const PoiMarkers = ({
             }
 		}
 
-	}, [isCircleSearchActive, map, handleClick]);
-
+	}, [isCircleSearchActive, map, handleClick, markers, clearAndResetMarkers]);
 
 	const setMarkerRef = useCallback(
 		(marker: Marker | null, key: string) => {
