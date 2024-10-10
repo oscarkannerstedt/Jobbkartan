@@ -51,6 +51,7 @@ export const fetchJobsBySearchTerm = async (
   }
 };
 
+//get jobs from click on map
 export const fetchJobsByCircleSearch = async (
   position: string,
   radius: number,

@@ -18,7 +18,6 @@ import { jobContext } from "../../contexts/jobContext";
 const ShowJob = ({ job }: IShowJobProps) => {
   const jobContextValue = useContext(jobContext);
 
-  // Show loader while job info is loading
   if (jobContextValue && jobContextValue.loading) {
     return (
       <DigiLoaderSpinner

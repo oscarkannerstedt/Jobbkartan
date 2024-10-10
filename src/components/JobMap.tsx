@@ -53,8 +53,6 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 						location.coordinates.lng !== 0
 				);
 
-				console.log('Valid Locations:', validLocations);
-
 				setJobLocations(validLocations);
 			} catch (err) {
 				console.error('Error fetching job locations:', err);
@@ -105,10 +103,6 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 						ev.detail.center,
 						'zoom:',
 						ev.detail.zoom
-					);
-					console.log(
-						'center shitta',
-						mapCenter.lat + ':' + mapCenter.lng
 					);
 				}}
 				center={detailView === true ? mapCenter : null}

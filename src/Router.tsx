@@ -9,7 +9,7 @@ export const router = createHashRouter([
 	{
 		path: "/",
 		element: <Layout />,
-		errorElement: <NotFound />, // Loads NotFound-component if no route matches entered URL
+		errorElement: <NotFound />, 
 		children: [
 			{
 				path: "/",
@@ -23,10 +23,9 @@ export const router = createHashRouter([
 				path: "/annonser/:id",
 				element: <SelectedJob />,
 			},
-			// Catch-all route for every non-matching route
 			{
 				path: "*",
-				element: <NotFound />, // Loads NotFound-component if no route matches entered URL
+				element: <NotFound />, 
 			},
 		],
 	},

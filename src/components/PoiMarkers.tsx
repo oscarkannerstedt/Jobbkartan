@@ -48,10 +48,6 @@ export const PoiMarkers = ({
 			if (!map || !googleMapsEvent.latLng) return;
 
 			if (isCircleSearchActive) {
-				console.log(
-					'Kartan klickades, position: ',
-					googleMapsEvent.latLng
-				);
 				setCircleCenter(googleMapsEvent.latLng);
 
 				const position = `${googleMapsEvent.latLng.lat()},${googleMapsEvent.latLng.lng()}`;

@@ -1,7 +1,6 @@
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
-// import { JobMap } from './components/JobMap';
 import { JobProvider } from "./services/JobProvider";
 import ScreenSizeProvider from "./services/ScreenSizeProvider";
 import { DigiTypography } from "@digi/arbetsformedlingen-react";
@@ -22,7 +21,6 @@ function App() {
                   apiKey={apiKey}
                   onLoad={() => console.log("Maps API has loaded.")}
                 >
-                  {/* <JobMap></JobMap> */}
                   <RouterProvider router={router}></RouterProvider>
                 </APIProvider>
               </JobProvider>
