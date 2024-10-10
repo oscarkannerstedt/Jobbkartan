@@ -51,6 +51,31 @@ export const fetchJobsBySearchTerm = async (
   }
 };
 
+//get jobs from click on map
+export const fetchJobsByCircleSearch = async (
+  position: string,
+  radius: number,
+  offset: number,
+  limit: number = 25
+): Promise<IJobs> => {
+  try {
+    const response = await axios.get<IJobs>(BASE_URL, {
+      params: {
+        position,
+        'position.radius': radius,
+        offset,
+        limit,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error while fetching from api: ", error);
+    throw error;
+  }
+
+};
+
 //get one specific job
 export const getJob = async (id: number): Promise<{ data: IJob }> => {
   return await get(`https://jobsearch.api.jobtechdev.se/ad/${id}`);

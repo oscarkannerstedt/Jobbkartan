@@ -58,7 +58,6 @@ export const PrintAllJobs = () => {
     scrollToBlockTop();
   };
 
-  // Show loader if loading is true
   if (loading) {
     return (
       <div className="spinner-container">

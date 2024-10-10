@@ -1,5 +1,4 @@
 import ShowJob from "../components/show-job/ShowJob";
-//import { useLoaderData } from 'react-router-dom';
 import { IJob } from "../models/IJob";
 import { DigiLayoutBlock } from "@digi/arbetsformedlingen-react";
 import BackButton from "../components/BackButton";
@@ -13,7 +12,6 @@ const SelectedJob = () => {
   const { jobs } = useJobs();
   const [job, setJob] = useState<IJob | null>(null);
   const [loading, setLoading] = useState(true);
-  //const currentJob = useLoaderData() as IJob | null;
 
   useEffect(() => {
     const fetchJob = async () => {

@@ -5,6 +5,7 @@ import { JobInfoWindow } from '../models/JobInfoWindow';
 import { calculateCenter } from '../utils/calculateCenter';
 import { useEffect, useState } from 'react';
 import { getJobLocation } from '../utils/jobUtils';
+import { DigiButton } from '@digi/arbetsformedlingen-react';
 
 interface IJobMapProps {
 	jobId?: string;
@@ -17,8 +18,12 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 	const [jobLocations, setJobLocations] = useState<JobInfoWindow[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
-	const [mapCenter, setMapCenter]= useState<{ lat: number, lng: number}>({ lat: 62.23150, lng: 16.19320});
-
+	const [mapCenter, setMapCenter] = useState<{ lat: number; lng: number }>({
+		lat: 62.2315,
+		lng: 16.1932,
+	});
+	const [isCircleSearchActive, setIsCircleSearchActive] = useState(false);
+	
 	useEffect(() => {
 		const fetchJobLocations = async () => {
 			setLoading(true);
@@ -48,8 +53,6 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 						location.coordinates.lng !== 0
 				);
 
-				console.log('Valid Locations:', validLocations);
-
 				setJobLocations(validLocations);
 			} catch (err) {
 				console.error('Error fetching job locations:', err);
@@ -63,20 +66,19 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 	}, [jobs, jobId]);
 
 	useEffect(() => {
-		console.log("vi har ett antal joblocations", jobLocations.length);
 		if (jobLocations.length > 0) {
 			if (jobLocations.length === 1) {
 				const singleLocation = jobLocations[0].coordinates;
-				console.log("längden är ett", singleLocation.lat + ": " + singleLocation.lng);
-				setMapCenter({ lat: singleLocation.lat, lng: singleLocation.lng });
+				setMapCenter({
+					lat: singleLocation.lat,
+					lng: singleLocation.lng,
+				});
 			} else {
-				console.log("vi hade flere än en");
-			const center = calculateCenter(jobLocations);
-			setMapCenter(center);
+				const center = calculateCenter(jobLocations);
+				setMapCenter(center);
 			}
 		} else {
-			console.log("längden var mindre än 1, vi kör defaulten");
-			setMapCenter({ lat: 62.23150, lng: 16.19320 });
+			setMapCenter({ lat: 62.2315, lng: 16.1932 });
 		}
 	}, [jobLocations]);
 
@@ -84,26 +86,34 @@ export const JobMap = ({ jobId, zoomLevel, detailView }: IJobMapProps) => {
 		<>
 			{loading && <div>Loading...</div>}
 			{error && <div>Error: {error}</div>}
+			{!detailView && (
+			<DigiButton onClick={() => setIsCircleSearchActive(prev => !prev)}>
+  				{isCircleSearchActive ? 'Avsluta kartsök' : 'Aktivera kartsök'}
+			</DigiButton>
+			)}
+			
 			<Map
 				style={{ width: '100%', height: '100%' }}
 				defaultZoom={zoomLevel}
 				defaultCenter={mapCenter}
 				mapId='b541ec0a861d850'
 				onCameraChanged={(ev: MapCameraChangedEvent) => {
-					console.log('camera changed:',ev.detail.center,'zoom:',ev.detail.zoom);
-					console.log("center shitta", mapCenter.lat + ":" + mapCenter.lng);
-					
-					//ev.map.setCenter(ev.detail.center);
-					}
-				}
-				center={detailView === true ? mapCenter : null }
-				
+					console.log(
+						'camera changed:',
+						ev.detail.center,
+						'zoom:',
+						ev.detail.zoom
+					);
+				}}
+				center={detailView === true ? mapCenter : null}
 			>
-				<PoiMarkers pois={jobLocations}></PoiMarkers>
+
+				<PoiMarkers isCircleSearchActive={isCircleSearchActive} pois={jobLocations}></PoiMarkers>
 			</Map>
-			<p className="map-warning">
-      			Observera att alla sökresultat inte kan visas på kartan eftersom vissa annonser saknar adress eller koordinater.
-    		</p>
+			<p className='map-warning'>
+				Observera att alla sökresultat inte kan visas på kartan eftersom
+				vissa annonser saknar adress eller koordinater.
+			</p>
 		</>
 	);
 };
