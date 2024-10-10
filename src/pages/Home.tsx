@@ -21,7 +21,7 @@ const Home = () => {
 	const navigate = useNavigate();
 
 	const handleNavigate = () => {
-		navigate("/annonser"); // Ersätt "/annonser" med den faktiska vägen till PrintAllJobs om den är annan
+		navigate("/annonser");
 	};
 
 	return (
