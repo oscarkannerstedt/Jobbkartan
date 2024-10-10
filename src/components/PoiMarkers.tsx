@@ -96,12 +96,13 @@ export const PoiMarkers = ({
 			};
 		} else {
 			const markerArray = Object.values(markers);
+
 			if (markerArray.length > 0) {
-                clusterer.current.addMarkers(markerArray); // Lägg till markers i clusterern
+                clusterer.current.addMarkers(markerArray); 
             }
 		}
 
-	}, [isCircleSearchActive, map, handleClick, markers]);
+	}, [isCircleSearchActive, map, handleClick]);
 
 
 	const setMarkerRef = useCallback(
