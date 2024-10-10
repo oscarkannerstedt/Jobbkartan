@@ -4,7 +4,17 @@ Course: Javascript - Advanced
 
 ## Screenshots
 
-Här skall screenshots kommma!
+The Search Header includes a search input for entering keywords and a map that visually displays job listings across Sweden. Users can search for jobs and see where they are located on the map.
+![Search Header](./src/assets/screenshots/searchheader_desktop.png)
+
+The Start Page welcomes users to JobbKartan, providing a simple and intuitive layout that leads to various sections of the application.
+![Start page](./src/assets/screenshots/startpage_desktop.png)
+
+The Job Page shows a list of job listings, allowing users to explore available positions and find relevant opportunities.
+![Job page](./src/assets/screenshots/jobpage_desktop.png)
+
+The Job Info page provides detailed information about a specific job listing, including company details, job requirements, and application instructions.
+![Job info](./src/assets/screenshots/jobinfo_desktop.png)
 
 ## About this project
 
