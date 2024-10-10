@@ -35,13 +35,13 @@ const Header = () => {
 								<a href="/">Start</a>
 							</DigiHeaderNavigationItem>
 							<DigiHeaderNavigationItem>
-								<a href="/">Mina sidor</a>
+								<a href="/#/fel-url">Mina sidor</a>
 							</DigiHeaderNavigationItem>
 							<DigiHeaderNavigationItem>
-								<a href="/">Sök jobb i Jobbkartan</a>
+								<a href="/#/annonser">Sök jobb via Jobbkartan</a>
 							</DigiHeaderNavigationItem>
 							<DigiHeaderNavigationItem>
-								<a href="/">Other languages</a>
+								<a href="/#/fel-url">Other languages</a>
 							</DigiHeaderNavigationItem>
 						</DigiHeaderNavigation>
 					</div>
