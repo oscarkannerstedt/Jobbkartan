@@ -14,22 +14,3 @@
 	--digi--info-card--border: var(--digi--border-width--complementary-2) solid
 		#a00eda;
 }
-
-/* apply now button */
-.sc-digi-link-button-s > a {
-	background-color: #a00eda;
-	border: none;
-}
-
-/* apply now button hover */
-.sc-digi-link-button-s > a:hover,
-.sc-digi-link-button-s > a:active,
-.sc-digi-link-button-s > a:focus {
-	background: linear-gradient(
-		180deg,
-		#4c1a6e 0%,
-		#4c1a6e 60%,
-		#8c35cf 80%,
-		#9f46e0 100%
-	);
-}
