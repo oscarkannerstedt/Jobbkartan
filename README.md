@@ -4,11 +4,11 @@ Course: Javascript - Advanced
 
 ## Screenshots
 
-The Search Header includes a search input for entering keywords and a map that visually displays job listings across Sweden. Users can search for jobs and see where they are located on the map.
-![Search Header](./src/assets/screenshots/searchheader_desktop.png)
-
 The Start Page welcomes users to JobbKartan, providing a simple and intuitive layout that leads to various sections of the application.
 ![Start page](./src/assets/screenshots/startpage_desktop.png)
+
+The Search Header includes a search input for entering keywords and a map that visually displays job listings across Sweden. Users can search for jobs and see where they are located on the map.
+![Search Header](./src/assets/screenshots/searchheader_desktop.png)
 
 The Job Page shows a list of job listings, allowing users to explore available positions and find relevant opportunities.
 ![Job page](./src/assets/screenshots/jobpage_desktop.png)
@@ -30,11 +30,13 @@ JobbKartan is a web application designed to make job searching more interactive 
 - Vite
 - ESLint
 - Arbetsförmedlingens designsystem
+- JobTech API
 
 ## Start the project
 
-npm i
-npm run dev
+npm i  
+npm run dev  
+(Note: you will need a API-key from Google maps)
 
 ## Authors
 
